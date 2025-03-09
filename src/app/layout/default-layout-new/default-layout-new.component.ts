@@ -65,7 +65,7 @@ export class DefaultLayoutNewComponent {
     this.DynamicItems = [
       {
         menuId: 1,
-        label: "Driver Registrations",
+        label: "Approve Registrations",
         icon: "pi pi-file-edit",
         routerLink: "/approve-registrations",
         isVisible: true,
@@ -118,7 +118,8 @@ export class DefaultLayoutNewComponent {
         icon: "pi pi-file",
       },
     ];
-    module == 'order-panel' ? module = submodule : module;
+    submodule == 'driver-Information' ? submodule = 'driver-and-vehicle-information' : submodule
+    module == 'driver' ? module = submodule : module;
     this.ModuleActivate(module);
 
     // ngrx store

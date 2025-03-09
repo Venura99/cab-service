@@ -1,1 +1,46 @@
-<p>driver-vehicle-info works!</p>
+<div class="text-2xl font-semibold">Driver and Vehicle information</div>
+  <div class="mt-4 mb-4">
+    <p-button type="button" icon="pi pi-chevron-left" (click)="prev()" [disabled]="isFirstPage()" text />
+    <p-button type="button" icon="pi pi-refresh" (click)="reset()" text />
+    <p-button type="button" icon="pi pi-chevron-right" (click)="next()" [disabled]="isLastPage()" text />
+  </div>
+
+  <p-table
+    [value]="drivers"
+    [paginator]="true"
+    [rows]="10"
+    [first]="first"
+    [showCurrentPageReport]="true"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+    (onPage)="pageChange($event)"
+    [rowsPerPageOptions]="[10, 25, 50]"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>Mobile</th>
+        <th>Address</th>
+        <th>Vehicle Type</th>
+        <th>Vehicle No</th>
+        <th></th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-driver>
+      <tr>
+        <td>{{ driver.name }}</td>
+        <td>{{ driver.mobile }}</td>
+        <td>{{ driver.address }}</td>
+        <td>{{ driver.type }}</td>
+
+        <td>{{ driver.vehicleNo }}</td>
+        <td>
+            <div class="flex items-center justify-center gap-2">
+                <p-button icon="pi pi-eye" [rounded]="true" severity="primary" [outlined]="true" (click)="clickOnViewDetails(driver)" />
+            </div>
+        </td>
+      </tr>
+      <p *ngIf="!drivers || drivers.length === 0">No data available</p>
+    </ng-template>
+  </p-table>
