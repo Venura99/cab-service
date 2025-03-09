@@ -4,24 +4,25 @@ import { SignInComponent } from "./modules/user/sign-in/sign-in.component";
 import { DefaultLayoutNewComponent } from "./layout/default-layout-new/default-layout-new.component";
 import { DefaultDashboardComponent } from "./layout/default-dashboard/default-dashboard.component";
 import { RouteGuardService } from "./shared/services/route-guard.service";
+import { ApproveDriverRegistrationsComponent } from "./modules/admin-driver-panel/approve-driver-registrations/approve-driver-registrations.component";
 
 const routes: Routes = [
   { path: "", component: SignInComponent, pathMatch: "full" },
   { path: "login", component: SignInComponent },
   {
-    path: "dashboard",
+    path: "approve-registrations",
     component: DefaultLayoutNewComponent,
     children: [
       {
         path: "",
-        component: DefaultDashboardComponent,
+        component: ApproveDriverRegistrationsComponent,
       },
     ],
   },
   {
-    path: "dining",
+    path: "driver",
     loadChildren: () =>
-      import("./modules/table-view/table-view.module").then((m) => m.TableViewModule),
+      import("./modules/admin-driver-panel/admin-driver-panel.module").then((m) => m.AdminDriverPanelModule),
     // canActivate: [RouteGuardService],
   },
 

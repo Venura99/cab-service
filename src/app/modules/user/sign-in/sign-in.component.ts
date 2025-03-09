@@ -91,7 +91,7 @@ export class SignInComponent {
     };
 
     // this.router.navigate(["/dining"]);
-    this.router.navigate(["/dashboard"]);
+    this.router.navigate(["/approve-registrations"]);
 
     // this.transactionService.userLogin(request).subscribe((response) => {
     //   if (response.IsSuccessful) {

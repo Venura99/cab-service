@@ -65,9 +65,9 @@ export class DefaultLayoutNewComponent {
     this.DynamicItems = [
       {
         menuId: 1,
-        label: "Dashboard",
-        icon: "pi pi-chart-bar",
-        routerLink: "/dashboard",
+        label: "Driver Registrations",
+        icon: "pi pi-file-edit",
+        routerLink: "/approve-registrations",
         isVisible: true,
         // isVisible: this.checkUserAuthorizedToAccess([
         //   AppModule.SuperAdminDashboard,
@@ -75,9 +75,9 @@ export class DefaultLayoutNewComponent {
       },
       {
         menuId: 2,
-        label: "Dining",
-        icon: "pi pi-shop",
-        routerLink: "/dining",
+        label: "Driver accounts",
+        icon: "pi pi-users",
+        routerLink: "/driver/driver-accounts",
         isVisible: true,
         // isVisible: this.checkUserAuthorizedToAccess([
         //   AppModule.SuperAdminUserManagement,
@@ -85,102 +85,31 @@ export class DefaultLayoutNewComponent {
       },
       {
         menuId: 3,
-        label: "TakeOut",
-        icon: "pi pi-shopping-bag",
-        // routerLink: '/order-panel/' + 'take-out' + '/' + '0',
+        label: "Driver and Vehicle Information",
+        icon: "pi pi-car",
+        routerLink: "/driver/driver-Information",
         isVisible: true,
         // isVisible: this.checkUserAuthorizedToAccess([
         //   AppModule.SuperAdminLeaveManagement,
         //   AppModule.AdminLeaveManagement,
         //   AppModule.DriverLeaveManagement,
         // ]),
-        command: (event: any) => {
-          this.openTakeout();
-        },
+        // command: (event: any) => {
+        //   this.openTakeout();
+        // },
       },
       {
         menuId: 4,
-        label: "Delivery",
-        icon: "pi pi-truck",
-        // routerLink: "/trip-management",
+        label: "Customer accounts",
+        icon: "pi pi-id-card",
+        routerLink: "/driver/customer-accounts",
         isVisible: true,
         // isVisible: this.checkUserAuthorizedToAccess([
         //   AppModule.AdminTripManagement,
         //   AppModule.SuperAdminTripManagement,
         // ]),
       },
-      {
-        menuId: 5,
-        label: "Tab",
-        icon: "pi pi-discord",
-        // routerLink: '/order-panel/' + 'tab' + '/' + '0',
-        isVisible: true,
-        // isVisible: this.checkUserAuthorizedToAccess([
-        //   AppModule.SuperAdminVehicleManagement,
-        //   AppModule.AdminVehicleManagement,
-        // ]),
-        command: (event: any) => {
-          this.openTab();
-        },
-      },
-      {
-        menuId: 6,
-        label: "Your Trips",
-        icon: "pi pi-map",
-        // routerLink: "/trip-management",
-        isVisible: false,
-        // isVisible: this.checkUserAuthorizedToAccess([
-        //   AppModule.DriverTripManagement,
-        // ]),
-      },
-      {
-        menuId: 7,
-        label: "Month Audit",
-        icon: "pi pi-briefcase",
-        isVisible: false,
-        // routerLink: "/month-audit",
-        // isVisible: this.checkUserAuthorizedToAccess([
-        //   AppModule.SuperAdminMonthAudit,
-        // ]),
-        command: (event: any) => {
-          this.openMonthAudit();
-        },
-      },
-      {
-        menuId: 8,
-        label: "Vehicle Tracking",
-        icon: "pi pi-map-marker",
-        // routerLink: "/vehicle-tracking",
-        isVisible: false,
-        // isVisible: this.checkUserAuthorizedToAccess([
-        //   AppModule.SuperAdminVehicleTracking,
-        // ]),
-      },
-      {
-        menuId: 9,
-        label: "Reports",
-        icon: "pi pi-file",
-        // routerLink: "/reports",
-        isVisible: true,
-        command: (event: any) => {
-          this.openReports();
-        },
-        // isVisible: this.checkUserAuthorizedToAccess([
-        //   AppModule.AdminReportManagement,
-        //   AppModule.SuperAdminReportManagement,
-        // ]),
-      },
-      {
-        menuId: 10,
-        label: "Order History",
-        icon: "pi pi-clock",
-        // routerLink: "/reports",
-        isVisible: true,
-        // isVisible: this.checkUserAuthorizedToAccess([
-        //   AppModule.AdminReportManagement,
-        //   AppModule.SuperAdminReportManagement,
-        // ]),
-      },
+      
     ];
 
     this.items = [
