@@ -1,0 +1,27 @@
+<!-- <p>table-management works!</p> -->
+<div [ngStyle]="{'width': !(floors?.length > 2) ? '55vw' : 'auto'}">
+    <p-carousel [value]="floors" [numVisible]="3" [numScroll]="3" [circular]="false">
+        <ng-template pTemplate="item" let-floor>
+            <div class="border border-1 border-primary rounded-border m-2 p-2" 
+                 [ngClass]="{'bg-primary': selectedFloor == floor.floor, 'text-white': selectedFloor == floor.floor}" 
+                 [ngStyle]="{'width': !(floors?.length > 3) ? '20vw' : 'auto'}"
+                 (click)="clickOnFloor(floor)">
+                <div class="m-2 font-medium  text-center">{{ floor.name }}</div>
+            </div>
+        </ng-template>
+    </p-carousel>
+</div>
+
+<div class="flex flex-wrap align-items-center justify-content-start gap-2">
+    <div *ngFor="let table of tables">
+        <div 
+        class="w-8rem h-8rem font-bold flex border-round-lg align-items-center text-xl justify-content-center p-4 border-round"
+        [ngClass]="{'bg-primary': table.resevationId > 0, 'surface-200': table.resevationId === 0}" 
+        (click)="onClickTable(table)"
+        >
+        {{ table.name }}
+    </div>
+    </div>
+</div>
+
+

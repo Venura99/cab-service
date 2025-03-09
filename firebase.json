@@ -1,0 +1,7 @@
+{
+    "hosting": {
+      "public": "dist/morpheus-ng",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+    }
+  }
+  

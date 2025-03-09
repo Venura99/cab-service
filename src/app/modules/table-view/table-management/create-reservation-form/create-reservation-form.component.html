@@ -1,0 +1,49 @@
+<form
+  [formGroup]="FV.formGroup"
+  novalidate
+  (keydown.enter)="$event.preventDefault()"
+>
+  <div class="grid formgrid p-fluid">
+    <div class="field mb-4 col-12 md:col-6">
+        <label for="company_name" class="font-normal text-900">Guest Count *</label>
+        <input id="company_name" type="text" pInputText>
+    </div>
+    <div class="field mb-4 col-12 md:col-6">
+        <label for="invoice_id" class="font-normal text-900">Mobile *</label>
+        <input id="invoice_id" type="text" pInputText>
+    </div>
+    <div class="field mb-4 col-12 md:col-6">
+        <label for="customer_name" class="font-normal text-900">First Name *</label>
+        <input id="customer_name" type="text" pInputText>
+    </div>
+    <div class="field mb-4 col-12 md:col-6">
+        <label for="customer_email" class="font-normal text-900">Last Name</label>
+        <input id="customer_email" type="text" pInputText>
+    </div>
+    <div class="field mb-4 col-12">
+        <label for="notes" class="font-normal text-900">Remarks</label>
+        <textarea id="notes" pInputTextarea [autoResize]="true" [rows]="5"></textarea>
+    </div>
+  </div>
+</form>
+
+<div class="grid formgrid">
+  <div class="field mt-1 col-12">
+    <div class="flex justify-content-end gap-2">
+      <button
+        pButton
+        label="SAVE"
+        icon="pi pi-check-circle"
+        class="p-button-primary p-button-sm mb:p-button"
+        (click)="onSave()"
+      ></button>
+      <button
+        pButton
+        label="CANCEL"
+        icon="pi pi-times"
+        class="p-button-secondary p-button-sm mb:p-button"
+        (click)="onCancel()"
+      ></button>
+    </div>
+  </div>
+</div>
