@@ -127,4 +127,8 @@ export class SignInComponent {
     //   }
     // });
   }
+
+  clickOnSignUp(){
+    this.router.navigate(["/sign-up"]);
+  }
 }

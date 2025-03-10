@@ -3,9 +3,9 @@
   style="min-height: 80px"
 >
   <img
-    src="assets/images/logos/company-logo.png"
+    src="assets/logo.png"
     alt="Image"
-    height="40"
+    height="60"
     class="mr-0 lg:mr-6"
   />
   <a
@@ -27,7 +27,7 @@
       <li>
         <a
           pRipple
-          class="flex px-6 p-3 lg:px-3 lg:py-2 align-items-center text-600 hover:text-900 hover:surface-100 font-medium border-round cursor-pointer transition-colors transition-duration-150"
+          class="flex px-6 p-3 lg:px-3 lg:py-2 align-items-center text-600 hover:text-900 hover:surface-100 text-lg font-medium border-round cursor-pointer transition-colors transition-duration-150"
         >
           <i class="pi pi-home mr-2"></i>
           <span routerLink="/customer-panel/home">Home</span>
@@ -36,7 +36,7 @@
       <li routerLink="/customer-panel/menu">
         <a
           pRipple
-          class="flex px-6 p-3 lg:px-3 lg:py-2 align-items-center text-600 hover:text-900 hover:surface-100 font-medium border-round cursor-pointer transition-colors transition-duration-150"
+          class="flex px-6 p-3 lg:px-3 lg:py-2 align-items-center text-600 hover:text-900 hover:surface-100 text-lg font-medium border-round cursor-pointer transition-colors transition-duration-150"
         >
           <i class="pi pi-calendar mr-2"></i>
           <span>Menu</span>
@@ -45,7 +45,7 @@
       <li routerLink="/customer-panel/contact-us">
         <a
           pRipple
-          class="flex px-6 p-3 lg:px-3 lg:py-2 align-items-center text-600 hover:text-900 hover:surface-100 font-medium border-round cursor-pointer transition-colors transition-duration-150"
+          class="flex px-6 p-3 lg:px-3 lg:py-2 align-items-center text-600 hover:text-900 hover:surface-100 text-lg font-medium border-round cursor-pointer transition-colors transition-duration-150"
         >
           <i class="pi pi-chart-line mr-2"></i>
           <span>Contact Us</span>
@@ -54,7 +54,7 @@
       <li [routerLink]="'/customer-panel/about-us'">
         <a
           pRipple
-          class="flex px-6 p-3 lg:px-3 lg:py-2 align-items-center text-600 hover:text-900 hover:surface-100 font-medium border-round cursor-pointer transition-colors transition-duration-150"
+          class="flex px-6 p-3 lg:px-3 lg:py-2 align-items-center text-600 hover:text-900 hover:surface-100 text-lg font-medium border-round cursor-pointer transition-colors transition-duration-150"
         >
           <i class="pi pi-chart-line mr-2"></i>
           <span>About Us</span>
@@ -64,6 +64,7 @@
     <ul
       class="list-none p-0 m-0 flex lg:align-items-center select-none flex-column lg:flex-row border-top-1 surface-border lg:border-top-none"
     >
+    
       <li>
         <a
           pRipple
@@ -99,51 +100,7 @@
           <span class="block lg:hidden font-medium">Cart</span>
         </a>
       </li> -->
-      <li class="inline-flex relative">
-        <a
-          pRipple
-          class="flex px-6 p-3 lg:px-3 lg:py-2 align-items-center text-600 hover:text-900 hover:surface-100 font-medium border-round cursor-pointer transition-colors transition-duration-150"
-          pStyleClass="@next"
-          enterClass="hidden"
-          enterActiveClass="scalein"
-          leaveToClass="hidden"
-          leaveActiveClass="fadeout"
-          [hideOnOutsideClick]="true"
-        >
-          <i
-            class="pi pi-shopping-cart text-base lg:text-2xl mr-2 lg:mr-0"
-            pBadge
-            severity="danger"
-          ></i>
-          <span class="block lg:hidden font-medium">Cart</span>
-        </a>
-        <div
-          class="hidden border-round surface-overlay p-4 shadow-2 absolute right-0 top-100 z-1 w-20rem origin-top"
-        >
-          <span class="text-900 font-medium mb-3 block">My Cart (1 Item)</span>
-          <div
-            class="flex align-items-center border-bottom-1 surface-border pb-3"
-          >
-            <img
-              src="assets/images/foods/biriyani.jpg"
-              class="w-4rem flex-shrink-0 shadow-1"
-            />
-            <div class="flex flex-column pl-3">
-              <span class="text-900 font-medium mb-2">Biriyani</span>
-              <span class="text-600 mb-2">Full</span>
-              <span class="text-primary font-bold">LKR 1200.00</span>
-            </div>
-          </div>
-          <div class="flex pt-3">
-            <button pButton pRipple class="p-button-outlined mr-2">
-              View Cart
-            </button>
-            <button pButton pRipple class="ml-2" routerLink="/check-out">
-              Purchase
-            </button>
-          </div>
-        </div>
-      </li>
+
       <li class="h-full relative">
         <a
           pRipple
@@ -160,8 +117,7 @@
             class="lg:mr-0"
             style="width: 28px; height: 28px"
           />
-          <span class="mx-2 font-medium text-900">{{ userName }}</span>
-          <!-- <span class="mx-2 font-medium text-900">Lahiru Sandaruwan</span> -->
+          <span class="mx-2 font-medium text-900">{{ userName }} </span>
           <i class="pi pi-angle-down"></i>
         </a>
         <div

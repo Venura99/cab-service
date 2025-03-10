@@ -10,5 +10,7 @@ export class HeaderComponent {
   ngOnInit(): void {
     this.userName = localStorage.getItem("CurrentUserName");
     console.log("this.userName", this.userName);
+
+    this.userName = "Lahiru"
   }
 }

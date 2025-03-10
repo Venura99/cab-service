@@ -5,6 +5,7 @@ import { DefaultLayoutNewComponent } from "./layout/default-layout-new/default-l
 import { DefaultDashboardComponent } from "./layout/default-dashboard/default-dashboard.component";
 import { RouteGuardService } from "./shared/services/route-guard.service";
 import { ApproveDriverRegistrationsComponent } from "./modules/admin-driver-panel/approve-driver-registrations/approve-driver-registrations.component";
+import { SignUpComponent } from "./modules/user/sign-up/sign-up.component";
 
 const routes: Routes = [
   { path: "", component: SignInComponent, pathMatch: "full" },
@@ -19,6 +20,13 @@ const routes: Routes = [
       },
     ],
   },
+
+  {
+    path: "sign-up",
+    component: SignUpComponent,
+  },
+
+
   {
     path: "driver",
     loadChildren: () =>
