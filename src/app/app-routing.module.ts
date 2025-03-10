@@ -22,7 +22,9 @@ const routes: Routes = [
   {
     path: "driver",
     loadChildren: () =>
-      import("./modules/admin-driver-panel/admin-driver-panel.module").then((m) => m.AdminDriverPanelModule),
+      import("./modules/admin-driver-panel/admin-driver-panel.module").then(
+        (m) => m.AdminDriverPanelModule
+      ),
     // canActivate: [RouteGuardService],
   },
 
@@ -39,6 +41,13 @@ const routes: Routes = [
         (m) => m.ReportManagementModule
       ),
     // canActivate: [RouteGuardService],
+  },
+  {
+    path: "customer-panel",
+    loadChildren: () =>
+      import("./modules/customer-panel/customer-panel.module").then(
+        (m) => m.CustomerPanelModule
+      ),
   },
 ];
 

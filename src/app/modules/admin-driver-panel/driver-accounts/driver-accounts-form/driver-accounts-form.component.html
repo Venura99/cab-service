@@ -1,0 +1,81 @@
+<form action="" [formGroup]="FV.formGroup">
+  <div class="p-fluid grid formgrid">
+    <div class="field col-12 md:col-6">
+      <label>Employee Name</label>
+      <input
+        pInputText
+        id="employeeName"
+        type="text"
+        formControlName="employeeName"
+        class="w-full"
+      />
+    </div>
+    <div class="field col-12 md:col-3">
+      <label>Start Date</label>
+      <input
+        pInputText
+        id="startDate"
+        type="date"
+        formControlName="startDate"
+        class="w-full"
+      />
+    </div>
+    <div class="field col-12 md:col-3">
+      <label>End Date</label>
+      <input
+        pInputText
+        id="endDate"
+        type="date"
+        formControlName="endDate"
+        class="w-full"
+      />
+    </div>
+    <div class="field col-12 md:col-6">
+      <label>Reason</label>
+      <textarea
+        pInputTextarea
+        name="reason"
+        id="reason"
+        rows="5"
+        formControlName="reason"
+        style="resize: none"
+        class="w-full"
+      ></textarea>
+    </div>
+    <div class="field col-12 md:col-4">
+      <label>Leave Type</label>
+      <p-dropdown
+        id="leaveType"
+        [options]="leaveTypeArr"
+        optionLabel="name"
+        formControlName="leaveType"
+        [filter]="true"
+        appendTo="body"
+        placeholder="Select Leave Type"
+      ></p-dropdown>
+    </div>
+    <div class="field col-12 md:col-2">
+      <label>Leave Count</label>
+      <input
+        pInputText
+        id="leaveCount"
+        type="number"
+        formControlName="leaveCount"
+        class="w-full"
+      />
+    </div>
+  </div>
+  <div class="grid">
+    <div class="col-12">
+      <div class="text-right">
+        <button
+          pButton
+          icon="pi pi-save"
+          class="p-button-raised p-button-primary"
+          [label]="'Update'"
+          (click)="onClickSave()"
+        ></button>
+      </div>
+    </div>
+  </div>
+</form>

@@ -40,22 +40,37 @@ export class SignInComponent {
   ngOnInit(): void {
     this.users = [
       {
+        rolId: 1,
+        rolName: "Admin",
         username: "admin",
         password: "1",
       },
       {
+        rolId: 1,
+        rolName: "Admin",
         username: "Nimna",
         password: "2",
       },
       {
+        rolId: 2,
+        rolName: "Customer",
         username: "Lahiru",
         password: "3",
       },
       {
+        rolId: 2,
+        rolName: "Customer",
         username: "Venura",
         password: "4",
       },
-    ]
+      {
+        rolId: 3,
+        rolName: "Driver",
+        username: "Driver 01",
+        password: "4",
+      },
+    ];
+
     this.sidebarService.closeSidebar();
     this.appComponent.sidebarVisible = false;
     this.popupService.closeOpenDialogs();
@@ -82,6 +97,9 @@ export class SignInComponent {
       return;
     }
 
+    debugger
+
+    let rolId = this.FV.getValue("username")?.rolId;
     let userName = this.FV.getValue("username");
     let password = this.FV.getValue("password");
 
@@ -90,8 +108,14 @@ export class SignInComponent {
       password: password,
     };
 
+    if (rolId == 1) {
+      this.router.navigate(["/approve-registrations"]);
+    } else if (rolId == 2) {
+      this.router.navigate(["/customer-panel"]);
+    }
+
+
     // this.router.navigate(["/dining"]);
-    this.router.navigate(["/approve-registrations"]);
 
     // this.transactionService.userLogin(request).subscribe((response) => {
     //   if (response.IsSuccessful) {
