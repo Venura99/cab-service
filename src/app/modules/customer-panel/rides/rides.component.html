@@ -1,0 +1,42 @@
+<app-header></app-header>
+
+<div style="margin-top: 30px" class="surface-section mb-3 p-5">
+    <form action="" [formGroup]="FV.formGroup">
+        <div class="surface-section mt-6 px-4 py-8 md:px-6 lg:px-8">
+          <div class="flex justify-content-between flex-wrap">
+              <div class="flex align-items-center mb-4 md:mb-0">
+                  <div class="text-900 font-bold text-3xl">Choose your Cab</div>
+              </div>       
+          </div>
+          <p class="text-400 mt-2 text-xl">
+            Select your perfect ride—choose from a variety of cabs tailored to your comfort, budget, and travel needs. Whether it's a quick trip or a luxury ride, we’ve got you covered!
+          </p>
+        
+          <p-divider styleClass="w-full border-gray-200"></p-divider>
+          <div class="grid grid-nogutter align-items-center">
+        
+              <div class="col-12">
+                  <div class="grid mt-4">
+                      <div class="col-12 md:col-6 lg:col-3 mb-5 lg:mb-0" *ngFor="let vehicle of veheiclesArry" >
+                          <div class="mb-3 relative">
+                              <img src="assets/images/{{vehicle.img}}" class="w-full border-round-lg" style="height: 220px;" />
+                              <button type="button" pRipple class="border-1 border-white-alpha-20 border-round py-2 px-3 absolute bg-black-alpha-30 text-white inline-flex align-items-center justify-content-center hover:bg-black-alpha-40 transition-colors transition-duration-300 cursor-pointer font-semibold" 
+                                  style="bottom: 1rem; left: 1rem; width: calc(100% - 2rem); backdrop-filter: blur(4px);" (click)="openSelectedCab(vehicle)">
+                                  <i class="pi pi-book mr-3 text-base"></i>
+                                  <span class="text-base">Book Now</span>
+                              </button>
+                          </div>
+                          <div class="flex flex-column align-items-center">
+                              <span class="text-xl text-900 font-bold mb-3">{{vehicle.vehicle}}</span>
+                              <span class="text-xl text-900 mb-3">{{vehicle.price}}</span>
+                              <span class="text-500"><i class="pi pi-user mr-2" style="color: #708090"></i>{{vehicle.driver}}</span>
+                          </div>
+                      </div>
+                  </div>
+        
+              </div>
+          </div>
+        </div>
+        </form>
+  </div>
+<app-footer></app-footer>

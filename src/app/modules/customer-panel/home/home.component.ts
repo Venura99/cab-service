@@ -35,7 +35,7 @@ export class HomeComponent {
   foods: any[] = []
   foodTypes: any
   foodCategory: any
-
+  activeTab2 = 0;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,

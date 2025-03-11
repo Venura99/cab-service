@@ -46,6 +46,7 @@ import { TagModule } from "primeng/tag";
 import { SharedModule } from "src/app/shared.module";
 import { NgxPrintModule } from "ngx-print";
 import { CarouselModule } from 'primeng/carousel';
+import { TabViewModule } from 'primeng/tabview';
 
 import { CustomerPanelRoutingModule } from './customer-panel-routing.module';
 import { RegisterDriverComponent } from './register-driver/register-driver.component';
@@ -54,6 +55,8 @@ import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { RidesComponent } from './rides/rides.component';
+import { CabDetailsPageComponent } from './rides/cab-details-page/cab-details-page.component';
 
 
 @NgModule({
@@ -63,7 +66,9 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
     FooterComponent,
     HomeComponent,
     AboutUsComponent,
-    ContactUsComponent
+    ContactUsComponent,
+    RidesComponent,
+    CabDetailsPageComponent
   ],
   imports: [
     CommonModule,
@@ -129,7 +134,8 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
         NgxPrintModule,
         NgxPrintModule,
         ImageModule,
-        CarouselModule
+        CarouselModule,
+        TabViewModule
   ]
 })
 export class CustomerPanelModule { }

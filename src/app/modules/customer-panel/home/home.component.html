@@ -5,7 +5,7 @@
     <div class="bg-cyan-700 px-4 lg:px-8 py-2 text-center">
       <span class="text-white">
         <marquee behavior="" direction="left">
-          Buy 1 get 1 Free - Until October 31, 2024
+          🚖 Hurry Up! Limited-Time Offers – Book Your Ride Now & Save Big! 🚀
         </marquee>
       </span>
     </div>
@@ -20,7 +20,7 @@
           Book your ride effortlessly—choose your preferred vehicle and driver for a smooth and comfortable journey. Enjoy reliable, safe, and hassle-free travel at your fingertips!
       </p>
       
-      <button pButton pRipple label="Book a Ride" type="button" class="mr-3 p-button-raised"></button>
+      <button pButton pRipple label="Book a Ride" type="button" class="mr-3 p-button-raised" routerLink="/customer-panel/rides"></button>
   </section>
   
   </div>
@@ -29,6 +29,119 @@
   </div>
 </div>
   </div>
+
+  
+  <div class="bg-black-alpha-0 px-4 py-8 md:px-6 lg:px-8 text-center">
+    <div class="mb-3 font-bold text-3xl">
+        <span class="text-900">One Platform, </span>
+        <span class="text-blue-600">Endless Rides</span>
+    </div>
+    <div class="text-700 mb-6">Seamless cab booking with safety, reliability, and comfort—anytime, anywhere.</div>
+    <div class="grid">
+        <div class="col-12 md:col-4 mb-4 px-5">
+            <span class="p-3 shadow-2 mb-3 inline-block surface-card" style="border-radius: 10px">
+                <i class="pi pi-car text-4xl text-blue-500"></i>
+            </span>
+            <div class="text-900 text-xl mb-3 font-medium">Wide Vehicle Selection</div>
+            <span class="text-700 line-height-3">Choose from a range of vehicles, from budget-friendly rides to luxury cars, tailored to your needs.</span>
+        </div>
+        <div class="col-12 md:col-4 mb-4 px-5">
+            <span class="p-3 shadow-2 mb-3 inline-block surface-card" style="border-radius: 10px">
+                <i class="pi pi-users text-4xl text-blue-500"></i>
+            </span>
+            <div class="text-900 text-xl mb-3 font-medium">Verified Drivers</div>
+            <span class="text-700 line-height-3">Travel with peace of mind—our drivers are background-checked and highly rated for safety.</span>
+        </div>
+        <div class="col-12 md:col-4 mb-4 px-5">
+            <span class="p-3 shadow-2 mb-3 inline-block surface-card" style="border-radius: 10px">
+                <i class="pi pi-clock text-4xl text-blue-500"></i>
+            </span>
+            <div class="text-900 text-xl mb-3 font-medium">On-Time Pickups</div>
+            <span class="text-700 line-height-3">Never be late again—our smart tracking system ensures timely pickups and smooth rides.</span>
+        </div>
+        <div class="col-12 md:col-4 mb-4 px-5">
+            <span class="p-3 shadow-2 mb-3 inline-block surface-card" style="border-radius: 10px">
+                <i class="pi pi-globe text-4xl text-blue-500"></i>
+            </span>
+            <div class="text-900 text-xl mb-3 font-medium">Citywide & Beyond</div>
+            <span class="text-700 line-height-3">From short city trips to long-distance rides, our service is available whenever you need it.</span>
+        </div>
+        <div class="col-12 md:col-4 mb-4 px-5">
+            <span class="p-3 shadow-2 mb-3 inline-block surface-card" style="border-radius: 10px">
+                <i class="pi pi-wallet text-4xl text-blue-500"></i>
+            </span>
+            <div class="text-900 text-xl mb-3 font-medium">Multiple Payment Options</div>
+            <span class="text-700 line-height-3">Pay your way—cash, credit, or digital wallets. A hassle-free experience every time.</span>
+        </div>
+        <div class="col-12 md:col-4 md:mb-4 mb-0 px-3">
+            <span class="p-3 shadow-2 mb-3 inline-block surface-card" style="border-radius: 10px">
+                <i class="pi pi-shield text-4xl text-blue-500"></i>
+            </span>
+            <div class="text-900 text-xl mb-3 font-medium">Safe & Secure Rides</div>
+            <span class="text-700 line-height-3">Real-time tracking and emergency assistance ensure a secure journey every time you ride.</span>
+        </div>
+    </div>
+</div>
+
+
+
+  
+  <div class="surface-section px-4 py-8 md:px-6 lg:px-8">
+    <div class="text-center font-bold text-blue-600 mb-4">SEAMLESS RIDES, ANYTIME</div>
+    <div class="text-center font-bold text-900 mb-5 text-4xl">One Platform for All Your Travel Needs</div>
+    <div class="flex align-items-center justify-content-center py-4">
+        <img src="assets/images/user/ride.avif" alt="Image" class="w-full md:w-6" *ngIf="activeTab2 == 0">
+        <img src="assets/images/user/driver.avif" alt="Image" class="w-full md:w-6" *ngIf="activeTab2 == 1">
+        <img src="assets/images/user/manage.avif" alt="Image" class="w-full md:w-6" *ngIf="activeTab2 == 2">
+    </div>
+    <ul class="grid list-none mx-0 mb-0 mt-5 p-0">
+        <li class="col-12 lg:col-4 border-top-2 p-4 cursor-pointer" (mouseover)="activeTab2 = 0" [ngClass]="{'surface-border': activeTab2 !== 0, 'text-blue-900 bg-blue-50 border-blue-500': activeTab2 === 0}">
+            <div class="text-2xl font-medium">Choose Your Perfect Ride</div>
+            <p class="line-height-3 text-xl">Select from a variety of vehicles to match your needs, from budget-friendly options to premium rides. Enjoy comfort and convenience at every step.</p>
+        </li>
+        <li class="col-12 lg:col-4 border-top-2 p-4 cursor-pointer" (mouseover)="activeTab2 = 1" [ngClass]="{'surface-border': activeTab2 !== 1, 'text-blue-900 bg-blue-50 border-blue-500': activeTab2 === 1}">
+            <div class="text-2xl font-medium">Pick Your Preferred Driver</div>
+            <p class="line-height-3 text-xl">View driver ratings, reviews, and profiles before booking. Travel with confidence, knowing you’re in safe hands.</p>
+        </li>
+        <li class="col-12 lg:col-4 border-top-2 p-4 cursor-pointer" (mouseover)="activeTab2 = 2" [ngClass]="{'surface-border': activeTab2 !== 2, 'text-blue-900 bg-blue-50 border-blue-500': activeTab2 === 2}">
+          <div class="text-2xl font-medium">Manage Your Bookings</div>
+          <p class="line-height-3 text-xl">Easily view your past rides and cancel bookings when plans change. Stay in control of your travel schedule with just a few clicks.</p>
+      </li>
+    </ul>
+  </div>
+
+  <div class="bg-black-alpha-0 px-4 py-8 md:px-6 lg:px-8">
+    <div>
+        <div class="text-900 font-bold text-4xl line-height-3 mb-3 text-center">Ride with Confidence</div>
+        <p class="text-600 line-height-3 text-lg m-0 mb-6 text-center">
+            Providing safe, reliable, and comfortable rides to thousands of happy customers every day.
+        </p>
+
+        <div class="grid surface-card shadow-2" style="border-radius: 10px">
+            <div class="col-12 md:col-3 px-5 py-5">
+                <i class="pi pi-users text-4xl text-blue-600 mb-3"></i>
+                <div class="text-900 font-bold text-4xl mb-3 line-height-3">1.2M+</div>
+                <p class="text-700 m-0">Happy passengers have trusted our service.</p>
+            </div>
+            <div class="col-12 md:col-3 px-5 py-5">
+                <i class="pi pi-chart-line text-4xl text-orange-500 mb-3"></i>
+                <div class="text-900 font-bold text-4xl mb-3 line-height-3">$500K+</div>
+                <p class="text-700 m-0">Total earnings generated for our drivers.</p>
+            </div>
+            <div class="col-12 md:col-3 px-5 py-5">
+                <i class="pi pi-globe text-4xl text-cyan-600 mb-3"></i>
+                <div class="text-900 font-bold text-4xl mb-3 line-height-3">350+</div>
+                <p class="text-700 m-0">Cities covered with our reliable cab services.</p>
+            </div>
+            <div class="col-12 md:col-3 px-5 py-5">
+                <i class="pi pi-map text-4xl text-purple-500 mb-3"></i>
+                <div class="text-900 font-bold text-4xl mb-3 line-height-3">10M+</div>
+                <p class="text-700 m-0">Kilometers traveled ensuring smooth rides.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 </form>
 
 <app-footer></app-footer>
