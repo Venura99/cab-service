@@ -1,0 +1,145 @@
+<div id="demo">
+  <!-- <div class="invoice-header">
+    <div class="invoice-title">
+      <h2 class="text-bold">Booking Details Invoice</h2>
+      <div class="company-logo">
+        <img
+          src="assets/logo.png"
+          alt="Company Logo"
+          style="width: 100px"
+        />
+      </div>
+      <div class="company-info">
+        <div class="company-name text-bold">Car Service</div>
+        <div class="company-address">{{ odPrintDetails.companyAddress }}</div>
+      </div>
+    </div>
+  </div> -->
+  <div class="flex justify-content-between">
+    <div>
+      <div>Cab Service</div>
+      <div>Colombo 10</div>
+      <div>+94 77 566 1026/ +94 11 285 4620</div>
+    </div>
+    <div>
+      <img
+        src="assets/logo.png"
+        alt="Image"
+        style="width: 80px"
+        class="mr-0 lg:mr-6"
+      />
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- Booking Information Section -->
+  <div class="booking-info">
+    <h3>Booking Information</h3>
+    <div class="p-fluid grid formgrid">
+      <div class="col-6">
+        <div class="p-fluid grid formgrid">
+          <div class="field col-6">
+            <div class="label">Booking ID</div>
+            <div class="value">{{ odPrintDetails.bookingId }}</div>
+          </div>
+          <div class="field col-6">
+            <div class="label">Customer Name</div>
+            <div class="value">{{ odPrintDetails.customerName }}</div>
+          </div>
+          <div class="field col-6">
+            <div class="label">Car Model</div>
+            <div class="value">{{ odPrintDetails.carModel }}</div>
+          </div>
+          <div class="field col-6">
+            <div class="label">Booking Type</div>
+            <div class="value">{{ odPrintDetails.bookingType }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="p-fluid grid formgrid">
+          <div class="field col-6">
+            <div class="label">Pickup Date</div>
+            <div class="value">{{ odPrintDetails.pickupDate }}</div>
+          </div>
+          <div class="field col-6">
+            <div class="label">Pickup Time</div>
+            <div class="value">{{ odPrintDetails.pickupTime }}</div>
+          </div>
+          <div class="field col-6">
+            <div class="label">Return Date</div>
+            <div class="value">{{ odPrintDetails.returnDate }}</div>
+          </div>
+          <div class="field col-6">
+            <div class="label">Pickup Location</div>
+            <div class="value">{{ odPrintDetails.pickupLocation }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="p-fluid grid formgrid">
+          <div class="field col-6">
+            <div class="label">Dropoff Location</div>
+            <div class="value">{{ odPrintDetails.dropoffLocation }}</div>
+          </div>
+          <div class="field col-6">
+            <div class="label">Driver Assigned</div>
+            <div class="value">
+              {{ odPrintDetails.driverAssigned ? "Yes" : "No" }}
+            </div>
+          </div>
+          <div class="field col-6">
+            <div class="label">Driver Name</div>
+            <div class="value">{{ odPrintDetails.driverName }}</div>
+          </div>
+          <div class="field col-6">
+            <div class="label">Driver Contact</div>
+            <div class="value">{{ odPrintDetails.driverContact }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr />
+    <!-- Booking Status and Payment Details -->
+    <div class="booking-status">
+      <h3>Status & Payment</h3>
+      <div class="p-fluid grid formgrid">
+        <div class="field col-4">
+          <div class="label">Booking Status</div>
+          <div class="value">{{ odPrintDetails.bookingStatus }}</div>
+        </div>
+        <div class="field col-4">
+          <div class="label">Payment Status</div>
+          <div class="value">{{ odPrintDetails.paymentStatus }}</div>
+        </div>
+        <div class="field col-4">
+          <div class="label">Total Amount</div>
+          <div class="value">{{ odPrintDetails.totalAmount }}</div>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <!-- Footer Section -->
+    <div class="invoice-footer">
+      <div class="footer-note">
+        <p>
+          Thank you for booking with us. We look forward to serving you again!
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="flex justify-content-end align-items-center gap-2">
+  <button
+    id="print"
+    class="p-button-sm p-button p-component p-ripple"
+    printSectionId="demo"
+    [useExistingCss]="true"
+    ngxPrint
+  >
+    <i class="pi pi-print mr-2" style="font-size: 1rem"></i> Print
+  </button>
+</div>

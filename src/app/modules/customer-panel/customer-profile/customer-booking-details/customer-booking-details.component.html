@@ -1,0 +1,175 @@
+<form [formGroup]="FV.formGroup" autocomplete="off">
+  <p-tabMenu [model]="items" [activeItem]="activeItem" class="sticky-tabmenu">
+    <ng-template pTemplate="item" let-item>
+      <a
+        p-button
+        pRipple
+        class="flex align-items-center gap-2 p-menuitem-link"
+        (click)="onClick(item)"
+      >
+        <!-- [src]="
+            'https://primefaces.org/cdn/primeng/images/demo/avatar/' +
+            item.image
+          " -->
+        <!-- <img [alt]="item.name" style="width: 32px" /> -->
+        <span class="font-bold text-center">
+          {{ item.label }}
+        </span>
+      </a>
+    </ng-template>
+  </p-tabMenu>
+
+  <ng-container *ngIf="activeItem.id == '1'">
+    <div class="custom-height">
+      <ul class="list-none p-0 m-0 mt-3">
+        <ng-container *ngFor="let details of pendingBookingDetails">
+          <li
+            class="py-3 card shadow-1 border-bottom-1 surface-border flex md:align-items-start md:justify-content-between flex-column md:flex-row"
+          >
+            <div class="flex align-items-start mr-0 lg:mr-5">
+              <img
+                src="assets/images/{{ details.img }}"
+                class="mr-3 w-3rem h-3rem"
+                alt="{{ details.carModel }}"
+              />
+              <div>
+                <span class="text-900 font-medium block mb-2"
+                  >#{{ details.bookingId }}</span
+                >
+                <div class="text-700 mb-1">
+                  <b>Customer:</b> {{ details.customerName }}
+                </div>
+                <div class="text-700 mb-1">
+                  <b>Pickup:</b> {{ details.pickupDate }} -
+                  {{ details.pickupTime }}
+                </div>
+                <div class="text-700 mb-1">
+                  <b>Return:</b> {{ details.returnDate }}
+                </div>
+                <div class="text-700 mb-1">
+                  <b>Pickup Location:</b> {{ details.pickupLocation }}
+                </div>
+                <div class="text-700 mb-1">
+                  <b>Drop-off Location:</b> {{ details.dropoffLocation }}
+                </div>
+                <div class="text-700 mb-1">
+                  <b>Status:</b> {{ details.bookingStatus }}
+                </div>
+                <div class="text-700 mb-1">
+                  <b>Payment:</b> {{ details.paymentStatus }} |
+                  {{ details.totalAmount }}
+                </div>
+                <div class="text-700 mb-1">
+                  <b>Booking Type:</b> {{ details.bookingType }}
+                </div>
+                <div class="text-700 mb-1" *ngIf="details.driverAssigned">
+                  <b>Driver:</b> {{ details.driverName }} ({{
+                    details.driverContact
+                  }})
+                </div>
+                <span
+                  class="text-right block text-500 font-medium ml-7 md:ml-5 mt-2 md:mt-0"
+                  >14 mins ago</span
+                >
+              </div>
+            </div>
+            <div class="flex">
+              <button
+                pButton
+                pRipple
+                [label]="details.bookingStatus"
+                [class]="
+                  details.bookingStatus == 'Pending Confirmation'
+                    ? 'p-button-sm p-button-primary p-button-outlined'
+                    : 'p-button-sm p-button-success p-button-outlined'
+                "
+              ></button>
+              <button
+                *ngIf="details.bookingStatus == 'Pending Confirmation'"
+                pButton
+                pRipple
+                icon="pi pi-times"
+                label="Cancel"
+                class="p-button-sm p-button-danger ml-2"
+              ></button>
+            </div>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="activeItem.id == '2'">
+    <div class="custom-height">
+      <ng-container *ngFor="let details of pastBookingDetails">
+        <li
+          class="py-3 card shadow-1 border-bottom-1 surface-border flex md:align-items-start md:justify-content-between flex-column md:flex-row"
+        >
+          <div class="flex align-items-start mr-0 lg:mr-5">
+            <img
+              src="assets/images/{{ details.img }}"
+              class="mr-3 w-3rem h-3rem"
+              alt="{{ details.carModel }}"
+            />
+            <div>
+              <span class="text-900 font-medium block mb-2"
+                >#{{ details.bookingId }}</span
+              >
+              <div class="text-700 mb-1">
+                <b>Customer:</b> {{ details.customerName }}
+              </div>
+              <div class="text-700 mb-1">
+                <b>Pickup:</b> {{ details.pickupDate }} -
+                {{ details.pickupTime }}
+              </div>
+              <div class="text-700 mb-1">
+                <b>Return:</b> {{ details.returnDate }}
+              </div>
+              <div class="text-700 mb-1">
+                <b>Pickup Location:</b> {{ details.pickupLocation }}
+              </div>
+              <div class="text-700 mb-1">
+                <b>Drop-off Location:</b> {{ details.dropoffLocation }}
+              </div>
+              <div class="text-700 mb-1">
+                <b>Status:</b> {{ details.bookingStatus }}
+              </div>
+              <div class="text-700 mb-1">
+                <b>Payment:</b> {{ details.paymentStatus }} |
+                {{ details.totalAmount }}
+              </div>
+              <div class="text-700 mb-1">
+                <b>Booking Type:</b> {{ details.bookingType }}
+              </div>
+              <div class="text-700 mb-1" *ngIf="details.driverAssigned">
+                <b>Driver:</b> {{ details.driverName }} ({{
+                  details.driverContact
+                }})
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-column gap-2 ml-7 md:ml-5 mt-2 md:mt-0">
+            <span class="block text-green-600 font-bold text-sm">
+              {{ details.bookingStatus }}
+            </span>
+            <div class="felx">
+              <button
+                pButton
+                icon="pi pi-eye"
+                label="View Invoice"
+                class="p-button-sm p-button-primary"
+                (click)="onClickViewInvoice(details)"
+              ></button>
+              <button
+                pButton
+                pTooltip="Download Invoice"
+                tooltipPosition="bottom"
+                icon="pi pi-download"
+                class="p-button-sm ml-2 p-button-success"
+              ></button>
+            </div>
+          </div>
+        </li>
+      </ng-container>
+    </div>
+  </ng-container>
+</form>

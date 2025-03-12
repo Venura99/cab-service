@@ -47,6 +47,7 @@ import { SharedModule } from "src/app/shared.module";
 import { NgxPrintModule } from "ngx-print";
 import { CarouselModule } from 'primeng/carousel';
 import { TabViewModule } from 'primeng/tabview';
+import { TabMenuModule } from 'primeng/tabmenu';
 
 import { CustomerPanelRoutingModule } from './customer-panel-routing.module';
 import { RegisterDriverComponent } from './register-driver/register-driver.component';
@@ -57,6 +58,9 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { RidesComponent } from './rides/rides.component';
 import { CabDetailsPageComponent } from './rides/cab-details-page/cab-details-page.component';
+import { CustomerProfileComponent } from './customer-profile/customer-profile.component';
+import { CustomerBookingDetailsComponent } from './customer-profile/customer-booking-details/customer-booking-details.component';
+import { BookingInvoiceComponent } from './customer-profile/customer-booking-details/booking-invoice/booking-invoice.component';
 
 
 @NgModule({
@@ -68,7 +72,10 @@ import { CabDetailsPageComponent } from './rides/cab-details-page/cab-details-pa
     AboutUsComponent,
     ContactUsComponent,
     RidesComponent,
-    CabDetailsPageComponent
+    CabDetailsPageComponent,
+    CustomerProfileComponent,
+    CustomerBookingDetailsComponent,
+    BookingInvoiceComponent
   ],
   imports: [
     CommonModule,
@@ -92,6 +99,7 @@ import { CabDetailsPageComponent } from './rides/cab-details-page/cab-details-pa
     DropdownModule,
     FormsModule,
     AccordionModule,
+    TabMenuModule,
 
     FormsModule,
         ReactiveFormsModule,

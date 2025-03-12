@@ -1,0 +1,79 @@
+#demo {
+  font-family: Arial, sans-serif;
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 20px;
+}
+
+.invoice-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.invoice-title h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.company-logo {
+  margin-top: 10px;
+}
+
+.company-info {
+  font-size: 14px;
+}
+
+.company-name {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.company-address {
+  font-size: 12px;
+}
+
+.booking-info h3,
+.booking-status h3 {
+  font-size: 20px;
+//   margin-top: 20px;
+//   margin-bottom: 15px;
+}
+
+// .grid {
+//   display: grid;
+//   grid-template-columns: 1fr 1fr 1fr 1fr;
+//   grid-gap: 15px;
+// }
+
+// .grid-item {
+//   display: flex;
+//   flex-direction: column;
+// }
+
+.label {
+  font-weight: bold;
+}
+
+.value {
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.booking-status .grid-item,
+.booking-info .grid-item {
+  grid-column: span 2;
+}
+
+hr {
+  border: 1px solid #f1f3f4;
+  margin: 20px 0;
+}
+
+.invoice-footer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.footer-note {
+  font-size: 12px;
+}

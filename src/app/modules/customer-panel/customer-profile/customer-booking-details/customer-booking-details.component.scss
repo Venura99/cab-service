@@ -1,0 +1,20 @@
+.sticky-tabmenu {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #ffffff; /* or your desired background */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for separation */
+  }
+
+  .custom-height {
+    height: calc(100vh - 200px);
+    overflow-y: scroll;        /* Enable vertical scroll */
+    scrollbar-width: none;     /* For Firefox */
+  }
+  
+  /* For Chrome, Edge, Safari */
+  .custom-height::-webkit-scrollbar {
+    display: none;
+  }
+  
+  
