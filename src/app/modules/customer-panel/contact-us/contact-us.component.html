@@ -10,8 +10,7 @@
     >
       <div class="text-white text-2xl font-medium mb-6">Contact Us</div>
       <div class="text-gray-300 line-height-3 mb-6">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua.
+        Have questions or need assistance? Contact our team, and we'll be happy to help. Whether it's a product inquiry or support request, we're here for you.
       </div>
       <a
         class="inline-flex align-items-center text-blue-300 font-bold no-underline cursor-pointer"
@@ -69,6 +68,8 @@
             label="Submit"
             icon="pi pi-envelope"
             class="w-auto"
+            routerLink="/customer-panel/home"
+            (click)="onSubmit()"
           ></button>
         </div>
       </div>

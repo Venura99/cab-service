@@ -6,47 +6,100 @@
                 <img src="assets/signin-4.png" alt="Image" class="w-full md:w-6" style="border-radius: 60px;">
             </div>
             <div class="flex justify-content-between justify-content-center py-7">
-                <button pRipple class="mr-2 w-6 font-medium border-2 border-gray-500 surface-100 py-3 px-2 p-component hover:surface-200 active:surface-300 text-900 cursor-pointer transition-colors transition-duration-150 inline-flex align-items-center justify-content-center">
+                <!-- <button pRipple class="mr-2 w-6 font-medium border-2 border-gray-500 surface-100 py-3 px-2 p-component hover:surface-200 active:surface-300 text-900 cursor-pointer transition-colors transition-duration-150 inline-flex align-items-center justify-content-center">
                     <i class="pi pi-user text-indigo-500 mr-2"></i>
                     <span>Register as Driver</span>
-                </button>
-                <button pRipple class="ml-2 w-6 font-medium border-2 border-gray-500 surface-100 py-3 px-2 p-component hover:surface-200 active:surface-300 text-900 cursor-pointer transition-colors transition-duration-150 inline-flex align-items-center justify-content-center">
+                </button> -->
+                <!-- <button pRipple class="ml-2 w-6 font-medium border-2 border-gray-500 surface-100 py-3 px-2 p-component hover:surface-200 active:surface-300 text-900 cursor-pointer transition-colors transition-duration-150 inline-flex align-items-center justify-content-center">
                     <i class="pi pi-users text-red-500 mr-2"></i>
                     <span>Register as Passenger</span>
-                </button>
+                </button> -->
+                <button pButton pRipple label="Register as Driver" icon="pi pi-car" class="w-full p-button bg-bluegray-700 hover:bg-bluegray-500 hover:text-100" (click)="clickOnRegBtn(1)"></button>
+                <button pButton pRipple label="Register as Passenger" icon="pi pi-users" class="w-full p-button bg-bluegray-700 hover:bg-bluegray-500 hover:text-100 ml-2" (click)="clickOnRegBtn(2)"></button>
             </div>
         </div>
         <div class="w-full lg:w-8 p-4 lg:p-7 " style="background-color: rgba(255, 255, 255, 0.966)">
-            <div class="text-900 text-2xl font-medium mb-6">Register</div>
+            <div class="text-900 text-2xl font-medium mb-6" *ngIf="isdriver">Register as a Driver</div>
+            <div class="text-900 text-2xl font-medium mb-6" *ngIf="!isdriver">Register as a Passenger</div>
             <!-- <div class="text-900 font-medium text-xl mb-3">Create Invoice</div> -->
             <div class=" border-round p-fluid">
-                <div class="grid formgrid p-fluid">
+                <div class="grid formgrid p-fluid" *ngIf="isdriver">
                     <div class="field mb-4 col-12 md:col-6">
-                        <label for="company_name" class="font-medium text-900">Company Name</label>
-                        <input id="company_name" type="text" pInputText>
+                        <label for="company_name" class="font-medium text-900">First Name *</label>
+                        <input id="company_name" class="p-inputtext-lg" type="text" pInputText>
                     </div>
                     <div class="field mb-4 col-12 md:col-6">
-                        <label for="invoice_id" class="font-medium text-900">Invoice Id</label>
-                        <input id="invoice_id" type="text" pInputText>
+                        <label for="invoice_id" class="font-medium text-900">Last Name *</label>
+                        <input id="invoice_id" class="p-inputtext-lg" type="text" pInputText>
                     </div>
                     <div class="field mb-4 col-12 md:col-6">
-                        <label for="customer_name" class="font-medium text-900">Customer Name</label>
-                        <input id="customer_name" type="text" pInputText>
+                        <label for="customer_name" class="font-medium text-900">Phone No *</label>
+                        <input id="customer_name" class="p-inputtext-lg" type="text" pInputText>
                     </div>
                     <div class="field mb-4 col-12 md:col-6">
-                        <label for="customer_email" class="font-medium text-900">Customer Email</label>
-                        <input id="customer_email" type="text" pInputText>
+                        <label for="customer_email" class="font-medium text-900 ">Driving Licence No *</label>
+                        <input id="customer_email" class="p-inputtext-lg" type="text" pInputText>
                     </div>
                     <div class="field mb-4 col-12 md:col-6">
-                        <label for="invoice_date" class="font-medium text-900">Invoice Date</label>
-                        <p-calendar id="invoice_date" [showIcon]="true"></p-calendar>
+                        <label for="customer_email" class="font-medium text-900">Vehicle Type *</label>
+                        <p-dropdown  
+                            [options]="vehicleType" 
+                            optionLabel="name" 
+                            [filter]="true" 
+                            filterBy="name" 
+                            [showClear]="false" 
+                            placeholder="Select a Vehicle Type"
+                            styleClass="w-full p-2 p-inputtext-sm"  
+                            appendTo="body"
+                            [autoOptionFocus]="false" 
+                        >
+                        </p-dropdown>
                     </div>
                     <div class="field mb-4 col-12 md:col-6">
-                        <label for="due_date" class="font-medium text-900">Due Date</label>
-                        <p-calendar id="due_date" [showIcon]="true"></p-calendar>
+                        <label for="customer_email" class="font-medium text-900">Vehicle No *</label>
+                        <input id="customer_email" class="p-inputtext-lg" type="text" pInputText>
+                    </div>
+                    <div class="field mb-4 col-12 md:col-6">
+                        <label for="customer_email" class="font-medium text-900">Location *</label>
+                        <input id="customer_email" class="p-inputtext-lg" type="text" pInputText>
+                    </div>
+                    <div class="field mb-4 col-12 md:col-6">
+                        <label for="customer_email" class="font-medium text-900">Password *</label>
+                        <input id="customer_email" class="p-inputtext-lg" type="password" pInputText>
+                    </div>
+                    <div class="field mb-4 col-12 md:col-6">
+                        <label for="customer_email" class="font-medium text-900">Confirm Password *</label>
+                        <input id="customer_email" class="p-inputtext-lg" type="password" pInputText>
                     </div>
                 </div>
-                <button pButton pRipple label="Register" icon="pi pi-file" class="w-auto"></button>
+
+                <div class="grid formgrid p-fluid" *ngIf="!isdriver">
+                    <div class="field mb-4 col-12 md:col-6">
+                        <label for="company_name" class="font-medium text-900">First Name *</label>
+                        <input id="company_name" class="p-inputtext-lg" type="text" pInputText>
+                    </div>
+                    <div class="field mb-4 col-12 md:col-6">
+                        <label for="invoice_id" class="font-medium text-900">Last Name *</label>
+                        <input id="invoice_id" class="p-inputtext-lg" type="text" pInputText>
+                    </div>
+                    <div class="field mb-4 col-12 md:col-6">
+                        <label for="customer_name" class="font-medium text-900">Phone No *</label>
+                        <input id="customer_name" class="p-inputtext-lg" type="text" pInputText>
+                    </div>
+                    <div class="field mb-4 col-12 md:col-6">
+                        <label for="customer_name" class="font-medium text-900">NIC *</label>
+                        <input id="customer_name" class="p-inputtext-lg" type="text" pInputText>
+                    </div>
+                    <div class="field mb-4 col-12 md:col-6">
+                        <label for="customer_email" class="font-medium text-900">Password *</label>
+                        <input id="customer_email" class="p-inputtext-lg" type="password" pInputText>
+                    </div>
+                    <div class="field mb-4 col-12 md:col-6">
+                        <label for="customer_email" class="font-medium text-900">Confirm Password *</label>
+                        <input id="customer_email" class="p-inputtext-lg" type="password" pInputText>
+                    </div>
+                </div>
+                <button pButton pRipple label="Register" icon="pi pi-file" class="w-auto" (click)="clickOnRegister()"></button>
                 <div class="mt-6 text-center text-600">
                     If you have an account? <a tabindex="0" class="font-medium cursor-pointer text-blue-500" (click)="clickOnLogin()">Sign In</a>
                 </div>

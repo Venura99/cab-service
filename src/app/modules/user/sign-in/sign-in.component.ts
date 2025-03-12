@@ -97,16 +97,25 @@ export class SignInComponent {
       return;
     }
 
-    debugger
+    
 
-    let rolId = this.FV.getValue("username")?.rolId;
-    let userName = this.FV.getValue("username");
+    // let rolId = this.FV.getValue("username")?.rolId;
+    let userName = this.FV.getValue("username").toLowerCase();;
     let password = this.FV.getValue("password");
 
+    debugger
+    let correctUser:any = this.users.filter((item:any)=> item.username.toLowerCase() == userName);
+
+    if(!(correctUser.length > 0)){
+      this.messageService.showErrorAlert('Invalid username or password!')
+      return;
+    }
     let request = {
       userName: userName,
       password: password,
     };
+
+    let rolId: any = correctUser[0]?.rolId;
 
     if (rolId == 1) {
       this.router.navigate(["/approve-registrations"]);
