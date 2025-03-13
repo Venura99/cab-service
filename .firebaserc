@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "vertex-cloud-pos"
-  }
+    "default": "vertex-cloud-pos",
+    "staging": "cab-service-49629"
+  },
+  "targets": {},
+  "etags": {}
 }
