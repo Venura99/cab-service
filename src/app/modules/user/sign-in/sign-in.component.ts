@@ -104,37 +104,37 @@ export class SignInComponent {
     let password = this.FV.getValue("password");
 
     debugger
-    let correctUser:any = this.users.filter((item:any)=> item.username.toLowerCase() == userName);
+    // let correctUser:any = this.users.filter((item:any)=> item.username.toLowerCase() == userName);
 
-    if(!(correctUser.length > 0)){
-      this.messageService.showErrorAlert('Invalid username or password!')
-      return;
-    }
+    // if(!(correctUser.length > 0)){
+    //   this.messageService.showErrorAlert('Invalid username or password!')
+    //   return;
+    // }
     let request = {
       userName: userName,
       password: password,
     };
 
-    let rolId: any = correctUser[0]?.rolId;
-
-    if (rolId == 1) {
-      this.router.navigate(["/approve-registrations"]);
-    } else if (rolId == 2) {
-      this.router.navigate(["/customer-panel"]);
-    }
-
-
-    // this.router.navigate(["/dining"]);
-
-    // this.transactionService.userLogin(request).subscribe((response) => {
-    //   if (response.IsSuccessful) {
-    //     this.messageService.showSuccessAlert(response.Message);
-    //     this.masterDataService.setUserData(response.Result);
-    //     this.router.navigate(["/dashboard"]);
-    //   } else {
-    //     this.messageService.showErrorAlert(response.Message);
-    //   }
-    // });
+    this.transactionService.userLogin(request).subscribe((response) => {
+      debugger
+      if (response.IsSuccessful) {
+        this.messageService.showSuccessAlert(response.Message);
+        this.masterDataService.setUserData(response.Result);
+        let rolId: any = response.Result?.user?.role;
+        //role 1 = user, role 2 = admin, role 3 = driver
+        if(rolId == 1){
+          this.router.navigate(["/customer-panel"]);
+        }else if(rolId == 2){
+          this.router.navigate(["/approve-registrations"]);
+        }else if(rolId == 3){
+          this.router.navigate(["/approve-registrations"]);
+        }else{
+          this.router.navigate(["/customer-panel"]);
+        }
+      } else {
+        this.messageService.showErrorAlert(response.Message);
+      }
+    });
   }
 
   clickOnSignUp(){

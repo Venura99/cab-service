@@ -113,7 +113,7 @@
           [hideOnOutsideClick]="true"
         >
           <img
-            src="assets/images/logos/avatar-icon-images-4.jpg"
+            [src]=profileImage
             class="lg:mr-0"
             style="width: 28px; height: 28px"
           />
@@ -125,7 +125,7 @@
           class="hidden border-round surface-overlay p-2 shadow-2 absolute right-0 top-100 z-1 w-15rem origin-top"
         >
           <ul class="list-none p-0 m-0">
-            <li [routerLink]="'/customer-panel/cutomer-profile'">
+            <li routerLink="/customer-panel/cutomer-profile">
               <a
                 pRipple
                 class="flex p-3 align-items-center text-600 hover:text-900 hover:surface-100 transition-colors transition-duration-150"

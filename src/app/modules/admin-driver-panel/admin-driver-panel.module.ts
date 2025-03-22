@@ -49,6 +49,7 @@ import { DriverVehicleInfoComponent } from './driver-vehicle-info/driver-vehicle
 import { CustomerAccountsComponent } from './customer-accounts/customer-accounts.component';
 import { ShowVehicleInfoFormComponent } from './driver-vehicle-info/show-vehicle-info-form/show-vehicle-info-form.component';
 import { DriverAccountsFormComponent } from './driver-accounts/driver-accounts-form/driver-accounts-form.component';
+import { CustomerFormComponent } from './customer-accounts/customer-form/customer-form.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { DriverAccountsFormComponent } from './driver-accounts/driver-accounts-f
     DriverVehicleInfoComponent,
     CustomerAccountsComponent,
     ShowVehicleInfoFormComponent,
-    DriverAccountsFormComponent
+    DriverAccountsFormComponent,
+    CustomerFormComponent
   ],
   imports: [
     CommonModule,

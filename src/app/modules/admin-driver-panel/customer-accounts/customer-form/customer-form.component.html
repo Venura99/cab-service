@@ -1,0 +1,48 @@
+
+<div class=" p-2 p-fluid">
+    <form [formGroup]="FV.formGroup">
+    <div class="grid formgrid p-fluid">
+        <div class="field mb-4 col-12 md:col-6">
+            <label for="company_name" class="font-medium text-900">First Name *</label>
+            <input id="company_name" class="p-inputtext-lg" readonly formControlName="firstName" type="text" pInputText>
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+            <label for="invoice_id" class="font-medium text-900">Last Name *</label>
+            <input id="invoice_id" class="p-inputtext-lg" readonly formControlName="lastName" type="text" pInputText>
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+            <label for="customer_name" class="font-medium text-900">Phone No *</label>
+            <input id="customer_name" class="p-inputtext-lg" readonly formControlName="phoneNumber" type="text" pInputText>
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+            <label for="customer_name" class="font-medium text-900">NIC</label>
+            <input id="customer_name" class="p-inputtext-lg" readonly formControlName="nicNumber" type="text" pInputText>
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+            <label for="customer_name" class="font-medium text-900">DOB</label>
+            <input id="customer_name" class="p-inputtext-lg" readonly formControlName="dateOfBirth" type="date" pInputText>
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+            <label for="customer_name" class="font-medium text-900">Email</label>
+            <input id="customer_name" class="p-inputtext-lg" readonly formControlName="userEmail" type="email" pInputText>
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+            <label for="bio2" class="font-medium text-900">Address</label>
+            <textarea id="bio2" formControlName="address" readonly type="text" pInputTextarea rows="7" [autoResize]="true"></textarea>
+        </div>
+        <div class="field mb-4 col-12 md:col-6">
+            <label for="avatar2" class="font-medium text-900">Profile</label>
+            <div class="flex align-items-center">
+                <!-- <img src="assets/images/user/avatar-f-1@2x.png" class="mr-4" /> -->
+                <!-- <p-fileUpload id="avatar2" formControlName="profileImage" (onUpload)="onUpload($event)" mode="basic" name="avatar" url="./upload.php" accept="image/*" maxFileSize="1000000" styleClass="p-button-outlined p-button-plain" chooseLabel="Upload Image" chooseIcon="pi pi-upload"></p-fileUpload> -->
+                <img *ngIf="profileImageUrl" class="mr-2" [src]="profileImageUrl" width="100" height="100" />
+                <!-- <input type="file" (change)="onFileSelected($event)" /> -->
+            </div>
+        </div>
+        <!-- <div class="surface-border border-top-1 opacity-50 mb-4 col-12"></div> -->
+    </div>
+    <!-- <div class="py-4" style="float: right;">
+        <button pButton pRipple label="Update" icon="pi pi-file" class="w-auto" (click)="clickOnUpdate()"></button>
+    </div> -->
+</form>  
+</div>

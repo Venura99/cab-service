@@ -1,7 +1,10 @@
 import { Component } from "@angular/core";
 import { MessageService } from "primeng/api";
+import { firstValueFrom } from "rxjs";
 import { AppMessageService } from "src/app/shared/services/app-message.service";
+import { MasterDataService } from "src/app/shared/services/master-data.service";
 import { PopupService } from "src/app/shared/services/popup.service";
+import { TransactionHandlerService } from "src/app/shared/services/transaction-handler.service";
 
 @Component({
   selector: "app-approve-driver-registrations",
@@ -13,18 +16,19 @@ export class ApproveDriverRegistrationsComponent {
   records: any[] = [];
 
   constructor(
-    public messageService: MessageService,
-    private msgService: AppMessageService,
+    private transactionService: TransactionHandlerService,
+    private masterDataService: MasterDataService,
+    private messageService: AppMessageService,
     private popupService: PopupService
   ) {}
 
   ngOnInit(): void {
     this.cols = [
-      { field: "id", header: "ID" },
-      { field: "fname", header: "First Name" },
-      { field: "lname", header: "Last Name" },
-      { field: "mobile", header: "Mobile" },
-      { field: "vNo", header: "Vehicle No" },
+      { field: "userId", header: "ID" },
+      { field: "firstName", header: "First Name" },
+      { field: "lastName", header: "Last Name" },
+      { field: "phoneNumber", header: "Mobile" },
+      { field: "nicNumber", header: "NIC" },
       { field: "status", header: "Status" },
     ];
 
@@ -32,43 +36,22 @@ export class ApproveDriverRegistrationsComponent {
   }
 
   async loadInitialData() {
+    debugger
     try {
-      this.records = [
-        {
-          id: 1,
-          fname: "Kasun",
-          lname: "Gunawardana",
-          mobile: "0777545852",
-          vNo: "WP-635125",
-          status: "Pending",
-        },
-        {
-          id: 2,
-          fname: "Palitha",
-          lname: "Perera",
-          mobile: "0784589631",
-          vNo: "WP-244343",
-          status: "Pending",
-        },
-        {
-          id: 3,
-          fname: "Nuwan",
-          lname: "Kulasekara",
-          mobile: "0768454545",
-          vNo: "WP-435354",
-          status: "Approved",
-        },
-        {
-          id: 3,
-          fname: "Lasith",
-          lname: "Malinga",
-          mobile: "0725449541",
-          vNo: "SP-466756",
-          status: "Approved",
-        },
-      ];
+
+      const userResult:any = await firstValueFrom(
+          this.transactionService.getAllUsers(3,true),
+      );
+      debugger
+      if (userResult.IsSuccessful) {
+        this.records = userResult.Result;
+      }
+
+      if (!userResult.IsSuccessful) {
+        this.messageService.showErrorAlert(userResult.Message);
+      }
     } catch (error: any) {
-      this.msgService.showErrorAlert(error);
+      this.messageService.showErrorAlert(error);
     }
   }
 
@@ -82,18 +65,51 @@ export class ApproveDriverRegistrationsComponent {
   approveRegistrations(e: any) {
     try {
       let confirmationConfig = {
-        message: "Are you sure you want to approve driver?",
+        message: "Are you sure, Do you want to approve driver?",
         header: "Confirmation",
         icon: "pi pi-exclamation-triangle",
       };
-
-      this.msgService.ConfirmPopUp(confirmationConfig, (isConfirm: boolean) => {
+      debugger
+      this.messageService.ConfirmPopUp(confirmationConfig, (isConfirm: boolean) => {
         if (isConfirm) {
+          this.transactionService.approveUser(e.userId).subscribe((response) => {
+            if (response.IsSuccessful) {
+              this.messageService.showSuccessAlert(response.Message);
+              this.loadInitialData();
+            } else {
+              this.messageService.showErrorAlert(response.Message);
+            }
+          });
         }
       });
     } catch (error: any) {
-      this.msgService.showErrorAlert(error);
+      this.messageService.showErrorAlert(error);
     }
   }
-  deleteUser(e: any) {}
+
+
+  deleteUser(e: any) {
+    try {
+      let confirmationConfig = {
+        message: "Are you sure, Do you want to delete driver?",
+        header: "Confirmation",
+        icon: "pi pi-exclamation-triangle",
+      };
+      debugger
+      this.messageService.ConfirmPopUp(confirmationConfig, (isConfirm: boolean) => {
+        if (isConfirm) {
+          this.transactionService.removeUser(e.userId).subscribe((response) => {
+            if (response.IsSuccessful) {
+              this.messageService.showSuccessAlert(response.Message);
+              this.loadInitialData();
+            } else {
+              this.messageService.showErrorAlert(response.Message);
+            }
+          });
+        }
+      });
+    } catch (error: any) {
+      this.messageService.showErrorAlert(error);
+    }
+  }
 }

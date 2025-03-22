@@ -38,6 +38,7 @@ export class CustomerBookingDetailsComponent {
   }
 
   ngOnInit(): void {
+    debugger
     this.items = [
       { id: "1", label: "Pending Bookings", icon: "pi pi-car" },
       { id: "2", label: "Past Bookings", icon: "pi pi-calendar" },

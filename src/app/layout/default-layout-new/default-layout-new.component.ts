@@ -48,16 +48,17 @@ export class DefaultLayoutNewComponent {
   ) {}
 
   ngOnInit(): void {
+    debugger
     this.updateTime();
     this.intervalId = setInterval(() => {
       this.updateTime();
     }, 1000);
-    this.workingDate = this.masterDataService.WorkingDate;
+    // this.workingDate = this.masterDataService.WorkingDate;
 
-    this.showWorkingDate = this.datePipe.transform(
-      this.workingDate,
-      "y - MMMM"
-    );
+    // this.showWorkingDate = this.datePipe.transform(
+    //   this.workingDate,
+    //   "y - MMMM"
+    // );
     // this.moduleIds = this.masterDataService.MenuList;
     let module = this.router.url.split("/")[1];
     let submodule = this.router.url.split("/")[2];
@@ -85,7 +86,7 @@ export class DefaultLayoutNewComponent {
       },
       {
         menuId: 3,
-        label: "Driver and Vehicle Information",
+        label: "Vehicle Management",
         icon: "pi pi-car",
         routerLink: "/driver/driver-Information",
         isVisible: true,
@@ -100,7 +101,7 @@ export class DefaultLayoutNewComponent {
       },
       {
         menuId: 4,
-        label: "Customer accounts",
+        label: "User accounts",
         icon: "pi pi-id-card",
         routerLink: "/driver/customer-accounts",
         isVisible: true,
@@ -118,7 +119,8 @@ export class DefaultLayoutNewComponent {
         icon: "pi pi-file",
       },
     ];
-    submodule == 'driver-Information' ? submodule = 'driver-and-vehicle-information' : submodule
+    submodule == 'driver-Information' ? submodule = 'vehicle-management' : submodule;
+    submodule == 'customer-accounts' ? submodule = 'user-accounts' : submodule;
     module == 'driver' ? module = submodule : module;
     this.ModuleActivate(module);
 
@@ -171,23 +173,6 @@ export class DefaultLayoutNewComponent {
     // );
   }
 
-  openTab(){
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['/order-panel/' + 'tab' + '/' + '0']);
-    });
-  }
-
-  openTakeout(){
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['/order-panel/' + 'takeout' + '/' + '0']);
-    });
-  }
-
-  openReports(){
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['/reports']);
-    });
-  }
 
   ModuleActivate(routeModule: any) {
     debugger

@@ -11,72 +11,31 @@ export class VehicleService {
     private resource: ResourceService
   ) {}
 
-  // save: '/',
-  // getAll: '/',
-  // getById: '/:id',
-  // update: '/:id',
-  // deleteById: '/:id',
-  // activeInactiveVehicles: '/activeInactive/:id',
 
-  SaveVehicle(body: any) {
+  getAllVehicles(isWithInactive:boolean) {
     return this.dataAccess
-      .POST(this.resource.vehicle.saveVehicle, body)
+      .GET(this.resource.vehicle.getAllVehicles + "?isWithInactive=" + isWithInactive)
       .pipe((response) => {
         return response;
       });
   }
 
-  GetAllVehicles(withInactive: boolean = false) {
+  updateVehicleById(id:any,body:any) {
     return this.dataAccess
-      .GET(
-        this.resource.vehicle.getAllVehicles + `?withInactive=${withInactive}`
-      )
+      .PATCH(this.resource.vehicle.updateVehicle + "/" + id, body)
       .pipe((response) => {
         return response;
       });
   }
 
-  GetVehicleById(vehicleId: string) {
+  deleteVehicleById(id:any) {
     return this.dataAccess
-      .GET(this.resource.vehicle.getVehicleById + `/${vehicleId}`)
+      .DELETE(this.resource.vehicle.deleteVehicleById + "/" + id)
       .pipe((response) => {
         return response;
       });
   }
+  
 
-  UpdateVehicle(vehicleId: string, body: any) {
-    return this.dataAccess
-      .PUT(this.resource.vehicle.updateVehicle + `/${vehicleId}`, body)
-      .pipe((response) => {
-        return response;
-      });
-  }
-
-  DeleteVehicleById(vehicleId: string) {
-    return this.dataAccess
-      .DELETE(this.resource.vehicle.deleteVehicleById + `/${vehicleId}`)
-      .pipe((response) => {
-        return response;
-      });
-  }
-
-  ActiveInactiveVehicles(vehicleId: string, status: number) {
-    return this.dataAccess
-      .PUT(
-        this.resource.vehicle.activeInactiveVehicles +
-          `/${vehicleId}?status=${status}`,
-        null
-      )
-      .pipe((response) => {
-        return response;
-      });
-  }
-
-  GetByPassengerCount(passengerCount: number) {
-    return this.dataAccess
-      .GET(this.resource.vehicle.getAllVehiclesByCount + `/${passengerCount}`)
-      .pipe((response) => {
-        return response;
-      });
-  }
+  
 }

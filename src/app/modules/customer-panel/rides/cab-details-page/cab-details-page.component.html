@@ -4,40 +4,36 @@
         <div class="col-12 lg:col-6">
             <div class="flex">
                 <div class="pl-3 w-full">
-                    <img attr.src="assets/images/{{selectedData.img}}" class="w-full border-round" style="height: 400px;" />
+                    <img [attr.src]=selectedData?.vehicleImage1 class="w-full border-round" style="height: 400px;" />
                 </div>
             </div>
         </div>
         <div class="col-12 lg:col-6 py-3 lg:pl-6">
-            <div class="flex align-items-center text-3xl font-bold text-900 mb-4">{{selectedData.vehicle}}</div>
+            <div class="flex align-items-center text-3xl font-bold text-900 mb-4">{{selectedData.vehicleType}}</div>
             <div class="flex align-items-center justify-content-between mb-5">
-                <span class="text-900 font-medium text-3xl block">{{selectedData.price}}</span>
+                <span class="text-900 font-medium text-3xl block">{{selectedData.chargePerKm | number:'1.2-2'}} per Km</span>
             </div>
-
+            <div class="text-900 font-medium text-xl mb-4 mt-2">Description</div>
+            <p class="line-height-3 text-500 p-0 mx-0 mt-0 mb-4">
+                {{selectedData?.vehiceldescription}}
+            </p>
             <div class="flex flex-column">
                 <span class="inline-flex align-items-center mb-3">
                     <i class="pi pi-user text-600 mr-2"></i>
-                    <span class="text-600 mr-2">Passengers : {{selectedData.guest}}</span>
+                    <span class="text-600 mr-2">Passengers : {{selectedData.passengerCount}}</span>
+                </span>
+                <span class="inline-flex align-items-center mb-3">
+                    <i class="pi pi-car text-600 mr-2"></i>
+                    <span class="text-600 mr-2">Vehicle No : {{selectedData.registrationNo}}</span>
                 </span>
                 <span class="inline-flex align-items-center mb-3">
                     <i class="pi pi-address-book text-600 mr-2"></i>
-                    <span class="text-600 mr-2">Driver :  <span class="font-bold">{{selectedData.driver}}</span></span>
+                    <span class="text-600 mr-2">Driver :  <span class="font-bold">{{selectedData.driver?.firstName}} {{ selectedData.driver?.lastName}}</span></span>
                 </span>
                 <span class="flex align-items-center">
                     <i class="pi pi-phone text-600 mr-2"></i>
-                    <span class="text-600">{{selectedData.phone}}</span>
+                    <span class="text-600">{{selectedData?.driver?.phoneNumber}}</span>
                 </span>
-            </div>
-
-            <div class="flex flex-column mt-5">
-                <span class="font-medium text-900 text-xl">Payment</span>
-                <div class="flex align-items-center mt-3">
-                    <img src="assets/images/visa.png" class="w-4rem mr-3" />
-                    <div class="flex flex-column">
-                        <span class="text-900 mb-1">Visa Debit Card</span>
-                        <span class="text-900 font-medium">**** **** **** 1234</span>
-                    </div>
-                </div>
             </div>
 
             <div class="mt-5">
@@ -49,52 +45,27 @@
 
     <p-tabView>
         <p-tabPanel header="Details">
-            <div class="text-900 font-medium text-3xl mb-4 mt-2">Cab Details</div>
-            <p class="line-height-3 text-700 p-0 mx-0 mt-0 mb-4">
-                Choose the perfect ride for your journey. From budget-friendly options to premium cars, our cabs are well-maintained, 
-                comfortable, and driven by professional drivers. Enjoy a seamless booking experience and travel with ease!
-            </p>
-    
-            <div class="grid">
-                <div class="col-12 lg:col-4">
-                    <span class="text-900 block font-medium mb-3">Key Features</span>
-                    <ul class="py-0 pl-3 m-0 text-700 mb-3">
-                        <li class="mb-2">Well-maintained and sanitized vehicles.</li>
-                        <li class="mb-2">Professional and experienced drivers.</li>
-                        <li class="mb-2">Multiple ride options: Economy, Premium, and Luxury.</li>
-                        <li>24/7 customer support and real-time tracking.</li>
-                    </ul>
+            <div class="text-900 font-medium text-3xl mb-4 mt-2">Booking Details</div>
+            <form [formGroup]="FV.formGroup">
+                <div class="grid formgrid p-fluid" >
+                    <div class="field mb-4 col-12 md:col-4">
+                        <label for="company_name" class="font-medium text-900">Start Date *</label>
+                        <input id="company_name" class="p-inputtext-lg" formControlName="startDate" type="date" pInputText>
+                    </div>
+                    <div class="field mb-4 col-12 md:col-4">
+                        <label for="customer_name" class="font-medium text-900">End Date *</label>
+                        <input id="customer_name" class="p-inputtext-lg" formControlName="endDate" type="date" pInputText>
+                    </div>
+                    <div class="field mb-4 col-12 md:col-4">
+                        <label for="customer_name" class="font-medium text-900">Distance (Km) *</label>
+                        <input id="customer_name" class="p-inputtext-lg" formControlName="distance" type="text" pInputText>
+                    </div>
+                    <div class="field mb-4 col-12 md:col-6">
+                        <label for="bio2" class="font-medium text-900">Description</label>
+                        <textarea id="bio2" formControlName="description" type="text" pInputTextarea rows="7" [autoResize]="true"></textarea>
+                    </div>
                 </div>
-                <div class="col-12 lg:col-4">
-                    <span class="text-900 block font-medium mb-3">Ride Options</span>
-                    <ul class="list-none p-0 m-0 text-700 mb-4">
-                        <li class="mb-3"><span class="font-medium">Economy Ride:</span> Affordable and convenient for daily travel.</li>
-                        <li class="mb-3"><span class="font-medium">Business Class:</span> Comfortable and spacious for professional trips.</li>
-                        <li><span class="font-medium">Luxury Ride:</span> Premium cars for a stylish and elegant experience.</li>
-                    </ul>
-                </div>
-                <div class="col-12 lg:col-4">
-                    <span class="text-900 block font-medium mb-3">Safety & Comfort</span>
-                    <ul class="p-0 m-0 text-700 flex flex-wrap flex-column xl:flex-row">
-                        <li class="flex align-items-center white-space-nowrap w-16rem block mr-2 mb-3">
-                            <i class="pi pi-shield mr-2"></i>
-                            <span>Verified & trained drivers</span>
-                        </li>
-                        <li class="flex align-items-center white-space-nowrap w-16rem block mb-3">
-                            <i class="pi pi-map-marker mr-2"></i>
-                            <span>GPS tracking for security</span>
-                        </li>
-                        <li class="flex align-items-center white-space-nowrap w-16rem block mb-3 mr-2">
-                            <i class="pi pi-car mr-2"></i>
-                            <span>Regularly serviced vehicles</span>
-                        </li>
-                        <li class="flex align-items-center white-space-nowrap w-16rem block mb-3">
-                            <i class="pi pi-clock mr-2"></i>
-                            <span>24/7 availability</span>
-                        </li>
-                    </ul>                        
-                </div>
-            </div>
+            </form>
         </p-tabPanel>
     </p-tabView>
     

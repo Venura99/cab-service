@@ -34,6 +34,7 @@ import { InputNumberModule } from "primeng/inputnumber";
 import { IconFieldModule } from "primeng/iconfield";
 import { InputIconModule } from "primeng/inputicon";
 import { ImageModule } from "primeng/image";
+import { FileUploadModule } from 'primeng/fileupload';
 
 import { StepsModule } from "primeng/steps";
 import { ToastModule } from "primeng/toast";
@@ -80,6 +81,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     IconFieldModule,
     InputIconModule,
     ImageModule,
+    FileUploadModule
   ],
 })
 export class UserModule {}

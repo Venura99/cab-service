@@ -1,47 +1,54 @@
 
-    <div class="surface-card p-4 shadow-2 border-round p-fluid">
+    <div class=" p-2 p-fluid">
+        <form [formGroup]="FV.formGroup">
         <div class="grid formgrid p-fluid">
             <div class="field mb-4 col-12 md:col-6">
-                <label for="first-name" class="font-medium text-900">First Name</label>
-                <input id="first-name" type="text" pInputText>
+                <label for="customer_email" class="font-medium text-900 ">Vehicle Type *</label>
+                <input id="customer_email" class="p-inputtext-lg" formControlName="vehicleType" type="text" pInputText>
             </div>
             <div class="field mb-4 col-12 md:col-6">
-                <label for="last-name" class="font-medium text-900">Last Name</label>
-                <input id="last-name" type="text" pInputText>
+                <label for="customer_email" class="font-medium text-900 ">Registration No *</label>
+                <input id="customer_email" class="p-inputtext-lg" formControlName="registrationNo" type="text" pInputText>
+            </div>
+
+            <div class="field mb-4 col-12 md:col-6">
+                <label for="customer_email" class="font-medium text-900 ">Passenger Count </label>
+                <input id="customer_email" class="p-inputtext-lg" formControlName="passengerCount" type="number" pInputText>
+            </div>
+
+            <div class="field mb-4 col-12 md:col-6">
+                <label for="customer_email" class="font-medium text-900 ">Charge Per KM </label>
+                <input id="customer_email" class="p-inputtext-lg" formControlName="chargePerKm" type="number" pInputText>
+            </div>
+
+            <div class="field mb-4 col-12 md:col-6">
+                <label for="bio2" class="font-medium text-900">Description</label>
+                <textarea id="bio2" formControlName="vehiceldescription" type="text" pInputTextarea rows="7" [autoResize]="true"></textarea>
             </div>
             <div class="field mb-4 col-12 md:col-6">
-                <label for="mobile" class="font-medium text-900">Mobile No</label>
-                <input id="mobile" type="text" pInputText>
+                <label for="avatar2" class="font-medium text-900">Vehicle Img</label>
+                <div class="flex align-items-center">
+                    <img *ngIf="vehicleImageUrl" class="mr-2" [src]="vehicleImageUrl" width="100" height="100" />
+                    <input type="file" (change)="onFileSelectedforVehicle($event)" />
+                </div>
             </div>
-            <div class="field mb-4 col-12 md:col-6">
-                <label for="customer_email" class="font-medium text-900">Email</label>
-                <input id="customer_email" type="text" pInputText>
+            
+            <div class="field mb-4 col-4 flex align-items-center">
+                <p-checkbox [binary]="true" formControlName="isTaxIncluded"></p-checkbox>
+                <span class="ml-2 text-900">IsTaxIncluded (TAX 10%)</span>
             </div>
-            <div class="field mb-4 col-12 md:col-6">
-                <label for="dob" class="font-medium text-900">Date Of Birth</label>
-                <p-calendar id="dob" [showIcon]="true"></p-calendar>
+            <div class="field mb-4 col-4 flex align-items-center">
+                <p-checkbox [binary]="true" formControlName="isVatIncluded"></p-checkbox>
+                <span class="ml-2 text-900">IsVatIncluded (VAT 5%)</span>
             </div>
-            <div class="field mb-4 col-12 md:col-6">
-                <label for="join_date" class="font-medium text-900">Join Date</label>
-                <p-calendar id="join_date" [showIcon]="true"></p-calendar>
-            </div>
-            <div class="field mb-4 col-12 md:col-6">
-                <label for="vType" class="font-medium text-900">Vehicle Type</label>
-                <input id="vType" type="text" pInputText>
-            </div>
-            <div class="field mb-4 col-12 md:col-6">
-                <label for="vNo" class="font-medium text-900">Vehicle No</label>
-                <input id="vNo" type="text" pInputText>
-            </div>
-            <div class="field mb-4 col-12 md:col-6">
-                <label for="vNo" class="font-medium text-900">Full Time or Part Time</label>
-                <input id="vNo" type="text" pInputText>
-            </div>
-            <div class="field mb-4 col-12 md:col-6">
-                <label for="vNo" class="font-medium text-900">Working District</label>
-                <input id="vNo" type="text" pInputText>
+            <div class="field mb-4 col-4 flex align-items-center">
+                <p-checkbox [binary]="true" formControlName="isServiceChargeIncluded"></p-checkbox>
+                <span class="ml-2 text-900">IsServiceChargeIncluded (s.chrge 5%)</span>
             </div>
             <!-- <div class="surface-border border-top-1 opacity-50 mb-4 col-12"></div> -->
         </div>
-        <!-- <button pButton pRipple label="Create" icon="pi pi-file" class="w-auto"></button> -->
+        <div class="py-4" style="float: right;">
+            <button pButton pRipple label="Update" icon="pi pi-file" class="w-auto" (click)="clickOnUpdate()"></button>
+        </div>
+    </form>  
     </div>

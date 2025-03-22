@@ -7,11 +7,13 @@ export class MasterDataService {
   constructor(private helper: HelperService) {}
 
   setUserData(loginData: any) {
-    this.MenuList = loginData?.moduleIds ?? [];
-    this.SessionKey = loginData.token;
-    this.ClientId = loginData.user._id;
-    this.CurrentUserName = loginData.user.userName;
-    this.Role = loginData.role;
+    // this.MenuList = loginData?.moduleIds ?? [];
+    // this.SessionKey = loginData.token;
+    this.SessionKey = `Bearer ${loginData.token}`;
+    this.ClientId = loginData.user?.userId;
+    this.CurrentUserName = loginData.user?.firstName;
+    this.Role = loginData.user?.role;
+    this.profileImage = loginData.user?.profileImage;
     this.TimedOut = "false";
     this.WorkingMonth = loginData.workingMonth;
     this.WorkingYear = loginData.workingYear;
@@ -73,6 +75,15 @@ export class MasterDataService {
     return localStorage.getItem(AppKeys.Role) ?? "";
   }
 
+  set profileImage(profile: any) {
+    localStorage.setItem(AppKeys.profileImage, profile);
+  }
+
+  get profileImage(): any {
+    return localStorage.getItem(AppKeys.profileImage) ?? "";
+  }
+
+
   set WorkingMonth(month: any) {
     localStorage.setItem(AppKeys.WorkingMonth, month);
   }
@@ -104,6 +115,7 @@ export class MasterDataService {
     localStorage.removeItem(AppKeys.ClientId);
     localStorage.removeItem(AppKeys.TimedOut);
     localStorage.removeItem(AppKeys.Role);
+    localStorage.removeItem(AppKeys.profileImage);
     localStorage.removeItem(AppKeys.WorkingMonth);
     localStorage.removeItem(AppKeys.WorkingYear);
     localStorage.removeItem(AppKeys.WorkingDate);
@@ -117,6 +129,7 @@ export class AppKeys {
   static readonly ClientId = "ClientId";
   static readonly TimedOut = "TimedOut";
   static readonly Role = "Role";
+  static readonly profileImage = "profileImage";
   static readonly WorkingMonth = "WorkingMonth";
   static readonly WorkingYear = "WorkingYear";
   static readonly WorkingDate = "WorkingDate";

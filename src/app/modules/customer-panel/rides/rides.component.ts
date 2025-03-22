@@ -4,6 +4,13 @@ import { Router } from '@angular/router';
 import { CommonForm } from 'src/app/shared/services/app-common-form';
 import { CabDetailsPageComponent } from './cab-details-page/cab-details-page.component';
 import { PopupService } from 'src/app/shared/services/popup.service';
+import { TransactionHandlerService } from 'src/app/shared/services/transaction-handler.service';
+import { MasterDataService } from 'src/app/shared/services/master-data.service';
+import { AppMessageService } from 'src/app/shared/services/app-message.service';
+import { CloudinaryService } from 'src/app/shared/services/api-services/cloudinary.service';
+import { firstValueFrom } from 'rxjs';
+import { VehicleService } from 'src/app/shared/services/api-services/vehicle.service';
+import { BookingService } from 'src/app/shared/services/api-services/booking.service';
 
 @Component({
   selector: 'app-rides',
@@ -16,10 +23,12 @@ veheiclesArry:any;
 constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    // private transactionService: TransactionHandlerService,
-    // private masterDataService: MasterDataService,
-    // private messageService: AppMessageService,
-    // private clientIpHandle: ClientIpHandleService,
+    private transactionService: TransactionHandlerService,
+    private vehicleService: VehicleService,
+    private masterDataService: MasterDataService,
+    private messageService: AppMessageService,
+    private cloudinaryService: CloudinaryService,
+    private bookingService: BookingService,
 
     // private sidebarService: SidebarService,
     // private appComponent: AppComponent,
@@ -29,64 +38,7 @@ constructor(
   }
 
   ngOnInit(): void {
-    this.veheiclesArry = [
-      {
-        img: 'vehicles/01.jpg',
-        vehicle: 'MG MG4 X Icon Long Range 2024',
-        price: '7550.00 LKR per 400km',
-        driver: 'Saman Kumara',
-        guest: 5,
-        phone: '0777636984'
-      },
-      {
-        img: 'vehicles/02.jpg',
-        vehicle: 'Suzuki Celerio VXI Auto 2014',
-        price: '4500.00 LKR per 400km',
-        driver: 'Palitha Munasinghe',
-        guest: 4,
-        phone: '0785647812'
-      },
-      {
-        img: 'vehicles/03.jpg',
-        vehicle: 'Micro Panda 2015',
-        price: '5000.00 LKR per 400km',
-        driver: 'Kasun Gunasekara',
-        guest: 5,
-        phone: '07745682342'
-      },
-      {
-        img: 'vehicles/01.jpg',
-        vehicle: 'MG MG4 X Icon Long Range 2024',
-        price: '7550.00 LKR per 400km',
-        driver: 'Saman Kumara',
-        guest: 6,
-        phone: '07615987562'
-      },
-      {
-        img: 'vehicles/01.jpg',
-        vehicle: 'MG MG4 X Icon Long Range 2024',
-        price: '7550.00 LKR per 400km',
-        driver: 'Saman Kumara',
-        guest: 5,
-        phone: '0777636984'
-      },
-      {
-        img: 'vehicles/01.jpg',
-        vehicle: 'MG MG4 X Icon Long Range 2024',
-        price: '7550.00 LKR per 400km',
-        driver: 'Saman Kumara',
-        guest: 5,
-        phone: '0777636984'
-      },
-      {
-        img: 'vehicles/01.jpg',
-        vehicle: 'MG MG4 X Icon Long Range 2024',
-        price: '7550.00 LKR per 400km',
-        driver: 'Saman Kumara',
-        guest: 5,
-        phone: '0777636984'
-      },
-    ]
+    this.loadInitialData();
   }
 
   createForm() {
@@ -96,6 +48,26 @@ constructor(
       });
   }
 
+    async loadInitialData() {
+        debugger
+        try {
+          const vehicleResult:any = await firstValueFrom(
+              this.vehicleService.getAllVehicles(false),
+          );
+          debugger
+          if (vehicleResult.IsSuccessful) {
+            this.veheiclesArry = vehicleResult.Result;
+            console.log("this.veheiclesArry", this.veheiclesArry);
+          }
+    
+          if (!vehicleResult.IsSuccessful) {
+            this.messageService.showErrorAlert(vehicleResult.Message);
+          }
+        } catch (error: any) {
+          this.messageService.showErrorAlert(error);
+        }
+      }
+
    openSelectedCab(vehicleData:any){
         this.popupService
         .OpenModel(CabDetailsPageComponent, {
@@ -103,7 +75,29 @@ constructor(
           width: "90vw",
           data: vehicleData
         })
-        .subscribe((res) => {});
+        .subscribe((res) => {
+          debugger
+          if(res){
+            let request = {
+              "startDate": res?.startDate,
+              "endDate": res?.endDate,
+              "description": res?.description,
+              "distance": res?.distance,
+              "vehicleId": vehicleData?.vehicleId
+            }
+            this.bookingService.saveBooking(request).subscribe((response) => {
+              debugger
+              if (response.IsSuccessful) {
+                this.messageService.showSuccessAlert(response.Message);
+                this.loadInitialData();
+              } else {
+                this.messageService.showErrorAlert(response.Message);
+              }
+            });
+          }
+          
+          console.log(res);
+        });
       }
 
 }

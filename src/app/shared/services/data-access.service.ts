@@ -230,11 +230,11 @@ export class DataAccessService {
 
   private mapToAppResponse(response: any) {
     let result = new AppResponse();
-    result.IsSuccessful = response.isSuccessful;
-    result.TimeStamp = response.timeStamp;
+    result.IsSuccessful = response.success;
+    result.TimeStamp = response.timestamp;
     result.StatusCode = response.statusCode;
     result.Message = response.message ? response.message : "";
-    result.Result = response.data;
+    result.Result = response.dataSet;
     return result;
   }
 }

@@ -118,6 +118,7 @@ import { NgxPrintModule } from "ngx-print";
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { reducers } from "./store/app.reducer";
+// import { Cloudinary } from 'cloudinary-core';
 
 @NgModule({
   imports: [
@@ -222,6 +223,10 @@ import { reducers } from "./store/app.reducer";
     NgxPrintModule,
     StoreModule.forRoot(reducers),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    // CloudinaryModule.forRoot({ Cloudinary }, {
+    //   cloud_name: 'dzzew69c1', 
+    //   upload_preset: 'cab_service' 
+    // } as CloudinaryConfiguration),
   ],
   declarations: [
     AppComponent,

@@ -11,12 +11,13 @@ export class ResourceService {
   private host: string = environment.apiURL + "/api/v1";
 
   private Auth = this.host + "/auth";
+  private Vehicle = this.host + "/vehicle";
+  private Booking = this.host + "/booking";
   private Store = this.host + "/store";
   private User = this.host + "/user";
   private Leave = this.host + "/leave";
   private MonthAudit = this.host + "/monthAudit";
   private Common = this.host + "/common";
-  private Vehicle = this.host + "/vehicle";
   private Trip = this.host + "/trip";
   private Expenses = this.host + "/expense";
   private Report = this.host + "/report";
@@ -37,26 +38,19 @@ export class ResourceService {
 
   user = {
     validateUser: this.User + "/validateUser",
-    saveUser: this.User,
-    getAllUsers: this.User,
+    saveUser: this.User + "/register",
+    getAllUsers: this.User + "/get-all",
     getUserById: this.User,
     blockUser: this.User + "/block",
     unblockUser: this.User + "/unblock",
-    updateUser: this.User,
-    deleteUser: this.User,
+    updateUser: this.User + "/admin/approve-driver",
+    updateUserProfile: this.User + "/profile",
+    deleteUser: this.User + "/admin/delete-user",
     getUsersByRole: this.User + "/userByRole",
   };
 
-  leave = {
-    saveLeave: this.Leave + "/apply",
-    getAllLeaves: this.Leave,
-    getLeaveById: this.Leave,
-    approveLeave: this.Leave + "/approve",
-    rejectLeave: this.Leave + "/reject",
-    cancel: this.Leave + "/cancel",
-    getLeaveCount: this.Leave + "/leaveCount",
-    updateLeave: this.Leave + "/update",
-    getEligibleLeaveForAdmin: this.Leave + "/eligibleLeaves",
+  booking = {
+    saveBooking: this.Booking + "/add-booking",
   };
 
   monthAudit = {
@@ -78,7 +72,7 @@ export class ResourceService {
 
   vehicle = {
     saveVehicle: this.Vehicle,
-    getAllVehicles: this.Vehicle,
+    getAllVehicles: this.Vehicle + "/get-all",
     getVehicleById: this.Vehicle,
     updateVehicle: this.Vehicle,
     deleteVehicleById: this.Vehicle,
