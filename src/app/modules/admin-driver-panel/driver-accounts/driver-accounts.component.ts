@@ -181,6 +181,15 @@ export class DriverAccountsComponent {
         confirmationConfig,
         (isConfirm: boolean) => {
           if (isConfirm) {
+            this.bookingService.DeleteBooking(e?.bookingId).subscribe((response) => {
+              debugger
+              if (response.IsSuccessful) {
+                this.msgService.showSuccessAlert(response.Message);
+                this.loadInitialData();
+              } else {
+                this.msgService.showErrorAlert(response.Message);
+              }
+          });
           }
         }
       );
