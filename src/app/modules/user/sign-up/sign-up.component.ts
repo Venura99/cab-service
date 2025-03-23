@@ -131,6 +131,16 @@ export class SignUpComponent {
         this.messageService.showErrorAlert('Password and Confirm Password does not match!');
         return;
       }
+
+      if(this.isdriver){
+        if(this.FV.validateControllers("firstName,lastName,phoneNumber,password,confirmPassword,vehicleType,registrationNo")){
+          return;
+        }
+      }else{
+        if(this.FV.validateControllers("firstName,lastName,phoneNumber,password,confirmPassword")){
+          return;
+        }
+      }
       
       // return;
       if(this.isdriver){
