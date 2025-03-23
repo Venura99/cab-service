@@ -82,9 +82,10 @@
             {{ rowData[col.field] }}
           </ng-container>
         </td>
-        <td class="text-center">
+        <td class="text-center" >
           <button
             id="start"
+            *ngIf="rowData.status == 1"
             pTooltip="Start Trip"
             pButton
             pRipple

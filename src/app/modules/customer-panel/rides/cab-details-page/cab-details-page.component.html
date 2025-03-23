@@ -50,11 +50,11 @@
                 <div class="grid formgrid p-fluid" >
                     <div class="field mb-4 col-12 md:col-4">
                         <label for="company_name" class="font-medium text-900">Start Date *</label>
-                        <input id="company_name" class="p-inputtext-lg" formControlName="startDate" type="date" pInputText>
+                        <input id="company_name" class="p-inputtext-lg" formControlName="startDate" type="date" [min]="getCurrentDate()" pInputText>
                     </div>
                     <div class="field mb-4 col-12 md:col-4">
                         <label for="customer_name" class="font-medium text-900">End Date *</label>
-                        <input id="customer_name" class="p-inputtext-lg" formControlName="endDate" type="date" pInputText>
+                        <input id="customer_name" class="p-inputtext-lg" formControlName="endDate" type="date" [min]="getCurrentDate()" pInputText>
                     </div>
                     <div class="field mb-4 col-12 md:col-4">
                         <label for="customer_name" class="font-medium text-900">Distance (Km) *</label>

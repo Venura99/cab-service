@@ -32,10 +32,12 @@ cols: any;
     this.cols = [
       { field: "bookingId", header: "Booking ID" },
       { field: "fname", header: "Name" },
+      { field: "driver", header: "Driver" },
       { field: "startDate", header: "Start Date" },
       { field: "endDate", header: "End Date" },
       { field: "distance", header: "Distance" },
       { field: "totalAmount", header: "Total" },
+      { field: "status", header: "Status" },
     ];
 
     this.loadInitialData();
@@ -70,31 +72,57 @@ cols: any;
                 }
               });
               this.vehicleId = this.driverData[0]?.vehicleId;
+              let vehicle = this.driverData[0];
+              console.log("vehicle", this.driverData);
 
               if (bookingResult.IsSuccessful) {
                 let roleId = this.masterDataService.Role;
                 if(roleId == 3){
                   bookingResult.Result.forEach((element: any) => {
                     if (element?.vehicle?.vehicleId === this.vehicleId && element?.status != 1) {
-                      this.bookingData.push({
-                        ...element,
-                        fname: element?.user?.firstName || "N/A",
-                        lname: element?.user?.lastName || "N/A",
-                        mobile: element?.user?.phoneNumber || "N/A"
-                      });
+                      vehicleResult.Result.forEach((element2: any) => {
+                        if(element2.vehicleId === element?.vehicle?.vehicleId){
+                          this.bookingData.push({
+                            ...element,
+                            fname: element?.user?.firstName || "N/A",
+                            lname: element?.user?.lastName || "N/A",
+                            mobile: element?.user?.phoneNumber || "N/A",
+                            driver: element2?.driver?.firstName + " " + element2?.driver?.lastName || "N/A",
+                          });
+                        }
+                   
+                    });
                     }
                   });
                 }else{
                   bookingResult.Result.forEach((element: any) => {
-                      this.bookingData.push({
-                        ...element,
-                        fname: element?.user?.firstName || "N/A",
-                        lname: element?.user?.lastName || "N/A",
-                        mobile: element?.user?.phoneNumber || "N/A"
-                      });
+                    vehicleResult.Result.forEach((element2: any) => {
+                      if(element2.vehicleId === element?.vehicle?.vehicleId){
+                        this.bookingData.push({
+                          ...element,
+                          fname: element?.user?.firstName || "N/A",
+                          lname: element?.user?.lastName || "N/A",
+                          mobile: element?.user?.phoneNumber || "N/A",
+                          driver: element2?.driver?.firstName + " " + element2?.driver?.lastName || "N/A",
+                        });
+                      }
+                 
+                  });
                   });
                 }
                 
+                // this.driverData.forEach((element) => {
+                //   this.bookingData.forEach((element1) => {
+                //     if(element?.vehicleId == element1?.vehicle?.vehicleId){
+                //       this.bookingData.push({
+                //         ...element,
+                //         driverf: element?.driver?.firstName || "N/A",
+                //         driverl: element?.driver?.lastName || "N/A",
+                //         // regNo: element?.user?.firstName || "N/A",
+                //       });
+                //     }
+                //   });
+                // });
               
                 console.log("Updated bookingData", this.bookingData);
               }

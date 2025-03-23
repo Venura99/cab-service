@@ -52,12 +52,21 @@ export class UpdateBookingFormComponent {
         this.FV.setValue("description", data.description);
       }
 
+      getCurrentDate(): string {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+      }
+
     confirmBooking(){
       debugger
       if(this.FV.validateControllers("startDate,endDate,distance")){
         this.messageService.showErrorAlert('Please fill all the required fields!');
         return;
       }
+      
   
       const inputValue:any = {
         startDate: this.FV.getValue("startDate"),

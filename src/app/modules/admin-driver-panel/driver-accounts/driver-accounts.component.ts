@@ -33,6 +33,7 @@ export class DriverAccountsComponent {
     this.cols = [
       { field: "bookingId", header: "Booking ID" },
       { field: "fname", header: "Name" },
+      { field: "driver", header: "Driver" },
       { field: "startDate", header: "Start Date" },
       { field: "endDate", header: "End Date" },
       { field: "distance", header: "Distance" },
@@ -71,7 +72,7 @@ export class DriverAccountsComponent {
                 }
               });
               this.vehicleId = this.driverData[0]?.vehicleId;
-
+              let vehicle = this.driverData[0];
               if (bookingResult.IsSuccessful) {
                 bookingResult.Result.forEach((element: any) => {
                   if (element?.vehicle?.vehicleId === this.vehicleId && element?.status != 3) {
@@ -79,7 +80,8 @@ export class DriverAccountsComponent {
                       ...element,
                       fname: element?.user?.firstName || "N/A",
                       lname: element?.user?.lastName || "N/A",
-                      mobile: element?.user?.phoneNumber || "N/A"
+                      mobile: element?.user?.phoneNumber || "N/A",
+                      driver: vehicle?.driver?.firstName + " " + vehicle?.driver?.lastName || "N/A",
                     });
                   }
                 });
