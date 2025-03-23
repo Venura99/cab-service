@@ -80,7 +80,7 @@ export class DefaultLayoutNewComponent {
         label: "Trip Management",
         icon: "pi pi-users",
         routerLink: "/driver/driver-accounts",
-        isVisible: roleId == 2 || roleId == 3 ? true : false,
+        isVisible: roleId == 3 ? true : false,
         // isVisible: this.checkUserAuthorizedToAccess([
         //   AppModule.SuperAdminUserManagement,
         // ]),
