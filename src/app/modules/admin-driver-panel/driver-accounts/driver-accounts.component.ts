@@ -3,6 +3,11 @@ import { MessageService } from "primeng/api";
 import { AppMessageService } from "src/app/shared/services/app-message.service";
 import { PopupService } from "src/app/shared/services/popup.service";
 import { DriverAccountsFormComponent } from "./driver-accounts-form/driver-accounts-form.component";
+import { MasterDataService } from "src/app/shared/services/master-data.service";
+import { CloudinaryService } from "src/app/shared/services/api-services/cloudinary.service";
+import { BookingService } from "src/app/shared/services/api-services/booking.service";
+import { firstValueFrom, forkJoin } from "rxjs";
+import { VehicleService } from "src/app/shared/services/api-services/vehicle.service";
 
 @Component({
   selector: "app-driver-accounts",
@@ -12,80 +17,85 @@ import { DriverAccountsFormComponent } from "./driver-accounts-form/driver-accou
 export class DriverAccountsComponent {
   cols: any;
   records: any[] = [];
-
+  bookingData: any[] = [];
+  driverData: any[] = [];
+  vehicleId:any;
   constructor(
-    public messageService: MessageService,
-    private msgService: AppMessageService,
-    private popupService: PopupService
+        private masterDataService: MasterDataService,
+        private msgService: AppMessageService,
+        private popupService: PopupService,
+        private cloudinaryService: CloudinaryService,
+        private vehicleService: VehicleService,
+        private bookingService: BookingService
   ) {}
 
   ngOnInit(): void {
     this.cols = [
-      { field: "id", header: "ID" },
-      { field: "fname", header: "First Name" },
-      { field: "lname", header: "Last Name" },
-      { field: "mobile", header: "Mobile" },
-      { field: "vType", header: "Vehicle Type" },
-      { field: "vNo", header: "Vehicle No" },
+      { field: "bookingId", header: "Booking ID" },
+      { field: "fname", header: "Name" },
+      { field: "startDate", header: "Start Date" },
+      { field: "endDate", header: "End Date" },
+      { field: "distance", header: "Distance" },
+      { field: "totalAmount", header: "Total" },
     ];
 
+    this.loadInitialData();
     this.records = [
-      {
-        id: 1,
-        fname: "Kasun",
-        lname: "Gunawardana",
-        mobile: "0777545852",
-        vType: "Nissan FB50",
-        vNo: "WP-635125",
-        status: "Pending",
-      },
-      {
-        id: 2,
-        fname: "Palitha",
-        lname: "Perera",
-        mobile: "0784589631",
-        vType: "Honda Fit",
-        vNo: "WP-244343",
-        status: "Pending",
-      },
-      {
-        id: 3,
-        fname: "Nuwan",
-        lname: "Kulasekara",
-        mobile: "0768454545",
-        vType: "Alto 2014",
-        vNo: "WP-435354",
-        status: "Approved",
-      },
-      {
-        id: 3,
-        fname: "Lasith",
-        lname: "Malinga",
-        mobile: "0725449541",
-        vType: "Suzyki Alto X453",
-        vNo: "SP-466756",
-        status: "Approved",
-      },
     ];
 
-    // this.loadInitialData()
+    
   }
 
-  // async loadInitialData() {
-  //   try {
-  //     debugger
-  //     const [users]: any = await forkJoin([
-  //       this.usersService.GetAllUsers()
-  //     ]).toPromise()
+    async loadInitialData() {
+          debugger
+          try {
+            let userId = this.masterDataService.ClientId;
+            this.bookingData = [];
+            this.driverData = [];
+            const [vehicleResult, bookingResult]: any = await firstValueFrom(
+              forkJoin([
+                this.vehicleService.getAllVehicles(true),
+                this.bookingService.GetAllBooking(),
+              ])
+            );
+            debugger
+            if (vehicleResult.IsSuccessful) {
+              // this.bookingData = vehicleResult.Result;
+              vehicleResult.Result.forEach((element) => {
+                if(element?.driver?.userId == userId){
+                  this.driverData.push(element);
+                   
+                  console.log("this.driverData", this.driverData);
+                  // this.bookingData.push(element);
+                  // console.log("this.bookingData", this.bookingData);
+                }
+              });
+              this.vehicleId = this.driverData[0]?.vehicleId;
 
-  //     console.log(users.dataSet)
-
-  //     users.isSuccessful ? this.records.push(users.dataSet) : this.msgService.showErrorAlert(users.message)
-
-  //   } catch (error: any) {
-  //     this.msgService.showErrorAlert(error)
-  //   }
-  // }
+              if (bookingResult.IsSuccessful) {
+                bookingResult.Result.forEach((element: any) => {
+                  if (element?.vehicle?.vehicleId === this.vehicleId && element?.status != 3) {
+                    this.bookingData.push({
+                      ...element,
+                      fname: element?.user?.firstName || "N/A",
+                      lname: element?.user?.lastName || "N/A",
+                      mobile: element?.user?.phoneNumber || "N/A"
+                    });
+                  }
+                });
+              
+                console.log("Updated bookingData", this.bookingData);
+              }
+              
+            }
+      
+            if (!vehicleResult.IsSuccessful) {
+              this.msgService.showErrorAlert(vehicleResult.Message);
+            }
+          } catch (error: any) {
+            this.msgService.showErrorAlert(error);
+          }
+        }
 
   clickAddNew() {
     let header = "Add New Driver";
@@ -107,15 +117,57 @@ export class DriverAccountsComponent {
       .subscribe((result) => {});
   }
 
-  viewLeave(e: any) {
-    let header = "Leave Confirmation";
-    let data = "";
-    let width = "50vw";
+  onClickStartTrip(e: any) {
+    let confirmationConfig = {
+      message: "Are you sure you want to start this trip?",
+      header: "Confirmation",
+      icon: "pi pi-exclamation-triangle",
+    };
 
-    // this.popupService
-    //   .OpenModelPrint(LeaveConfirmationComponent, { header, data, width })
-    //   .subscribe((result) => {});
+    this.msgService.ConfirmPopUp(
+      confirmationConfig,
+      (isConfirm: boolean) => {
+        if (isConfirm) {
+          this.bookingService.StartTrip(e?.bookingId).subscribe((response) => {
+            debugger
+            if (response.IsSuccessful) {
+              this.msgService.showSuccessAlert(response.Message);
+              this.loadInitialData();
+            } else {
+              this.msgService.showErrorAlert(response.Message);
+            }
+        });
+      }});
   }
+
+  onClickEndTrip(e: any) {
+    let confirmationConfig = {
+      message: "Are you sure you want to end this trip?",
+      header: "Confirmation",
+      icon: "pi pi-exclamation-triangle",
+    };
+
+    this.msgService.ConfirmPopUp(
+      confirmationConfig,
+      (isConfirm: boolean) => {
+        if (isConfirm) {
+          let request = {
+            "bookingId": e?.bookingId,
+            "distance": e?.distance,
+            "discountRate": e?.discountRate,
+          }
+          this.bookingService.EndTrip(request).subscribe((response) => {
+            debugger
+            if (response.IsSuccessful) {
+              this.msgService.showSuccessAlert(response.Message);
+              this.loadInitialData();
+            } else {
+              this.msgService.showErrorAlert(response.Message);
+            }
+        });
+      }});
+  }
+
 
   deleteUser(e: any) {
     try {

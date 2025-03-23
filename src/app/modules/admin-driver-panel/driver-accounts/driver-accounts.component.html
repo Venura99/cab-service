@@ -2,7 +2,7 @@
   <p-table
     #dt
     [columns]="cols"
-    [value]="records"
+    [value]="bookingData"
     [tableStyle]="{ 'min-width': '60rem' }"
     [paginator]="true"
     [rows]="5"
@@ -13,7 +13,7 @@
     <ng-template pTemplate="caption">
       <div class="flex justify-content-between mb-5">
         <div class="flex justify-content-between align-items-center">
-          <div class="text-2xl font-semibold">Driver Accounts Management</div>
+          <div class="text-2xl font-semibold">Trip Management</div>
         </div>
         <div class="flex">
           <span class="p-input-icon-left ml-auto">
@@ -26,12 +26,12 @@
               placeholder="Search keyword"
             />
           </span>
-          <p-button
+          <!-- <p-button
             styleClass="ml-2"
             icon="pi pi-plus"
             label="Add New Driver"
             (onClick)="clickAddNew()"
-          ></p-button>
+          ></p-button> -->
         </div>
       </div>
     </ng-template>
@@ -70,35 +70,38 @@
                 ></button>
               </div>
             </ng-container> -->
-          <ng-container *ngIf="col.field == 'createdAt'">
+          <ng-container *ngIf="col.field == 'startDate' || col.field == 'endDate'">
             <div>{{ rowData[col.field] | date : "yyyy-MM-dd" }}</div>
           </ng-container>
+          <ng-container *ngIf="col.field == 'totalAmount'">
+            <div>{{ rowData[col.field] | number:'1.2-2' }}</div>
+          </ng-container>
           <ng-container
-            *ngIf="col.field != 'createdAt' && col.field != 'status'"
+            *ngIf="col.field != 'startDate' && col.field != 'endDate' && col.field != 'totalAmount'"
           >
             {{ rowData[col.field] }}
           </ng-container>
         </td>
         <td class="text-center">
           <button
-            id="view"
-            pTooltip="View"
+            id="start"
+            pTooltip="Start Trip"
             pButton
             pRipple
-            icon="pi pi-eye"
+            icon="pi pi-arrow-right"
             tooltipPosition="bottom"
             class="p-button-rounded p-button-success p-button-outlined p-button-sm mr-2"
-            (click)="viewLeave(rowData)"
+            (click)="onClickStartTrip(rowData)"
           ></button>
           <button
-            id="edit"
-            pTooltip="Edit"
+            id="end"
+            pTooltip="End Trip"
             pButton
             pRipple
-            icon="pi pi-pencil"
+            icon="pi pi-stop-circle"
             tooltipPosition="bottom"
-            class="button p-button-rounded p-button-outlined p-button-sm"
-            (click)="editDriver(rowData)"
+            class="button p-button-rounded p-button-outlined  p-button-sm"
+            (click)="onClickEndTrip(rowData)"
           ></button>
           <button
             id="delete"

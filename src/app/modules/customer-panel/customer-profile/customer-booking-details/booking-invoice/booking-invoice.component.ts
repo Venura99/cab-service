@@ -28,6 +28,7 @@ export class BookingInvoiceComponent {
   ngOnInit(): void {
     // this.sidebarService.setFooterTemplate(this.templateRef);
     console.log('Order Details', this.config.data)
+    debugger
     this.odPrintDetails = this.config.data
     this.odDetailResponse = this.config.data.items
     this.ResName = this.config.data.resName

@@ -5,6 +5,14 @@ import { CommonForm } from "src/app/shared/services/app-common-form";
 import { AppMessageService } from "src/app/shared/services/app-message.service";
 import { PopupService } from "src/app/shared/services/popup.service";
 import { BookingInvoiceComponent } from "./booking-invoice/booking-invoice.component";
+import { SidebarService } from "src/app/shared/services/sidebar.service";
+import { Router } from "@angular/router";
+import { TransactionHandlerService } from "src/app/shared/services/transaction-handler.service";
+import { MasterDataService } from "src/app/shared/services/master-data.service";
+import { CloudinaryService } from "src/app/shared/services/api-services/cloudinary.service";
+import { firstValueFrom } from "rxjs";
+import { BookingService } from "src/app/shared/services/api-services/booking.service";
+import { UpdateBookingFormComponent } from "./update-booking-form/update-booking-form.component";
 
 @Component({
   selector: "app-customer-booking-details",
@@ -18,12 +26,18 @@ export class CustomerBookingDetailsComponent {
   pastBookingDetails: any[] = [];
   items: MenuItem[] | undefined;
   activeItem: MenuItem | undefined;
-
+  bookingData:any;
   constructor(
     private formBuilder: FormBuilder,
-    private popup: PopupService,
-    private msgService: AppMessageService
-  ) {
+    private sidebarService: SidebarService,
+    private router: Router,
+    private transactionService: TransactionHandlerService,
+    private masterDataService: MasterDataService,
+    private messageService: AppMessageService,
+    private popupService: PopupService,
+    private cloudinaryService: CloudinaryService,
+    private bookingService: BookingService
+) {
     this.createForm();
   }
 
@@ -45,100 +59,7 @@ export class CustomerBookingDetailsComponent {
     ];
 
     this.activeItem = this.items[0];
-
-    this.pendingBookingDetails = [
-      {
-        bookingId: "BK-1001",
-        customerName: "John Doe",
-        carModel: "Toyota Corolla 2022",
-        vehicleNumber: "AB-1234",
-        img: "vehicles/01.jpg",
-        pickupDate: "2025-03-15",
-        returnDate: "2025-03-18",
-        pickupTime: "10:00 AM",
-        pickupLocation: "Colombo City Center",
-        dropoffLocation: "Negombo Town Hall",
-        bookingStatus: "Pending Confirmation",
-        paymentStatus: "Pending",
-        totalAmount: "LKR 35,000",
-        driverAssigned: false,
-        bookingType: "Self Drive",
-      },
-      {
-        bookingId: "BK-1002",
-        customerName: "Jane Smith",
-        carModel: "Honda Civic 2023",
-        vehicleNumber: "CB-5678",
-        img: "vehicles/02.jpg",
-        pickupDate: "2025-03-20",
-        returnDate: "2025-03-25",
-        pickupTime: "9:30 AM",
-        pickupLocation: "Kandy Railway Station",
-        dropoffLocation: "Kandy Railway Station",
-        bookingStatus: "Confirmed",
-        paymentStatus: "Partially Paid",
-        totalAmount: "LKR 50,000",
-        driverAssigned: true,
-        driverName: "Ruwan Perera",
-        driverContact: "+94 77 123 4567",
-        bookingType: "With Driver",
-      },
-    ];
-
-    this.pastBookingDetails = [
-      {
-        bookingId: "PBK-1001",
-        customerName: "Jane Cooper",
-        carModel: "Toyota Corolla",
-        img: "vehicles/01.jpg",
-        pickupDate: "2025-01-10",
-        pickupTime: "10:00 AM",
-        returnDate: "2025-01-12",
-        pickupLocation: "Colombo",
-        dropoffLocation: "Kandy",
-        bookingStatus: "Completed",
-        paymentStatus: "Paid",
-        totalAmount: "Rs. 20,000",
-        bookingType: "With Driver",
-        driverAssigned: true,
-        driverName: "Samantha Perera",
-        driverContact: "077-1234567",
-      },
-      {
-        bookingId: "PBK-1002",
-        customerName: "Michael Fernando",
-        carModel: "Honda Civic",
-        img: "vehicles/02.jpg",
-        pickupDate: "2025-01-05",
-        pickupTime: "2:00 PM",
-        returnDate: "2025-01-07",
-        pickupLocation: "Galle",
-        dropoffLocation: "Negombo",
-        bookingStatus: "Completed",
-        paymentStatus: "Paid",
-        totalAmount: "Rs. 18,500",
-        bookingType: "Self Drive",
-        driverAssigned: false,
-      },
-      {
-        bookingId: "PBK-1003",
-        customerName: "Nimali Senanayake",
-        carModel: "Nissan X-Trail",
-        img: "vehicles/03.jpg",
-        pickupDate: "2024-12-25",
-        pickupTime: "9:00 AM",
-        returnDate: "2024-12-28",
-        pickupLocation: "Kurunegala",
-        dropoffLocation: "Matara",
-        bookingStatus: "Completed",
-        paymentStatus: "Paid",
-        totalAmount: "Rs. 24,000",
-        bookingType: "With Driver",
-        driverAssigned: true,
-        driverName: "Ajith Kumara",
-        driverContact: "076-9988776",
-      },
-    ];
+    this.loadInitialData();
 
     // this.userDetail = this.addUserControlFlowService.getUserDetail();
     // this.setValues();
@@ -151,6 +72,37 @@ export class CustomerBookingDetailsComponent {
   //   this.FV.setValue("accHolderName", this.userDetail?.accountHolderName);
   //   this.FV.setValue("accHolderAddress", this.userDetail?.accountHolderAddress);
   // }
+
+  async loadInitialData() {
+        debugger
+        try {
+          let userId = this.masterDataService.ClientId;
+          const bookingResult:any = await firstValueFrom(
+              this.bookingService.GetAllBooking(),
+          );
+          debugger
+          if (bookingResult.IsSuccessful) {
+            this.bookingData = bookingResult.Result;
+            this.bookingData.forEach((element) => {
+              if(element?.user?.userId == userId && element?.status == 1){
+                this.pendingBookingDetails.push(element);
+                console.log("this.pendingBookingDetails", this.pendingBookingDetails);
+              }else if(element?.user?.userId == userId && element?.status == 3){
+                this.pastBookingDetails.push(element);
+                console.log("this.pastBookingDetails", this.pastBookingDetails);
+              }
+            });
+            console.log("this.bookingData", this.bookingData);
+          }
+    
+          if (!bookingResult.IsSuccessful) {
+            this.messageService.showErrorAlert(bookingResult.Message);
+          }
+        } catch (error: any) {
+          this.messageService.showErrorAlert(error);
+        }
+      }
+  
 
   onClick(item) {
     this.activeItem = item;
@@ -165,11 +117,72 @@ export class CustomerBookingDetailsComponent {
       let header = "Booking Invoice";
       let width = "50vw";
       let data = e;
-      this.popup
+      this.popupService
         .OpenModelPrint(BookingInvoiceComponent, { header, data, width })
         .subscribe((result) => {});
     } catch (error: any) {
-      this.msgService.showErrorAlert(error);
+      this.messageService.showErrorAlert(error);
     }
+  }
+
+  onClickEdit(vehicleData:any){
+          this.popupService
+          .OpenModel(UpdateBookingFormComponent, {
+            header: "",
+            width: "90vw",
+            data: vehicleData
+          })
+          .subscribe((res) => {
+            debugger
+            if(res){
+              let request = {
+                "startDate": res?.startDate,
+                "endDate": res?.endDate,
+                "description": res?.description,
+                "distance": res?.distance,
+              }
+              this.bookingService.UpdateBooking(vehicleData?.bookingId,request).subscribe((response) => {
+                debugger
+                if (response.IsSuccessful) {
+                  this.messageService.showSuccessAlert(response.Message);
+                  this.pendingBookingDetails = [];
+                  this.pastBookingDetails= [];
+                  this.loadInitialData();
+                } else {
+                  this.messageService.showErrorAlert(response.Message);
+                }
+              });
+            }
+            
+            console.log(res);
+          });
+  }
+
+  onClickDelete(data:any){
+    let confirmationConfig = {
+      message: "Are you sure you want to delete this booking?",
+      header: "Confirmation",
+      icon: "pi pi-exclamation-triangle",
+    };
+
+    this.messageService.ConfirmPopUp(
+      confirmationConfig,
+      (isConfirm: boolean) => {
+        if (isConfirm) {
+          this.bookingService.DeleteBooking(data?.bookingId).subscribe((response) => {
+            debugger
+            if (response.IsSuccessful) {
+              this.messageService.showSuccessAlert(response.Message);
+              this.pendingBookingDetails = [];
+              this.pastBookingDetails= [];
+              this.loadInitialData();
+            } else {
+              this.messageService.showErrorAlert(response.Message);
+            }
+        });
+        }
+      }
+    );
+      
   }
 }

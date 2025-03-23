@@ -6,9 +6,10 @@ import { CustomerBookingDetailsComponent } from "./customer-booking-details/cust
 import { TransactionHandlerService } from "src/app/shared/services/transaction-handler.service";
 import { MasterDataService } from "src/app/shared/services/master-data.service";
 import { CloudinaryService } from "src/app/shared/services/api-services/cloudinary.service";
-import { firstValueFrom } from "rxjs";
+import { firstValueFrom, forkJoin } from "rxjs";
 import { PopupService } from "src/app/shared/services/popup.service";
 import { CustomerEditDetailsComponent } from "./customer-edit-details/customer-edit-details.component";
+import { BookingService } from "src/app/shared/services/api-services/booking.service";
 
 @Component({
   selector: "app-customer-profile",
@@ -19,6 +20,9 @@ export class CustomerProfileComponent {
   userData:any = [];
   userName: any;
   profileImage: any;
+  pendingBookingDetails: any[] = [];
+  pastBookingDetails: any[] = [];
+  bookingData:any;
   constructor(
     private sidebarService: SidebarService,
     private router: Router,
@@ -27,6 +31,7 @@ export class CustomerProfileComponent {
     private messageService: AppMessageService,
     private popupService: PopupService,
     private cloudinaryService: CloudinaryService,
+    private bookingService: BookingService
   ) {}
 
   ngOnInit(): void {
@@ -64,9 +69,17 @@ export class CustomerProfileComponent {
       debugger
       try {
         let userId = this.masterDataService.ClientId;
-        const userResult:any = await firstValueFrom(
+
+        const [userResult, bookingResult]: any = await firstValueFrom(
+          forkJoin([
             this.transactionService.getUserById(userId),
+            this.bookingService.GetAllBooking(),
+          ])
         );
+
+        // const userResult:any = await firstValueFrom(
+        //     this.transactionService.getUserById(userId),
+        // );
         debugger
         if (userResult.IsSuccessful) {
           this.userData = userResult.Result;
@@ -78,6 +91,20 @@ export class CustomerProfileComponent {
         if (!userResult.IsSuccessful) {
           this.messageService.showErrorAlert(userResult.Message);
         }
+
+        if (bookingResult.IsSuccessful) {
+          this.bookingData = bookingResult.Result;
+          this.bookingData.forEach((element) => {
+            if(element?.user?.userId == userId && element?.status == 1){
+              this.pendingBookingDetails.push(element);
+              console.log("this.pendingBookingDetails", this.pendingBookingDetails);
+            }else if(element?.user?.userId == userId && element?.status == 3){
+              this.pastBookingDetails.push(element);
+              console.log("this.pastBookingDetails", this.pastBookingDetails);
+            }
+          });
+          console.log("this.bookingData", this.bookingData);
+        }
       } catch (error: any) {
         this.messageService.showErrorAlert(error);
       }
@@ -87,7 +114,7 @@ export class CustomerProfileComponent {
     clickOnEditDetails(){
             this.popupService
             .OpenModel(CustomerEditDetailsComponent, {
-              header: "Driver Details",
+              header: "Customer Details",
               width: "40vw",
               data: this.userData
             })

@@ -17,7 +17,7 @@
   </div> -->
   <div class="flex justify-content-between">
     <div>
-      <div>Cab Service</div>
+      <div>Mega City Cab Service</div>
       <div>Colombo 10</div>
       <div>+94 77 566 1026/ +94 11 285 4620</div>
     </div>
@@ -41,43 +41,43 @@
         <div class="p-fluid grid formgrid">
           <div class="field col-6">
             <div class="label">Booking ID</div>
-            <div class="value">{{ odPrintDetails.bookingId }}</div>
+            <div class="value">{{ odPrintDetails?.bookingId }}</div>
           </div>
           <div class="field col-6">
             <div class="label">Customer Name</div>
-            <div class="value">{{ odPrintDetails.customerName }}</div>
+            <div class="value">{{ odPrintDetails?.user?.firstName }} {{ odPrintDetails?.user?.lastName }}</div>
           </div>
           <div class="field col-6">
             <div class="label">Car Model</div>
-            <div class="value">{{ odPrintDetails.carModel }}</div>
+            <div class="value">{{ odPrintDetails?.vehicle?.vehicleType }}</div>
           </div>
           <div class="field col-6">
-            <div class="label">Booking Type</div>
-            <div class="value">{{ odPrintDetails.bookingType }}</div>
+            <div class="label">Vehicle Registration No</div>
+            <div class="value">{{ odPrintDetails?.vehicle?.registrationNo }}</div>
           </div>
         </div>
       </div>
       <div class="col-6">
         <div class="p-fluid grid formgrid">
           <div class="field col-6">
-            <div class="label">Pickup Date</div>
-            <div class="value">{{ odPrintDetails.pickupDate }}</div>
+            <div class="label">Start Date</div>
+            <div class="value">{{ odPrintDetails?.startDate | date : "yyyy-MM-dd" }}</div>
           </div>
           <div class="field col-6">
-            <div class="label">Pickup Time</div>
-            <div class="value">{{ odPrintDetails.pickupTime }}</div>
+            <div class="label">End Time</div>
+            <div class="value">{{ odPrintDetails?.endDate | date : "yyyy-MM-dd" }}</div>
           </div>
           <div class="field col-6">
-            <div class="label">Return Date</div>
-            <div class="value">{{ odPrintDetails.returnDate }}</div>
+            <div class="label">Distance</div>
+            <div class="value">{{ odPrintDetails?.distance }}Km</div>
           </div>
           <div class="field col-6">
-            <div class="label">Pickup Location</div>
-            <div class="value">{{ odPrintDetails.pickupLocation }}</div>
+            <div class="label">Payment Status</div>
+            <div class="value">Complete</div>
           </div>
         </div>
       </div>
-      <div class="col-6">
+      <!-- <div class="col-6">
         <div class="p-fluid grid formgrid">
           <div class="field col-6">
             <div class="label">Dropoff Location</div>
@@ -98,27 +98,43 @@
             <div class="value">{{ odPrintDetails.driverContact }}</div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
     <hr />
-    <!-- Booking Status and Payment Details -->
+    <!-- Bill Details -->
     <div class="booking-status">
-      <h3>Status & Payment</h3>
+      <h3>Bill Details</h3>
       <div class="p-fluid grid formgrid">
         <div class="field col-4">
-          <div class="label">Booking Status</div>
-          <div class="value">{{ odPrintDetails.bookingStatus }}</div>
+          <div class="label">Charge per Km</div>
+          <div class="value">{{ odPrintDetails.chargePerKm | number:'1.2-2'}}</div>
         </div>
         <div class="field col-4">
-          <div class="label">Payment Status</div>
-          <div class="value">{{ odPrintDetails.paymentStatus }}</div>
+          <div class="label">Gross Total</div>
+          <div class="value">{{ odPrintDetails.grossAmount | number:'1.2-2'}}</div>
         </div>
         <div class="field col-4">
-          <div class="label">Total Amount</div>
-          <div class="value">{{ odPrintDetails.totalAmount }}</div>
+          <div class="label">Discount</div>
+          <div class="value">{{ odPrintDetails.discountAmount | number:'1.2-2'}}</div>
+        </div>
+      </div>
+      <div class="p-fluid grid formgrid">
+        <div class="field col-4">
+          <div class="label">Service Charge</div>
+          <div class="value">{{ odPrintDetails.serviceChargeAmount | number:'1.2-2'}}</div>
+        </div>
+        <div class="field col-4">
+          <div class="label">Taxes</div>
+          <div class="value">{{ odPrintDetails.taxAmount | number:'1.2-2'}}</div>
+        </div>
+        <div class="field col-4">
+          <div class="label">Vat</div>
+          <div class="value">{{ odPrintDetails.vatAmount | number:'1.2-2'}}</div>
         </div>
       </div>
     </div>
+
+    <h5>Total Amount : {{ odPrintDetails.totalAmount | number:'1.2-2'}}</h5>
 
     <hr />
 

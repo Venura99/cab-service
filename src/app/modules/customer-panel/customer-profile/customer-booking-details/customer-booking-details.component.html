@@ -28,69 +28,56 @@
           >
             <div class="flex align-items-start mr-0 lg:mr-5">
               <img
-                src="assets/images/{{ details.img }}"
+                [src]=details?.vehicle?.vehicleImage1
                 class="mr-3 w-3rem h-3rem"
                 alt="{{ details.carModel }}"
               />
               <div>
                 <span class="text-900 font-medium block mb-2"
-                  >#{{ details.bookingId }}</span
+                  >Booking Id: #{{ details.bookingId }}</span
                 >
                 <div class="text-700 mb-1">
-                  <b>Customer:</b> {{ details.customerName }}
+                  <b>Customer: </b> {{  details?.user?.firstName }} {{ details?.user?.lastName }} 
                 </div>
                 <div class="text-700 mb-1">
-                  <b>Pickup:</b> {{ details.pickupDate }} -
-                  {{ details.pickupTime }}
+                  <b>Vehicle Type: </b> {{ details?.vehicle?.vehicleType }}
                 </div>
                 <div class="text-700 mb-1">
-                  <b>Return:</b> {{ details.returnDate }}
+                  <b>Start Date: </b> {{ details?.startDate | date : "yyyy-MM-dd"}}
                 </div>
                 <div class="text-700 mb-1">
-                  <b>Pickup Location:</b> {{ details.pickupLocation }}
+                  <b>End Date: </b> {{ details?.endDate | date : "yyyy-MM-dd"}}
                 </div>
                 <div class="text-700 mb-1">
-                  <b>Drop-off Location:</b> {{ details.dropoffLocation }}
+                  <b>Description: </b> {{ details?.description }}
                 </div>
                 <div class="text-700 mb-1">
-                  <b>Status:</b> {{ details.bookingStatus }}
+                  <b>Distance: </b> {{ details.distance }}Km
                 </div>
                 <div class="text-700 mb-1">
-                  <b>Payment:</b> {{ details.paymentStatus }} |
-                  {{ details.totalAmount }}
+                  <b>Total Amount: </b> {{ details.totalAmount | number:'1.2-2'}}
                 </div>
-                <div class="text-700 mb-1">
-                  <b>Booking Type:</b> {{ details.bookingType }}
-                </div>
-                <div class="text-700 mb-1" *ngIf="details.driverAssigned">
-                  <b>Driver:</b> {{ details.driverName }} ({{
-                    details.driverContact
-                  }})
-                </div>
-                <span
+                <!-- <span
                   class="text-right block text-500 font-medium ml-7 md:ml-5 mt-2 md:mt-0"
                   >14 mins ago</span
-                >
+                > -->
               </div>
             </div>
             <div class="flex">
               <button
                 pButton
                 pRipple
-                [label]="details.bookingStatus"
-                [class]="
-                  details.bookingStatus == 'Pending Confirmation'
-                    ? 'p-button-sm p-button-primary p-button-outlined'
-                    : 'p-button-sm p-button-success p-button-outlined'
-                "
+                icon="pi pi-pencil"
+                class="p-button-sm p-button-primary p-button-outlined"
+                (click)="onClickEdit(details)"
               ></button>
               <button
-                *ngIf="details.bookingStatus == 'Pending Confirmation'"
                 pButton
                 pRipple
                 icon="pi pi-times"
                 label="Cancel"
                 class="p-button-sm p-button-danger ml-2"
+                (click)="onClickDelete(details)"
               ></button>
             </div>
           </li>
@@ -106,45 +93,35 @@
         >
           <div class="flex align-items-start mr-0 lg:mr-5">
             <img
-              src="assets/images/{{ details.img }}"
-              class="mr-3 w-3rem h-3rem"
-              alt="{{ details.carModel }}"
-            />
-            <div>
-              <span class="text-900 font-medium block mb-2"
-                >#{{ details.bookingId }}</span
-              >
-              <div class="text-700 mb-1">
-                <b>Customer:</b> {{ details.customerName }}
-              </div>
-              <div class="text-700 mb-1">
-                <b>Pickup:</b> {{ details.pickupDate }} -
-                {{ details.pickupTime }}
-              </div>
-              <div class="text-700 mb-1">
-                <b>Return:</b> {{ details.returnDate }}
-              </div>
-              <div class="text-700 mb-1">
-                <b>Pickup Location:</b> {{ details.pickupLocation }}
-              </div>
-              <div class="text-700 mb-1">
-                <b>Drop-off Location:</b> {{ details.dropoffLocation }}
-              </div>
-              <div class="text-700 mb-1">
-                <b>Status:</b> {{ details.bookingStatus }}
-              </div>
-              <div class="text-700 mb-1">
-                <b>Payment:</b> {{ details.paymentStatus }} |
-                {{ details.totalAmount }}
-              </div>
-              <div class="text-700 mb-1">
-                <b>Booking Type:</b> {{ details.bookingType }}
-              </div>
-              <div class="text-700 mb-1" *ngIf="details.driverAssigned">
-                <b>Driver:</b> {{ details.driverName }} ({{
-                  details.driverContact
-                }})
-              </div>
+            [src]=details?.vehicle?.vehicleImage1
+            class="mr-3 w-3rem h-3rem"
+            alt="{{ details.carModel }}"
+          />
+          <div>
+            <span class="text-900 font-medium block mb-2"
+              >Booking Id: #{{ details.bookingId }}</span
+            >
+            <div class="text-700 mb-1">
+              <b>Customer: </b> {{  details?.user?.firstName }} {{ details?.user?.lastName }} 
+            </div>
+            <div class="text-700 mb-1">
+              <b>Vehicle Type: </b> {{ details?.vehicle?.vehicleType }}
+            </div>
+            <div class="text-700 mb-1">
+              <b>Start Date: </b> {{ details?.startDate | date : "yyyy-MM-dd"}}
+            </div>
+            <div class="text-700 mb-1">
+              <b>End Date: </b> {{ details?.endDate | date : "yyyy-MM-dd"}}
+            </div>
+            <div class="text-700 mb-1">
+              <b>Description: </b> {{ details?.description }}
+            </div>
+            <div class="text-700 mb-1">
+              <b>Distance: </b> {{ details.distance }}Km
+            </div>
+            <div class="text-700 mb-1">
+              <b>Total Amount: </b> {{ details.totalAmount | number:'1.2-2'}}
+            </div>
             </div>
           </div>
           <div class="flex flex-column gap-2 ml-7 md:ml-5 mt-2 md:mt-0">
@@ -159,13 +136,13 @@
                 class="p-button-sm p-button-primary"
                 (click)="onClickViewInvoice(details)"
               ></button>
-              <button
+              <!-- <button
                 pButton
                 pTooltip="Download Invoice"
                 tooltipPosition="bottom"
                 icon="pi pi-download"
                 class="p-button-sm ml-2 p-button-success"
-              ></button>
+              ></button> -->
             </div>
           </div>
         </li>

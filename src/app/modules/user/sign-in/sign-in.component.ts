@@ -127,7 +127,7 @@ export class SignInComponent {
         }else if(rolId == 2){
           this.router.navigate(["/approve-registrations"]);
         }else if(rolId == 3){
-          this.router.navigate(["/approve-registrations"]);
+          this.router.navigate(["/driver/driver-accounts"]);
         }else{
           this.router.navigate(["/customer-panel"]);
         }

@@ -62,6 +62,7 @@ import { CustomerProfileComponent } from './customer-profile/customer-profile.co
 import { CustomerBookingDetailsComponent } from './customer-profile/customer-booking-details/customer-booking-details.component';
 import { BookingInvoiceComponent } from './customer-profile/customer-booking-details/booking-invoice/booking-invoice.component';
 import { CustomerEditDetailsComponent } from './customer-profile/customer-edit-details/customer-edit-details.component';
+import { UpdateBookingFormComponent } from './customer-profile/customer-booking-details/update-booking-form/update-booking-form.component';
 
 
 @NgModule({
@@ -77,7 +78,8 @@ import { CustomerEditDetailsComponent } from './customer-profile/customer-edit-d
     CustomerProfileComponent,
     CustomerBookingDetailsComponent,
     BookingInvoiceComponent,
-    CustomerEditDetailsComponent
+    CustomerEditDetailsComponent,
+    UpdateBookingFormComponent
   ],
   imports: [
     CommonModule,

@@ -50,6 +50,7 @@ export class DefaultLayoutNewComponent {
   ngOnInit(): void {
     debugger
     this.updateTime();
+    let roleId = this.masterDataService.Role;
     this.intervalId = setInterval(() => {
       this.updateTime();
     }, 1000);
@@ -69,17 +70,17 @@ export class DefaultLayoutNewComponent {
         label: "Approve Registrations",
         icon: "pi pi-file-edit",
         routerLink: "/approve-registrations",
-        isVisible: true,
+        isVisible: roleId == 2 ? true : false,
         // isVisible: this.checkUserAuthorizedToAccess([
         //   AppModule.SuperAdminDashboard,
         // ]),
       },
       {
         menuId: 2,
-        label: "Driver accounts",
+        label: "Trip Management",
         icon: "pi pi-users",
         routerLink: "/driver/driver-accounts",
-        isVisible: true,
+        isVisible: roleId == 2 || roleId == 3 ? true : false,
         // isVisible: this.checkUserAuthorizedToAccess([
         //   AppModule.SuperAdminUserManagement,
         // ]),
@@ -89,7 +90,7 @@ export class DefaultLayoutNewComponent {
         label: "Vehicle Management",
         icon: "pi pi-car",
         routerLink: "/driver/driver-Information",
-        isVisible: true,
+        isVisible: roleId == 2 ? true : false,
         // isVisible: this.checkUserAuthorizedToAccess([
         //   AppModule.SuperAdminLeaveManagement,
         //   AppModule.AdminLeaveManagement,
@@ -104,7 +105,7 @@ export class DefaultLayoutNewComponent {
         label: "User accounts",
         icon: "pi pi-id-card",
         routerLink: "/driver/customer-accounts",
-        isVisible: true,
+        isVisible: roleId == 2 ? true : false,
         // isVisible: this.checkUserAuthorizedToAccess([
         //   AppModule.AdminTripManagement,
         //   AppModule.SuperAdminTripManagement,
@@ -121,6 +122,7 @@ export class DefaultLayoutNewComponent {
     ];
     submodule == 'driver-Information' ? submodule = 'vehicle-management' : submodule;
     submodule == 'customer-accounts' ? submodule = 'user-accounts' : submodule;
+    submodule == 'driver-accounts' ? submodule = 'trip-management' : submodule;
     module == 'driver' ? module = submodule : module;
     this.ModuleActivate(module);
 

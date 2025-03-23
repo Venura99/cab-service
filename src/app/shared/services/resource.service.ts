@@ -51,6 +51,12 @@ export class ResourceService {
 
   booking = {
     saveBooking: this.Booking + "/add-booking",
+    getAllBooking: this.Booking + "/get-all",
+    getBookingById: this.Booking,
+    deleteBooking: this.Booking,
+    updateBooking: this.Booking + "/update-booking",
+    startTrip: this.Booking + "/start-trip",
+    endTrip: this.Booking + "/end-trip",
   };
 
   monthAudit = {
