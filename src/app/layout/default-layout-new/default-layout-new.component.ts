@@ -107,10 +107,21 @@ export class DefaultLayoutNewComponent {
       },
       {
         menuId: 4,
-        label: "User accounts",
+        label: "User Management",
         icon: "pi pi-id-card",
         routerLink: "/driver/customer-accounts",
         isVisible: this.roleId == 2 ? true : false,
+        // isVisible: this.checkUserAuthorizedToAccess([
+        //   AppModule.AdminTripManagement,
+        //   AppModule.SuperAdminTripManagement,
+        // ]),
+      },
+      {
+        menuId: 5,
+        label: "Booking Management",
+        icon: "pi pi-calendar-clock",
+        routerLink: "/driver/booking-management",
+        isVisible: this.roleId == 2 || this.roleId == 3 ? true : false,
         // isVisible: this.checkUserAuthorizedToAccess([
         //   AppModule.AdminTripManagement,
         //   AppModule.SuperAdminTripManagement,
@@ -126,7 +137,7 @@ export class DefaultLayoutNewComponent {
       },
     ];
     submodule == 'driver-Information' ? submodule = 'vehicle-management' : submodule;
-    submodule == 'customer-accounts' ? submodule = 'user-accounts' : submodule;
+    submodule == 'customer-accounts' ? submodule = 'user-management' : submodule;
     submodule == 'driver-accounts' ? submodule = 'trip-management' : submodule;
     module == 'driver' ? module = submodule : module;
     this.ModuleActivate(module);

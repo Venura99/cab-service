@@ -5,6 +5,7 @@ import { ApproveDriverRegistrationsComponent } from './approve-driver-registrati
 import { DriverAccountsComponent } from './driver-accounts/driver-accounts.component';
 import { DriverVehicleInfoComponent } from './driver-vehicle-info/driver-vehicle-info.component';
 import { CustomerAccountsComponent } from './customer-accounts/customer-accounts.component';
+import { BookingManagementComponent } from './booking-management/booking-management.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,17 @@ const routes: Routes = [
       {
         path: "",
         component: CustomerAccountsComponent,
+      },
+    ],
+  },
+
+  {
+    path: "booking-management",
+    component: DefaultLayoutNewComponent,
+    children: [
+      {
+        path: "",
+        component: BookingManagementComponent,
       },
     ],
   },
