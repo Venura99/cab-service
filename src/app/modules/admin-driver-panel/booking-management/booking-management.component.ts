@@ -75,7 +75,7 @@ cols: any;
                 let roleId = this.masterDataService.Role;
                 if(roleId == 3){
                   bookingResult.Result.forEach((element: any) => {
-                    if (element?.vehicle?.vehicleId === this.vehicleId ) {
+                    if (element?.vehicle?.vehicleId === this.vehicleId && element?.status != 1) {
                       this.bookingData.push({
                         ...element,
                         fname: element?.user?.firstName || "N/A",
