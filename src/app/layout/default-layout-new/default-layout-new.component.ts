@@ -18,6 +18,8 @@ import {
 } from "src/app/store/action/notification.action";
 import { selectNotificationCount } from "src/app/store/selector/notification.selector";
 import { ExpenseExtensionService } from "src/app/shared/services/api-services/expense-extension.service";
+import { TransactionHandlerService } from "src/app/shared/services/transaction-handler.service";
+import { CustomerEditDetailsComponent } from "src/app/modules/customer-panel/customer-profile/customer-edit-details/customer-edit-details.component";
 
 @Component({
   selector: "app-default-layout-new",
@@ -33,6 +35,8 @@ export class DefaultLayoutNewComponent {
   items: any[];
   notificationCount: number = 0;
   currentTime: string = '';
+  driverData:any;
+  roleId = 3;
   private intervalId: any;
   private subscriptions: Subscription[] = [];
   constructor(
@@ -44,13 +48,14 @@ export class DefaultLayoutNewComponent {
     private popupService: PopupService,
     private notificationService: NotificationService,
     private store: Store<AppState>, // private webSocketService: WebSocketService
-    private expenseRequestService: ExpenseExtensionService
+    private expenseRequestService: ExpenseExtensionService,
+    private transactionService: TransactionHandlerService,
   ) {}
 
   ngOnInit(): void {
     debugger
     this.updateTime();
-    let roleId = this.masterDataService.Role;
+    this.roleId = this.masterDataService.Role;
     this.intervalId = setInterval(() => {
       this.updateTime();
     }, 1000);
@@ -70,7 +75,7 @@ export class DefaultLayoutNewComponent {
         label: "Approve Registrations",
         icon: "pi pi-file-edit",
         routerLink: "/approve-registrations",
-        isVisible: roleId == 2 ? true : false,
+        isVisible: this.roleId == 2 ? true : false,
         // isVisible: this.checkUserAuthorizedToAccess([
         //   AppModule.SuperAdminDashboard,
         // ]),
@@ -80,7 +85,7 @@ export class DefaultLayoutNewComponent {
         label: "Trip Management",
         icon: "pi pi-users",
         routerLink: "/driver/driver-accounts",
-        isVisible: roleId == 3 ? true : false,
+        isVisible: this.roleId == 3 ? true : false,
         // isVisible: this.checkUserAuthorizedToAccess([
         //   AppModule.SuperAdminUserManagement,
         // ]),
@@ -90,7 +95,7 @@ export class DefaultLayoutNewComponent {
         label: "Vehicle Management",
         icon: "pi pi-car",
         routerLink: "/driver/driver-Information",
-        isVisible: roleId == 2 ? true : false,
+        isVisible: this.roleId == 2 ? true : false,
         // isVisible: this.checkUserAuthorizedToAccess([
         //   AppModule.SuperAdminLeaveManagement,
         //   AppModule.AdminLeaveManagement,
@@ -105,7 +110,7 @@ export class DefaultLayoutNewComponent {
         label: "User accounts",
         icon: "pi pi-id-card",
         routerLink: "/driver/customer-accounts",
-        isVisible: roleId == 2 ? true : false,
+        isVisible: this.roleId == 2 ? true : false,
         // isVisible: this.checkUserAuthorizedToAccess([
         //   AppModule.AdminTripManagement,
         //   AppModule.SuperAdminTripManagement,
@@ -173,6 +178,7 @@ export class DefaultLayoutNewComponent {
     //     },
     //   })
     // );
+    this.loadInitialData();
   }
 
 
@@ -197,6 +203,26 @@ export class DefaultLayoutNewComponent {
     return flag;
   }
 
+  async loadInitialData() {
+    debugger
+    try {
+      let userId = this.masterDataService.ClientId;
+      const userResult:any = await firstValueFrom(
+          this.transactionService.getUserById(userId),
+      );
+      debugger
+      if (userResult.IsSuccessful) {
+        this.driverData = userResult.Result;
+      }
+
+      if (!userResult.IsSuccessful) {
+        // this.messageService.showErrorAlert(userResult.Message);
+      }
+    } catch (error: any) {
+      // this.messageService.showErrorAlert(error);
+    }
+  }
+
   onClickLogout() {
     let confirmationConfig = {
       message: "Are you sure you want to cancel this leave?",
@@ -216,11 +242,26 @@ export class DefaultLayoutNewComponent {
 
   onClickSettings() {
     this.popupService
-      .OpenModel(ChangePasswordComponent, {
-        header: "CHANGE PASSWORD",
-        width: "30vw",
+      .OpenModel(CustomerEditDetailsComponent, {
+        header: "Update Profile",
+        width: "40vw",
+        data: this.driverData,
       })
-      .subscribe((res) => {});
+      .subscribe((res) => {
+        if(res){
+          debugger
+          this.transactionService.updateUserProfile(res).subscribe((response) => {
+            debugger
+            if (response.IsSuccessful) {
+              this.messageService.showSuccessAlert(response.Message);
+              this.loadInitialData();
+            } else {
+              this.messageService.showErrorAlert(response.Message);
+            }
+          });
+          
+        }
+      });
   }
 
   openMonthAudit() {

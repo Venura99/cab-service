@@ -114,7 +114,7 @@ export class CustomerProfileComponent {
     clickOnEditDetails(){
             this.popupService
             .OpenModel(CustomerEditDetailsComponent, {
-              header: "Customer Details",
+              header: "Update Profile",
               width: "40vw",
               data: this.userData
             })

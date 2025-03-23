@@ -183,7 +183,7 @@
               <i class="pi pi-bell text-xl"></i>
             </a> -->
 
-            <div class="relative">
+            <!-- <div class="relative">
               <a
                 pRipple
                 class="cursor-pointer surface-100 shadow-2 inline-flex align-items-center justify-content-center border-2 surface-border hover:bg-blue-500 hover:text-0 text-600 transition-colors transition-duration-150 border-circle"
@@ -194,19 +194,19 @@
               <span *ngIf="notificationCount > 0" class="badge">{{
                 notificationCount
               }}</span>
-            </div>
+            </div> -->
 
-            <a
+            <!-- <a
               pRipple
               class="cursor-pointer surface-100 shadow-2 inline-flex align-items-center justify-content-center border-2 surface-border hover:bg-blue-500 hover:text-0 text-600 transition-colors transition-duration-150 border-circle"
               style="width: 40px; height: 40px"
             >
               <i class="pi pi-star text-xl"></i>
-            </a>
+            </a> -->
             <a
               pRipple
               class="cursor-pointer surface-100 shadow-2 inline-flex align-items-center justify-content-center border-2 surface-border hover:bg-blue-500 hover:text-0 text-600 transition-colors transition-duration-150 border-circle"
-              style="width: 40px; height: 40px"
+              style="width: 40px; height: 40px" *ngIf="roleId == 3"
               (click)="onClickSettings()"
             >
               <i class="pi pi-cog text-xl"></i>
