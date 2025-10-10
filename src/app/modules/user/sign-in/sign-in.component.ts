@@ -92,49 +92,46 @@ export class SignInComponent {
   }
 
   onLogin() {
-    if (this.FV.formGroup.invalid) {
-      this.FV.showErrors();
-      return;
-    }
+    // if (this.FV.formGroup.invalid) {
+    //   this.FV.showErrors();
+    //   return;
+    // }
 
     
 
-    // let rolId = this.FV.getValue("username")?.rolId;
-    let userName = this.FV.getValue("username").toLowerCase();;
-    let password = this.FV.getValue("password");
+    // let userName = this.FV.getValue("username").toLowerCase();;
+    // let password = this.FV.getValue("password");
 
-    debugger
-    // let correctUser:any = this.users.filter((item:any)=> item.username.toLowerCase() == userName);
+    // debugger
+    // let request = {
+    //   userName: userName,
+    //   password: password,
+    // };
 
-    // if(!(correctUser.length > 0)){
-    //   this.messageService.showErrorAlert('Invalid username or password!')
-    //   return;
-    // }
-    let request = {
-      userName: userName,
-      password: password,
-    };
+    // this.transactionService.userLogin(request).subscribe((response) => {
+    //   debugger
+    //   if (response.IsSuccessful) {
+    //     this.messageService.showSuccessAlert(response.Message);
+    //     this.masterDataService.setUserData(response.Result);
+    //     let rolId: any = response.Result?.user?.role;
+    //     //role 1 = user, role 2 = admin, role 3 = driver
+    //     if(rolId == 1){
+    //       this.router.navigate(["/customer-panel"]);
+    //     }else if(rolId == 2){
+    //       this.router.navigate(["/approve-registrations"]);
+    //     }else if(rolId == 3){
+    //       this.router.navigate(["/driver/driver-accounts"]);
+    //     }else{
+    //       this.router.navigate(["/customer-panel"]);
+    //     }
+    //   } else {
+    //     this.messageService.showErrorAlert(response.Message);
+    //   }
+    // });
 
-    this.transactionService.userLogin(request).subscribe((response) => {
-      debugger
-      if (response.IsSuccessful) {
-        this.messageService.showSuccessAlert(response.Message);
-        this.masterDataService.setUserData(response.Result);
-        let rolId: any = response.Result?.user?.role;
-        //role 1 = user, role 2 = admin, role 3 = driver
-        if(rolId == 1){
-          this.router.navigate(["/customer-panel"]);
-        }else if(rolId == 2){
-          this.router.navigate(["/approve-registrations"]);
-        }else if(rolId == 3){
-          this.router.navigate(["/driver/driver-accounts"]);
-        }else{
-          this.router.navigate(["/customer-panel"]);
-        }
-      } else {
-        this.messageService.showErrorAlert(response.Message);
-      }
-    });
+    this.router.navigate(["/customer-panel"]);
+    // this.router.navigate(["/approve-registrations"]);
+    // this.router.navigate(["/driver/driver-accounts"]);
   }
 
   clickOnSignUp(){
