@@ -6,21 +6,28 @@
   box-sizing: border-box;
 }
 
+// Variables
+$primary-color: #1e40af;
+$text-dark: #111827;
+$text-gray: #6b72806e;
+$border-color: #e5e7eb;
+$bg-light: #f9fafb;
+
 // ============================================
 // HERO SECTION
 // ============================================
 .hero-section {
-  background-color: #1e40af;
+  background-color: $text-gray;
   color: white;
   text-align: center;
-  padding: 80px 20px;
+  padding: 60px 20px;
 
   @media (max-width: 768px) {
-    padding: 70px 16px;
+    padding: 50px 16px;
   }
 
   @media (max-width: 480px) {
-    padding: 32px 12px;
+    padding: 22px 12px;
   }
 }
 
