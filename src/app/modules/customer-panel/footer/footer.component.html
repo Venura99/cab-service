@@ -1,51 +1,80 @@
-<div class="surface-50 px-4 py-4 md:px-6 lg:px-8">
-  <p-divider layout="horizontal" class="surface-border"></p-divider>
-  <div class="grid grid-nogutter text-center lg:text-left">
+<footer class="app-footer">
+  <div class="footer-container">
     
-    <!-- Company Info -->
-    <div class="col-12 sm:col-6 md:col-4 lg:col-3 mt-4 flex flex-column align-items-center lg:align-items-start">
-      <img src="assets/logo.png" class="w-7rem mx-auto lg:mx-0" alt="RideX Logo" style="height: 70px;"/>
-      <div class="flex align-items-center w-full mt-5 justify-content-center lg:justify-content-start">
-        <a tabindex="0" class="cursor-pointer mr-3"><i class="pi pi-facebook surface-900 p-1 text-sm border-circle text-0"></i></a>
-        <a tabindex="0" class="cursor-pointer mr-3"><i class="pi pi-twitter surface-900 p-1 text-sm border-circle text-0"></i></a>
-        <a tabindex="0" class="cursor-pointer mr-3"><i class="pi pi-instagram surface-900 p-1 text-sm border-circle text-0"></i></a>
+    <!-- Logo & Socials Section -->
+    <div class="footer-section footer-brand">
+      <img src="assets/logo.png" alt="Rathawahana.lk" class="footer-logo" />
+      <h3 class="footer-brand-name">Rathawahana.lk</h3>
+      
+      <div class="social-links">
+        <a href="https://facebook.com" target="_blank" rel="noopener" class="social-link" title="Facebook">
+          <i class="pi pi-facebook"></i>
+        </a>
+        <a href="https://twitter.com" target="_blank" rel="noopener" class="social-link" title="Twitter">
+          <i class="pi pi-twitter"></i>
+        </a>
+        <a href="https://instagram.com" target="_blank" rel="noopener" class="social-link" title="Instagram">
+          <i class="pi pi-instagram"></i>
+        </a>
+        <a href="https://youtube.com" target="_blank" rel="noopener" class="social-link" title="YouTube">
+          <i class="pi pi-youtube"></i>
+        </a>
       </div>
-      <span class="text-600 block mt-4"><i class="pi pi-phone mr-2"></i>+1 234 567 890</span>
-      <a tabindex="0" class="text-600 block mt-4 cursor-pointer hover:text-900 transition-duration-150 select-none">
-        <i class="pi pi-map-marker mr-2"></i>Contact Us
-      </a>
+
+      <div class="contact-info">
+        <p class="contact-item">
+          <i class="pi pi-phone"></i>
+          <span>+94 76 123 4567</span>
+        </p>
+        <p class="contact-item">
+          <i class="pi pi-envelope"></i>
+          <a href="mailto:info&#64;rathawahana.lk">info&#64;rathawahana.lk</a>
+        </p>
+      </div>
     </div>
 
-    <!-- Quick Links -->
-    <div class="col-12 sm:col-6 md:col-4 lg:col-3 mt-4 flex flex-column">
-      <span class="text-900 text-xl font-medium block">Quick Links</span>
-      <ul class="list-none p-0">
-        <li routerLink="/customer-panel/about-us"><a tabindex="0" class="text-600 hover:text-900 transition-duration-150 cursor-pointer mt-3 block">About Us</a></li>
-        <li><a tabindex="0" class="text-600 hover:text-900 transition-duration-150 cursor-pointer mt-3 block">How It Works</a></li>
-        <li><a tabindex="0" class="text-600 hover:text-900 transition-duration-150 cursor-pointer mt-3 block">Ride Options</a></li>
-        <li routerLink="/sign-up"><a tabindex="0" class="text-600 hover:text-900 transition-duration-150 cursor-pointer mt-3 block">Driver Sign-Up</a></li>
+    <!-- Quick Links Section -->
+    <div class="footer-section">
+      <h4 class="section-title">Quick Links</h4>
+      <ul class="footer-links">
+        <li><a routerLink="/customer-panel/home">Home</a></li>
+        <li><a routerLink="/customer-panel/vehicles">Browse Vehicles</a></li>
+        <li><a routerLink="/customer-panel/post-vehicle">Sell Your Vehicle</a></li>
+        <li><a routerLink="/customer-panel/about-us">About Us</a></li>
       </ul>
     </div>
 
-    <!-- Customer Support -->
-    <div class="col-12 sm:col-6 md:col-4 lg:col-3 mt-4 flex flex-column">
-      <span class="text-900 text-xl font-medium block">Customer Support</span>
-      <ul class="list-none p-0">
-        <li><a tabindex="0" class="text-600 hover:text-900 transition-duration-150 cursor-pointer mt-3 block">Help Center</a></li>
-        <li><a tabindex="0" class="text-600 hover:text-900 transition-duration-150 cursor-pointer mt-3 block">Booking Assistance</a></li>
-        <li><a tabindex="0" class="text-600 hover:text-900 transition-duration-150 cursor-pointer mt-3 block">Payment Issues</a></li>
-        <li><a tabindex="0" class="text-600 hover:text-900 transition-duration-150 cursor-pointer mt-3 block">Cancellation & Refund</a></li>
+    <!-- Support Section -->
+    <div class="footer-section">
+      <h4 class="section-title">Support</h4>
+      <ul class="footer-links">
+        <li><a href="javascript:void(0)">Help Center</a></li>
+        <li><a href="javascript:void(0)">Contact Support</a></li>
+        <li><a href="javascript:void(0)">FAQs</a></li>
+        <li><a routerLink="/customer-panel/contact-us">Get in Touch</a></li>
       </ul>
     </div>
 
-    <!-- Legal -->
-    <div class="col-12 sm:col-6 md:col-4 lg:col-3 mt-4 flex flex-column">
-      <span class="text-900 text-xl font-medium block">Legal</span>
-      <ul class="list-none p-0">
-        <li><a tabindex="0" class="text-600 hover:text-900 transition-duration-150 cursor-pointer mt-3 block">Privacy Policy</a></li>
-        <li><a tabindex="0" class="text-600 hover:text-900 transition-duration-150 cursor-pointer mt-3 block">Terms of Service</a></li>
-        <li><a tabindex="0" class="text-600 hover:text-900 transition-duration-150 cursor-pointer mt-3 block">Safety Guidelines</a></li>
+    <!-- Legal Section -->
+    <div class="footer-section">
+      <h4 class="section-title">Legal</h4>
+      <ul class="footer-links">
+        <li><a href="javascript:void(0)">Privacy Policy</a></li>
+        <li><a href="javascript:void(0)">Terms of Service</a></li>
+        <li><a href="javascript:void(0)">Cookie Policy</a></li>
+        <li><a href="javascript:void(0)">Disclaimer</a></li>
       </ul>
+    </div>
+
+  </div>
+
+  <!-- Footer Bottom -->
+  <div class="footer-bottom">
+    <div class="footer-bottom-container">
+      <p class="copyright">
+        &copy; 2025 Rathawahana.lk. All rights reserved. | Buy, Sell, and Discover Vehicles Across Sri Lanka
+      </p>
     </div>
   </div>
-</div>
+
+</footer>

@@ -9,6 +9,7 @@ import { Router } from "@angular/router";
 export class HeaderComponent {
   userName: any;
   profileImage: any;
+  menuOpen = false;
   constructor(
       private router: Router,
     ) {
@@ -18,5 +19,17 @@ export class HeaderComponent {
     this.userName = localStorage.getItem("CurrentUserName");
     this.profileImage = localStorage.getItem("profileImage");
     console.log("this.userName", this.userName);
+  }
+
+   navigateToLogin() {
+    this.router.navigate(['/login']);
+  }
+
+  toggleMenu(): void {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  closeMenu(): void {
+    this.menuOpen = false;
   }
 }
