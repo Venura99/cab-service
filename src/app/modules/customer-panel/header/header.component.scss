@@ -1,5 +1,6 @@
 // Variables
 $primary-color: #1e40af;
+$success-color: #10b981; // Green for Post Ad, to make it prominent like patpat
 $text-dark: #111827;
 $text-gray: #6b7280;
 $border-color: #e5e7eb;
@@ -81,12 +82,49 @@ $bg-light: #f9fafb;
 }
 
 // ============================================
+// SEARCH SECTION (New)
+// ============================================
+.search-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 20px;
+
+  @media (max-width: 1024px) {
+    display: none; // Hide on mobile, perhaps add in menu or separate
+  }
+
+  :host ::ng-deep .p-autocomplete {
+    width: 100%;
+
+    .p-autocomplete-input {
+      border-radius: 50px 0 0 50px;
+      padding: 0.75rem 1.25rem;
+      border: 1px solid $border-color;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .p-autocomplete-panel {
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+  }
+
+  .p-button {
+    border-radius: 0 50px 50px 0;
+    height: 42px;
+  }
+}
+
+// ============================================
 // NAVIGATION MENU
 // ============================================
 .nav-menu {
-  flex: 1;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
 
   @media (max-width: 1024px) {
     position: absolute;
@@ -100,9 +138,11 @@ $bg-light: #f9fafb;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease;
+    padding: 0 20px;
 
     &.active {
-      max-height: 600px;
+      max-height: 800px;
+      padding: 20px;
     }
   }
 
@@ -114,7 +154,7 @@ $bg-light: #f9fafb;
 .nav-list {
   display: flex;
   align-items: center;
-  gap: 0;
+  gap: 8px;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -130,11 +170,11 @@ $bg-light: #f9fafb;
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 16px;
+  padding: 10px 16px;
   color: $text-gray;
   font-weight: 500;
   font-size: 0.95rem;
-  border-radius: 6px;
+  border-radius: 50px;
   transition: all 0.2s ease;
   text-decoration: none;
   cursor: pointer;
@@ -151,81 +191,45 @@ $bg-light: #f9fafb;
   &:hover {
     color: $primary-color;
     background-color: $bg-light;
-
-    i {
-      transform: scale(1.1);
-    }
   }
 
   &.active {
     color: $primary-color;
     background-color: rgba(30, 64, 175, 0.1);
     font-weight: 600;
+  }
 
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 16px;
-      right: 16px;
-      height: 3px;
-      background-color: $primary-color;
-      border-radius: 3px 3px 0 0;
+  &.post-ad-link {
+    background-color: $success-color;
+    color: white;
+
+    &:hover {
+      background-color: darken($success-color, 10%);
     }
   }
 
   @media (max-width: 1024px) {
     width: 100%;
-    padding: 16px 20px;
+    padding: 16px 0;
     border-radius: 0;
     justify-content: flex-start;
 
     &.active {
-      background-color: $bg-light;
-
-      &::after {
-        display: none;
-      }
-
-      &::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 4px;
-        background-color: $primary-color;
-      }
-    }
-
-    &:hover {
-      background-color: $bg-light;
-    }
-  }
-
-  @media (max-width: 480px) {
-    padding: 14px 16px;
-    font-size: 0.9rem;
-
-    i {
-      font-size: 1rem;
+      background-color: transparent;
+      border-bottom: 2px solid $primary-color;
     }
   }
 }
 
-// Auth Button Mobile
-.auth-button-mobile {
+// Auth Section Mobile
+.auth-section-mobile {
   display: none;
-  padding: 16px 20px;
+  padding: 16px 0;
   border-top: 1px solid $border-color;
   width: 100%;
 
   @media (max-width: 1024px) {
     display: block;
-  }
-
-  button {
-    width: 100%;
   }
 }
 
@@ -235,11 +239,21 @@ $bg-light: #f9fafb;
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   flex-shrink: 0;
 
   @media (max-width: 1024px) {
-    gap: 12px;
+    gap: 8px;
+  }
+
+  .p-button-success {
+    background-color: $success-color;
+    border-color: $success-color;
+
+    &:hover {
+      background-color: darken($success-color, 10%);
+      border-color: darken($success-color, 10%);
+    }
   }
 }
 
@@ -289,19 +303,14 @@ $bg-light: #f9fafb;
 }
 
 // ============================================
-// PRIMEBUTTON OVERRIDES
+// PRIMENG OVERRIDES
 // ============================================
 :host ::ng-deep {
   .p-button-rounded {
     border-radius: 50px !important;
-    padding: 0.5rem 1.5rem !important;
+    padding: 0.6rem 1.6rem !important;
     font-weight: 600;
-    font-size: 0.9rem;
-
-    @media (max-width: 480px) {
-      padding: 0.4rem 1.2rem !important;
-      font-size: 0.85rem;
-    }
+    font-size: 0.95rem;
   }
 
   .p-button-primary {
@@ -309,17 +318,21 @@ $bg-light: #f9fafb;
     border-color: $primary-color !important;
 
     &:hover {
-      background-color: #1d3a8a !important;
-      border-color: #1d3a8a !important;
+      background-color: darken($primary-color, 10%) !important;
+      border-color: darken($primary-color, 10%) !important;
     }
   }
-}
 
-// ============================================
-// ADJUST MAIN CONTENT
-// ============================================
-@media (max-width: 1024px) {
-  .nav-menu.active {
-    max-height: 500px;
+  .p-avatar {
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  .p-menu {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   }
 }

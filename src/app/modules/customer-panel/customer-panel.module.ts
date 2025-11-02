@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+import { PaginatorModule } from 'primeng/paginator';
+import { SkeletonModule } from 'primeng/skeleton';
 
 import { MenubarModule } from 'primeng/menubar';
 import { ToastModule } from 'primeng/toast';
@@ -48,7 +52,7 @@ import { NgxPrintModule } from "ngx-print";
 import { CarouselModule } from 'primeng/carousel';
 import { TabViewModule } from 'primeng/tabview';
 import { TabMenuModule } from 'primeng/tabmenu';
-
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CustomerPanelRoutingModule } from './customer-panel-routing.module';
 import { RegisterDriverComponent } from './register-driver/register-driver.component';
 import { HeaderComponent } from './header/header.component';
@@ -63,6 +67,7 @@ import { CustomerBookingDetailsComponent } from './customer-profile/customer-boo
 import { BookingInvoiceComponent } from './customer-profile/customer-booking-details/booking-invoice/booking-invoice.component';
 import { CustomerEditDetailsComponent } from './customer-profile/customer-edit-details/customer-edit-details.component';
 import { UpdateBookingFormComponent } from './customer-profile/customer-booking-details/update-booking-form/update-booking-form.component';
+import { VehicleCardComponent } from './shared/vehicle-card/vehicle-card.component';
 
 
 @NgModule({
@@ -79,9 +84,12 @@ import { UpdateBookingFormComponent } from './customer-profile/customer-booking-
     CustomerBookingDetailsComponent,
     BookingInvoiceComponent,
     CustomerEditDetailsComponent,
-    UpdateBookingFormComponent
+    UpdateBookingFormComponent,
+    VehicleCardComponent
   ],
   imports: [
+    PaginatorModule,
+    SkeletonModule,
     CommonModule,
     CustomerPanelRoutingModule,
     MenubarModule,
@@ -104,6 +112,7 @@ import { UpdateBookingFormComponent } from './customer-profile/customer-booking-
     FormsModule,
     AccordionModule,
     TabMenuModule,
+    AutoCompleteModule,
 
     FormsModule,
         ReactiveFormsModule,

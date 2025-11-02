@@ -1,88 +1,193 @@
 <app-header></app-header>
 
-<div class="container-wrapper">
+<!-- HERO SECTION – Full-screen, Parallax-style -->
+<section class="hero-section relative overflow-hidden">
+  <div class="hero-bg"></div>
+  <div class="hero-gradient"></div>
 
-  <!-- Hero Section -->
-  <div class="hero-section">
-    <div class="hero-content py-7">
-      <h1 class="hero-title">🚗 Rathawahana.lk</h1>
-      <p class="hero-subtitle">Buy, Sell, and Discover Vehicles All Across Sri Lanka 🇱🇰</p>
+  <div class="container-wrapper relative z-10 py-20 md:py-32">
+    <div class="text-center max-w-4xl mx-auto px-4">
+      <h1 class="hero-title animate-fade-in-up">
+        Find Your Perfect Ride in Sri Lanka
+      </h1>
+      <p class="hero-subtitle animate-fade-in-up animation-delay-200">
+        Buy • Sell • Discover Cars, Bikes & Vans | <strong>Post Ad FREE</strong>
+      </p>
+
+      <!-- Search Bar – Floating Card Style -->
+      <div class="search-card animate-fade-in-up animation-delay-400 mt-8">
+        <div class="flex flex-col md:flex-row gap-0 shadow-lg rounded-xl overflow-hidden">
+          <p-autoComplete
+            [(ngModel)]="searchQuery"
+            [suggestions]="searchSuggestions"
+            (completeMethod)="searchVehicles($event)"
+            placeholder="Search by brand, model, or keyword..."
+            field="name"
+            [style]="{ width: '100%' }"
+            appendTo="body"
+            (onSelect)="onSearchSelect($event)"
+            class="flex-1"
+          >
+            <ng-template let-item pTemplate="item">
+              <div class="flex items-center p-3 hover:bg-gray-50">
+                <i [class]="item.icon" class="text-lg mr-3 text-primary"></i>
+                <div>
+                  <div class="font-semibold">{{ item.name }}</div>
+                  <small class="text-gray-500">{{ item.type }}</small>
+                </div>
+              </div>
+            </ng-template>
+          </p-autoComplete>
+          <button
+            pButton
+            icon="pi pi-search"
+            class="bg-primary text-white px-8 hover:bg-primary-600 transition"
+            (click)="performSearch()"
+          ></button>
+        </div>
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8 animate-fade-in-up animation-delay-600">
+        <button
+          pButton
+          label="POST AD FREE"
+          icon="pi pi-plus-circle"
+          class="p-button-success p-button-lg px-8 py-3 text-lg font-bold shadow-xl hover:shadow-2xl transition"
+          (click)="postVehicle()"
+        ></button>
+        <button
+          pButton
+          label="Browse All Vehicles"
+          class="p-button-outlined p-button-lg px-8 py-3 text-lg"
+          routerLink="/vehicles"
+        ></button>
+      </div>
+
+      <p class="mt-6 text-white opacity-90 text-sm">
+        Trusted by <strong>50,000+</strong> buyers & sellers across Sri Lanka
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES – Icon Grid with Hover Effects -->
+<section class="section py-16 bg-gray-50">
+  <div class="container-wrapper">
+    <h2 class="section-title text-center mb-12">Explore by Vehicle Type</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6">
+      <div
+        *ngFor="let cat of categories; let i = index"
+        class="category-card animate-fade-in-up"
+        [ngStyle]="{ 'animation-delay': (i * 100) + 'ms' }"
+        (click)="filterByCategory(cat.type)"
+      >
+        <div class="icon-circle mb-3">
+          <i [class]="cat.icon" class="text-3xl"></i>
+        </div>
+        <h3 class="font-bold text-sm">{{ cat.name }}</h3>
+        <p class="text-xs text-gray-600">{{ cat.count | number }} listings</p>
+      </div>
+    </div>
+    <div class="text-center mt-10">
+      <button pButton label="View All Categories" class="p-button-text" routerLink="/vehicles"></button>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED DEALS – Premium Carousel -->
+<section class="section py-16">
+  <div class="container-wrapper">
+    <div class="flex justify-between items-center mb-8">
+      <h2 class="section-title">Featured Deals</h2>
+      <button pButton icon="pi pi-arrow-right" label="View More" class="p-button-text" routerLink="/vehicles"></button>
+    </div>
+    <p-carousel
+      [value]="specials"
+      [numVisible]="4"
+      [numScroll]="1"
+      [responsiveOptions]="responsiveOptions"
+      class="featured-carousel"
+    >
+      <ng-template let-vehicle pTemplate="item">
+        <app-vehicle-card [vehicle]="vehicle" [isSpecial]="true"></app-vehicle-card>
+      </ng-template>
+    </p-carousel>
+  </div>
+</section>
+
+<!-- LATEST VEHICLES – With Filters -->
+<section class="section py-16 bg-gray-50">
+  <div class="container-wrapper">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+      <h2 class="section-title">Latest Vehicles</h2>
       <button
         pButton
-        label="Post Your Vehicle"
-        class="p-button-raised p-button-warning hero-btn"
+        label="Post Your Ad"
+        icon="pi pi-plus"
+        class="p-button-success"
         (click)="postVehicle()"
       ></button>
     </div>
-  </div>
 
-  <!-- Specials Section -->
-  <div class="section specials-section">
-    <h2 class="section-title">Rathawahana Specials ✨</h2>
-    <div class="cards-container">
-      <div class="card-item" *ngFor="let sp of specials">
-        <div class="vehicle-card">
-          <div class="image-wrapper">
-            <img
-              [src]="sp.image"
-              alt="{{ sp.title }}"
-              class="card-image"
-            />
-            <span class="badge">SPECIAL</span>
-          </div>
-          <div class="card-body">
-            <h3 class="card-title">{{ sp.title }}</h3>
-            <p class="card-year">{{ sp.year }}</p>
-            <p class="card-brand">{{ sp.brand }} - {{ sp.model }}</p>
-            <div class="price-section">
-              <span class="price">Rs. {{ sp.price | number }}</span>
-            </div>
-            <button
-              pButton
-              label="View Details"
-              icon="pi pi-eye"
-              class="p-button-sm p-button-info w-full"
-              (click)="viewVehicle(sp)"
-            ></button>
-          </div>
-        </div>
+    <!-- Filters -->
+    <div class="filters-bar bg-white p-4 rounded-lg shadow-sm mb-8">
+      <div class="flex flex-wrap gap-3 items-center">
+        <p-chip
+          *ngFor="let f of activeFilters"
+          [label]="f.name"
+          removable
+          (onRemove)="removeFilter(f)"
+          class="chip-filter"
+        ></p-chip>
+
+        <p-dropdown
+          [options]="priceRanges"
+          [(ngModel)]="selectedPrice"
+          placeholder="Price Range"
+          (onChange)="applyFilter()"
+          styleClass="w-full sm:w-48"
+        ></p-dropdown>
+        <p-dropdown
+          [options]="locations"
+          [(ngModel)]="selectedLocation"
+          placeholder="Location"
+          (onChange)="applyFilter()"
+          styleClass="w-full sm:w-48"
+        ></p-dropdown>
+        <button pButton label="Clear" icon="pi pi-times" class="p-button-outlined p-button-sm" (click)="clearFilters()"></button>
       </div>
     </div>
-  </div>
 
-  <!-- All Vehicles Section -->
-  <div class="section all-vehicles-section">
-    <h2 class="section-title">All Vehicles 🚘</h2>
-    <div class="cards-container">
-      <div class="card-item" *ngFor="let v of vehicles">
-        <div class="vehicle-card">
-          <div class="image-wrapper">
-            <img
-              [src]="v.image"
-              alt="{{ v.title }}"
-              class="card-image"
-            />
-          </div>
-          <div class="card-body">
-            <h3 class="card-title">{{ v.title }}</h3>
-            <p class="card-year">{{ v.year }}</p>
-            <p class="card-brand">{{ v.brand }} - {{ v.model }}</p>
-            <div class="price-section">
-              <span class="price">Rs. {{ v.price | number }}</span>
-            </div>
-            <button
-              pButton
-              label="View Details"
-              icon="pi pi-eye"
-              class="p-button-sm p-button-secondary w-full"
-              (click)="viewVehicle(v)"
-            ></button>
-          </div>
-        </div>
+    <!-- Vehicle Grid -->
+    <div class="vehicle-grid">
+      <div *ngFor="let vehicle of filteredVehicles; trackBy: trackById" class="animate-fade-in">
+        <app-vehicle-card [vehicle]="vehicle"></app-vehicle-card>
+      </div>
+      <div *ngIf="loading" class="col-span-full">
+        <p-skeleton height="320px" borderRadius="12px"></p-skeleton>
       </div>
     </div>
-  </div>
 
-</div>
+    <!-- Pagination -->
+    <p-paginator
+      *ngIf="totalRecords > 12"
+      [rows]="12"
+      [totalRecords]="totalRecords"
+      (onPageChange)="loadPage($event)"
+      [showCurrentPageReport]="true"
+      class="mt-8"
+    ></p-paginator>
+  </div>
+</section>
+
+<!-- SPARE PARTS TEASER -->
+<section class="section py-16 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+  <div class="container-wrapper text-center">
+    <h2 class="text-3xl md:text-4xl font-bold mb-4">Spare Parts Store</h2>
+    <p class="text-lg mb-6">Genuine parts delivered island-wide</p>
+    <button pButton label="Shop Now" icon="pi pi-shopping-cart" class="p-button-light p-button-lg" routerLink="/spare-parts"></button>
+  </div>
+</section>
 
 <app-footer></app-footer>

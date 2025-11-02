@@ -1,0 +1,25 @@
+<p-card class="vehicle-card shadow-lg hover:shadow-xl transition-shadow">
+  <ng-template pTemplate="header">
+    <div class="relative">
+      <img [src]="vehicle.image" alt="{{vehicle.title}}" class="w-full h-48 object-cover rounded-t-lg" />
+      <p-tag
+        *ngIf="isSpecial"
+        severity="warning"
+        value="FEATURED"
+        class="absolute top-3 right-3 font-bold"
+      ></p-tag>
+    </div>
+  </ng-template>
+
+  <div class="p-4">
+    <h3 class="text-lg font-bold text-gray-900 line-clamp-1">{{ vehicle.title }}</h3>
+    <p class="text-sm text-gray-600 mt-1">{{ vehicle.year }} • {{ vehicle.location || 'Islandwide' }}</p>
+    
+    <div class="flex justify-between items-center mt-4">
+      <span class="text-2xl font-bold text-primary">
+        LKR {{ vehicle.price | number:'1.0-0' }}
+      </span>
+      <button pButton icon="pi pi-arrow-right" class="p-button-rounded p-button-outlined"></button>
+    </div>
+  </div>
+</p-card>

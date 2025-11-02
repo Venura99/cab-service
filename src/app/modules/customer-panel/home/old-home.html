@@ -1,0 +1,88 @@
+<app-header></app-header>
+
+<div class="container-wrapper">
+
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div class="hero-content py-7">
+      <h1 class="hero-title">🚗 Rathawahana.lk</h1>
+      <p class="hero-subtitle">Buy, Sell, and Discover Vehicles All Across Sri Lanka 🇱🇰</p>
+      <button
+        pButton
+        label="Post Your Vehicle"
+        class="p-button-raised p-button-warning hero-btn"
+        (click)="postVehicle()"
+      ></button>
+    </div>
+  </div>
+
+  <!-- Specials Section -->
+  <div class="section specials-section">
+    <h2 class="section-title">Rathawahana Specials ✨</h2>
+    <div class="cards-container">
+      <div class="card-item" *ngFor="let sp of specials">
+        <div class="vehicle-card">
+          <div class="image-wrapper">
+            <img
+              [src]="sp.image"
+              alt="{{ sp.title }}"
+              class="card-image"
+            />
+            <span class="badge">SPECIAL</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">{{ sp.title }}</h3>
+            <p class="card-year">{{ sp.year }}</p>
+            <p class="card-brand">{{ sp.brand }} - {{ sp.model }}</p>
+            <div class="price-section">
+              <span class="price">Rs. {{ sp.price | number }}</span>
+            </div>
+            <button
+              pButton
+              label="View Details"
+              icon="pi pi-eye"
+              class="p-button-sm p-button-info w-full"
+              (click)="viewVehicle(sp)"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- All Vehicles Section -->
+  <div class="section all-vehicles-section">
+    <h2 class="section-title">All Vehicles 🚘</h2>
+    <div class="cards-container">
+      <div class="card-item" *ngFor="let v of vehicles">
+        <div class="vehicle-card">
+          <div class="image-wrapper">
+            <img
+              [src]="v.image"
+              alt="{{ v.title }}"
+              class="card-image"
+            />
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">{{ v.title }}</h3>
+            <p class="card-year">{{ v.year }}</p>
+            <p class="card-brand">{{ v.brand }} - {{ v.model }}</p>
+            <div class="price-section">
+              <span class="price">Rs. {{ v.price | number }}</span>
+            </div>
+            <button
+              pButton
+              label="View Details"
+              icon="pi pi-eye"
+              class="p-button-sm p-button-secondary w-full"
+              (click)="viewVehicle(v)"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<app-footer></app-footer>

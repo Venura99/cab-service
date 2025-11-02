@@ -13,6 +13,33 @@
       <h2 class="logo-text hidden md:inline">Rathawahana.lk</h2>
     </div>
 
+    <!-- Search Bar (Added for enterprise feel, following patpat.lk) -->
+    <div class="search-section">
+      <p-autoComplete
+        [(ngModel)]="searchQuery"
+        [suggestions]="searchSuggestions"
+        (completeMethod)="getSearchSuggestions($event)"
+        placeholder="I'm looking for vehicles or spare parts..."
+        field="name"
+        [style]="{width: '100%'}"
+        [inputStyle]="{width: '100%'}"
+        appendTo="body"
+      >
+        <ng-template let-item pTemplate="item">
+          <div class="flex align-items-center">
+            <i class="pi pi-search mr-2"></i>
+            <span>{{item.name}}</span>
+          </div>
+        </ng-template>
+      </p-autoComplete>
+      <button
+        pButton
+        icon="pi pi-search"
+        class="p-button-rounded p-button-primary ml-2"
+        (click)="performSearch()"
+      ></button>
+    </div>
+
     <!-- Navigation Menu -->
     <nav class="nav-menu" [class.active]="menuOpen">
       <ul class="nav-list">
@@ -44,12 +71,24 @@
           <a 
             pRipple 
             class="nav-link" 
+            routerLink="/customer-panel/spare-parts"
+            routerLinkActive="active"
+            (click)="closeMenu()"
+          >
+            <i class="pi pi-cog"></i>
+            <span>Spare Parts</span>
+          </a>
+        </li>
+        <li>
+          <a 
+            pRipple 
+            class="nav-link post-ad-link" 
             routerLink="/customer-panel/post-vehicle"
             routerLinkActive="active"
             (click)="closeMenu()"
           >
             <i class="pi pi-upload"></i>
-            <span>Post Vehicle</span>
+            <span>Post Ad Free</span>
           </a>
         </li>
         <li>
@@ -78,32 +117,67 @@
         </li>
       </ul>
 
-      <!-- Auth Button in Mobile -->
-      <div class="auth-button-mobile">
+      <!-- Auth Section in Mobile -->
+      <div class="auth-section-mobile">
+        <ng-container *ngIf="!userName; else profileMobile">
+          <button
+            pButton
+            label="Login"
+            icon="pi pi-user"
+            class="p-button-rounded p-button-primary w-full"
+            routerLink="/login"
+            (click)="closeMenu()"
+          ></button>
+        </ng-container>
+        <ng-template #profileMobile>
+          <p-menu #profileMenu [model]="profileItems" [popup]="true" appendTo="body"></p-menu>
+          <button
+            pButton
+            type="button"
+            [label]="'Hi, ' + userName"
+            icon="pi pi-user"
+            class="p-button-rounded p-button-secondary w-full"
+            (click)="profileMenu.toggle($event)"
+          ></button>
+        </ng-template>
+      </div>
+    </nav>
+
+    <!-- Auth Section and Hamburger -->
+    <div class="header-actions">
+      <ng-container *ngIf="!userName; else profileDesktop">
         <button
           pButton
           label="Login"
           icon="pi pi-user"
-          class="p-button-rounded p-button-primary"
+          class="p-button-rounded p-button-primary hidden md:block"
           routerLink="/login"
-          (click)="closeMenu()"
         ></button>
-      </div>
-    </nav>
-
-    <!-- Auth Button and Hamburger -->
-    <div class="header-actions">
+      </ng-container>
+      <ng-template #profileDesktop>
+        <p-menu #profileMenuDesk [model]="profileItems" [popup]="true" appendTo="body"></p-menu>
+        <p-avatar
+          [image]="profileImage"
+          shape="circle"
+          size="large"
+          class="mr-2 hidden md:block cursor-pointer"
+          (click)="profileMenuDesk.toggle($event)"
+        ></p-avatar>
+        <span class="hidden md:inline mr-2">{{ 'Hi, ' + userName }}</span>
+      </ng-template>
+      
+      <!-- Post Ad Button (Prominent, following patpat.lk) -->
       <button
         pButton
-        label="Login"
-        icon="pi pi-user"
-        class="p-button-rounded p-button-primary hidden md:block"
-        routerLink="/login"
+        label="Post Ad Free"
+        icon="pi pi-upload"
+        class="p-button-rounded p-button-success hidden md:block"
+        routerLink="/customer-panel/post-vehicle"
       ></button>
-      
+
       <!-- Mobile Hamburger -->
       <button
-        class="hamburger lg:hidden"
+        class="hamburger md:hidden"
         (click)="toggleMenu()"
         [class.active]="menuOpen"
         type="button"

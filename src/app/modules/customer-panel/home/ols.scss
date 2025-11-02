@@ -1,0 +1,292 @@
+:host {
+  display: block;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+// Variables
+$primary-color: #4a598b;
+$text-dark: #111827;
+$text-gray: #6b72806e;
+$border-color: #e5e7eb;
+$bg-light: #f9fafb;
+
+// ============================================
+// HERO SECTION
+// ============================================
+.hero-section {
+  background-color: $text-gray;
+  color: white;
+  text-align: center;
+  padding: 60px 20px;
+
+  @media (max-width: 768px) {
+    padding: 50px 16px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 22px 12px;
+  }
+}
+
+.hero-content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.hero-title {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+
+  @media (max-width: 768px) {
+    font-size: 1.875rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.5rem;
+  }
+}
+
+.hero-subtitle {
+  font-size: 1.125rem;
+  margin-bottom: 24px;
+  line-height: 1.6;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+  }
+}
+
+.hero-btn {
+  font-weight: 600;
+  padding: 12px 32px !important;
+}
+
+// ============================================
+// SECTIONS
+// ============================================
+.section {
+  padding: 60px 20px;
+
+  @media (max-width: 768px) {
+    padding: 40px 16px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 32px 12px;
+  }
+}
+
+.specials-section {
+  background-color: #f9fafb;
+}
+
+.all-vehicles-section {
+  background-color: #ffffff;
+}
+
+.section-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #1e3a8a;
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+    margin-bottom: 32px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 1.25rem;
+    margin-bottom: 24px;
+  }
+}
+
+// ============================================
+// CONTAINER & GRID
+// ============================================
+.container-wrapper {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+  width: 100%;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.card-item {
+  display: flex;
+}
+
+// ============================================
+// VEHICLE CARD
+// ============================================
+.vehicle-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    .card-image {
+      transform: scale(1.05);
+    }
+  }
+}
+
+// Image Wrapper - FIXED SIZE
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background-color: #f3f4f6;
+  overflow: hidden;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s ease;
+}
+
+// Badge
+.badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: #f59e0b;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+// Card Body
+.card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 8px;
+}
+
+.card-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0;
+  color: #111827;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+  @media (max-width: 480px) {
+    font-size: 1rem;
+  }
+}
+
+.card-year {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0;
+  font-weight: 500;
+}
+
+.card-brand {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0;
+  font-weight: 500;
+}
+
+// Price Section
+.price-section {
+  margin-top: 8px;
+  margin-bottom: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e40af;
+
+  @media (max-width: 480px) {
+    font-size: 1.125rem;
+  }
+}
+
+// Button Wrapper
+:host ::ng-deep {
+  .w-full {
+    width: 100%;
+  }
+
+  .vehicle-card {
+    .p-button {
+      width: 100%;
+      border-radius: 6px;
+
+      &.p-button-info {
+        background-color: #3b82f6 !important;
+
+        &:hover {
+          background-color: #2563eb !important;
+        }
+      }
+
+      &.p-button-secondary {
+        background-color: #6b7280 !important;
+
+        &:hover {
+          background-color: #4b5563 !important;
+        }
+
+        color: #fff;
+      }
+    }
+  }
+}
