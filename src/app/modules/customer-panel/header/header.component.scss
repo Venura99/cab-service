@@ -1,338 +1,284 @@
-// Variables
-$primary-color: #1e40af;
-$success-color: #10b981; // Green for Post Ad, to make it prominent like patpat
-$text-dark: #111827;
-$text-gray: #6b7280;
-$border-color: #e5e7eb;
-$bg-light: #f9fafb;
+// src/app/modules/customer-panel/header/header.component.scss
+
+$primary: #1d4ed8;
+$success: #10b981;
+$gray-100: #f3f4f6;
+$gray-600: #4b5563;
+$gray-900: #111827;
 
 :host {
   display: block;
 }
 
-// ============================================
-// HEADER
-// ============================================
+/* src/app/modules/customer-panel/header/header.component.scss */
+
 .app-header {
-  position: fixed;
+  position: sticky !important;   /* or fixed */
   top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  background-color: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  border-bottom: 1px solid $border-color;
+  z-index: 9999 !important;      /* THIS IS THE KEY */
+  background: rgba(255, 255, 255, 0.85) !important;         /* or rgba(255,255,255,0.95) for glass effect */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Make sure hero doesn't cover it */
+.hero-mobile {
+  position: relative;
+  z-index: 1;                     /* lower than header */
 }
 
 .header-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 1rem;
   height: 70px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: 1rem;
 
-  @media (max-width: 768px) {
-    padding: 0 16px;
+  @media (max-width: 640px) {
     height: 60px;
-  }
-
-  @media (max-width: 480px) {
-    padding: 0 12px;
+    padding: 0 0.75rem;
   }
 }
 
-// ============================================
-// LOGO SECTION
-// ============================================
+// LOGO
 .logo-section {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
   flex-shrink: 0;
-}
 
-.logo {
-  height: 50px;
-  width: auto;
-  cursor: pointer;
-  transition: transform 0.2s ease;
+  .logo {
+    height: 48px;
+    transition: transform 0.2s;
 
-  &:hover {
-    transform: scale(1.05);
+    &:hover { transform: scale(1.05); }
   }
 
-  @media (max-width: 768px) {
-    height: 45px;
-  }
-}
+  .logo-text {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: $primary;
+    margin: 0;
 
-.logo-text {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: $primary-color;
-  margin: 0;
-  white-space: nowrap;
-
-  @media (max-width: 768px) {
-    font-size: 1.25rem;
+    @media (max-width: 640px) { display: none; }
   }
 }
 
-// ============================================
-// SEARCH SECTION (New)
-// ============================================
-.search-section {
+// SEARCH BAR (Desktop)
+.search-bar-desktop {
   flex: 1;
-  display: flex;
-  align-items: center;
-  max-width: 600px;
-  margin: 0 20px;
+  max-width: 500px;
+  margin: 0 1rem;
 
-  @media (max-width: 1024px) {
-    display: none; // Hide on mobile, perhaps add in menu or separate
-  }
+  @media (max-width: 1024px) { display: none; }
+}
+
+.search-input-group {
+  display: flex;
+  border: 1px solid #d1d5db;
+  border-radius: 9999px;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 
   :host ::ng-deep .p-autocomplete {
-    width: 100%;
-
     .p-autocomplete-input {
-      border-radius: 50px 0 0 50px;
-      padding: 0.75rem 1.25rem;
-      border: 1px solid $border-color;
-      box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
-    }
-
-    .p-autocomplete-panel {
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border: none;
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
     }
   }
 
-  .p-button {
-    border-radius: 0 50px 50px 0;
-    height: 42px;
+  .search-btn {
+    background: $primary;
+    color: white;
+    border: none;
+    padding: 0 1.25rem;
+    border-radius: 0 9999px 9999px 0;
+
+    &:hover { background: darken($primary, 8%); }
   }
 }
 
-// ============================================
-// NAVIGATION MENU
-// ============================================
-.nav-menu {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 16px;
-
-  @media (max-width: 1024px) {
-    position: absolute;
-    top: 70px;
-    left: 0;
-    right: 0;
-    background-color: #ffffff;
-    flex-direction: column;
-    border-bottom: 1px solid $border-color;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-    padding: 0 20px;
-
-    &.active {
-      max-height: 800px;
-      padding: 20px;
-    }
-  }
-
-  @media (max-width: 768px) {
-    top: 60px;
-  }
+// NAV DESKTOP
+.nav-desktop {
+  @media (max-width: 1024px) { display: none; }
 }
 
 .nav-list {
   display: flex;
-  align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
   list-style: none;
-  padding: 0;
   margin: 0;
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    width: 100%;
-    gap: 0;
-  }
+  padding: 0;
 }
 
 .nav-link {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
-  color: $text-gray;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  color: $gray-600;
   font-weight: 500;
   font-size: 0.95rem;
-  border-radius: 50px;
-  transition: all 0.2s ease;
-  text-decoration: none;
-  cursor: pointer;
-  position: relative;
-
-  i {
-    font-size: 1.1rem;
-  }
-
-  span {
-    white-space: nowrap;
-  }
+  transition: all 0.2s;
 
   &:hover {
-    color: $primary-color;
-    background-color: $bg-light;
+    background: $gray-100;
+    color: $primary;
   }
 
   &.active {
-    color: $primary-color;
-    background-color: rgba(30, 64, 175, 0.1);
+    background: rgba($primary, 0.1);
+    color: $primary;
     font-weight: 600;
   }
-
-  &.post-ad-link {
-    background-color: $success-color;
-    color: white;
-
-    &:hover {
-      background-color: darken($success-color, 10%);
-    }
-  }
-
-  @media (max-width: 1024px) {
-    width: 100%;
-    padding: 16px 0;
-    border-radius: 0;
-    justify-content: flex-start;
-
-    &.active {
-      background-color: transparent;
-      border-bottom: 2px solid $primary-color;
-    }
-  }
 }
 
-// Auth Section Mobile
-.auth-section-mobile {
-  display: none;
-  padding: 16px 0;
-  border-top: 1px solid $border-color;
-  width: 100%;
-
-  @media (max-width: 1024px) {
-    display: block;
-  }
-}
-
-// ============================================
-// HEADER ACTIONS
-// ============================================
+// ACTIONS
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
   flex-shrink: 0;
-
-  @media (max-width: 1024px) {
-    gap: 8px;
-  }
-
-  .p-button-success {
-    background-color: $success-color;
-    border-color: $success-color;
-
-    &:hover {
-      background-color: darken($success-color, 10%);
-      border-color: darken($success-color, 10%);
-    }
-  }
 }
 
-// ============================================
-// HAMBURGER MENU
-// ============================================
+.post-ad-btn {
+  background: $success;
+  color: white;
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 0.5rem 1.25rem;
+
+  &:hover { background: darken($success, 8%); }
+
+  @media (max-width: 1024px) { display: none; }
+}
+
+.login-btn {
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+}
+
+.avatar {
+  transition: transform 0.2s;
+  &:hover { transform: scale(1.1); }
+}
+
+// HAMBURGER
 .hamburger {
   display: none;
   flex-direction: column;
   gap: 5px;
   background: none;
   border: none;
-  padding: 8px;
   cursor: pointer;
-  position: relative;
-  width: 40px;
-  height: 40px;
-  align-items: center;
-  justify-content: center;
 
-  @media (max-width: 1024px) {
-    display: flex;
-  }
+  @media (max-width: 1024px) { display: flex; }
 
   span {
-    display: block;
     width: 24px;
     height: 2.5px;
-    background-color: $text-dark;
+    background: $gray-900;
     border-radius: 2px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s;
   }
 
   &.active {
-    span:nth-child(1) {
-      transform: rotate(45deg) translate(8px, 8px);
-    }
+    span:nth-child(1) { transform: rotate(45deg) translate(7px, 7px); }
+    span:nth-child(2) { opacity: 0; }
+    span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+  }
+}
 
-    span:nth-child(2) {
-      opacity: 0;
-    }
+// MOBILE MENU
+.mobile-menu {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  background: white;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.35s ease, opacity 0.35s ease, visibility 0s linear 0.35s;
+  overflow-y: auto;
+  max-height: 80vh;
 
-    span:nth-child(3) {
-      transform: rotate(-45deg) translate(8px, -8px);
+  &.open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    transition: transform 0.35s ease, opacity 0.35s ease, visibility 0s linear 0s;
+  }
+
+  @media (max-width: 640px) {
+    top: 60px;
+  }
+}
+
+.mobile-menu-content {
+  padding: 1.5rem;
+}
+
+.mobile-search {
+  display: flex;
+  margin-bottom: 1.5rem;
+
+  @media (min-width: 1025px) { display: none; }
+}
+
+.mobile-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+
+  .mobile-nav-link {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    color: $gray-900;
+    font-weight: 500;
+    border-bottom: 1px solid #e5e7eb;
+
+    &.active {
+      color: $primary;
+      font-weight: 600;
     }
   }
 }
 
-// ============================================
-// PRIMENG OVERRIDES
-// ============================================
+.mobile-auth {
+  button { width: 100%; }
+}
+
+// PRIME OVERRIDES
 :host ::ng-deep {
-  .p-button-rounded {
-    border-radius: 50px !important;
-    padding: 0.6rem 1.6rem !important;
+  .p-button {
+    border-radius: 9999px !important;
     font-weight: 600;
-    font-size: 0.95rem;
-  }
-
-  .p-button-primary {
-    background-color: $primary-color !important;
-    border-color: $primary-color !important;
-
-    &:hover {
-      background-color: darken($primary-color, 10%) !important;
-      border-color: darken($primary-color, 10%) !important;
-    }
-  }
-
-  .p-avatar {
-    transition: transform 0.2s;
-
-    &:hover {
-      transform: scale(1.1);
-    }
   }
 
   .p-menu {
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
   }
 }
+
+/* ADD TO YOUR EXISTING SCSS */
+.dark {
+  background: #111827 !important;
+  color: white;
+}
+
+.dark .hero-bg { filter: brightness(0.5); }
+.dark .hero-overlay { background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.9)); }
+
+.dark .mobile-menu { background: #1f2937; }
+.dark .mobile-nav-link { color: #e5e7eb; border-color: #374151; }

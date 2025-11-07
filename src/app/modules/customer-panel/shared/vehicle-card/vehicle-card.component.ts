@@ -1,5 +1,6 @@
+/* src/app/modules/customer-panel/shared/vehicle-card/vehicle-card.component.ts */
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Vehicle } from 'src/app/shared/services/api-services/test-vehicle.service';
 
 @Component({
@@ -11,9 +12,13 @@ export class VehicleCardComponent {
   @Input() vehicle!: Vehicle;
   @Input() isSpecial = false;
 
-  constructor(private router: Router) {}
+  // Add this line
+  featuredGradient = 'linear-gradient(135deg, #f59e0b, #d97706)';
 
-  viewDetails(): void {
-    this.router.navigate(['/vehicle', this.vehicle.id]);
+  constructor(private router: Router,private route: ActivatedRoute) {}
+
+viewDetails() {
+    // ABSOLUTE PATH from the lazy‑loaded module root
+    this.router.navigate(['/customer-panel/vehicle', this.vehicle.id]);
   }
 }

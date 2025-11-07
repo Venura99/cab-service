@@ -1,0 +1,144 @@
+<!-- src/app/modules/customer-panel/vehicle-detail/vehicle-detail.component.html -->
+<!-- <app-header></app-header> -->
+
+<div class="container-wrapper py-8">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+    <!-- IMAGE GALLERY -->
+    <div class="lg:col-span-2">
+      <p-galleria
+        [value]="galleryImages"
+        [numVisible]="5"
+        [circular]="true"
+        [showThumbnails]="true"
+        [showIndicators]="true"
+        [responsiveOptions]="galleryResponsive"
+        class="custom-galleria"
+      >
+        <ng-template pTemplate="item" let-item>
+          <img [src]="item.src" class="w-full h-96 object-cover rounded-xl shadow-lg" />
+        </ng-template>
+        <ng-template pTemplate="thumbnail" let-item>
+          <div class="p-2">
+            <img [src]="item.src" class="w-20 h-20 object-cover rounded-lg cursor-pointer" />
+          </div>
+        </ng-template>
+      </p-galleria>
+    </div>
+
+    <!-- DETAILS CARD -->
+    <div class="lg:col-span-1">
+      <p-card class="shadow-xl">
+        <ng-template pTemplate="header">
+          <div class="p-4 border-b">
+            <h1 class="text-2xl font-bold text-gray-900">{{ vehicle.title }}</h1>
+            <p class="text-sm text-gray-600 mt-1">
+              <i class="pi pi-map-marker mr-1"></i>
+              {{ vehicle.location || 'Islandwide' }}
+            </p>
+          </div>
+        </ng-template>
+
+        <!-- Price -->
+        <div class="p-4">
+          <div class="text-3xl font-bold text-green-600">
+            LKR {{ vehicle.price | number:'1.0-0' }}
+          </div>
+          <div class="flex gap-3 mt-3 text-sm">
+            <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full">{{ vehicle.year }}</span>
+            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full">{{ vehicle.brand }}</span>
+            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full">{{ vehicle.model }}</span>
+          </div>
+        </div>
+
+        <!-- Contact Buttons -->
+        <div class="p-4 border-t space-y-3">
+          <button
+            pButton
+            label="Call Seller"
+            icon="pi pi-phone"
+            class="w-full p-button-success"
+            (click)="callSeller()"
+          ></button>
+          <button
+            pButton
+            label="WhatsApp"
+            icon="pi pi-whatsapp"
+            class="w-full p-button-outlined"
+            (click)="whatsappSeller()"
+          ></button>
+          <button
+            pButton
+            label="Send Message"
+            icon="pi pi-envelope"
+            class="w-full p-button-outlined"
+            (click)="openMessage()"
+          ></button>
+        </div>
+      </p-card>
+
+      <!-- Seller Info -->
+      <div class="mt-6 p-4 bg-gray-50 rounded-xl">
+        <div class="flex items-center gap-3">
+          <p-avatar image="https://i.pravatar.cc/150" shape="circle" size="large"></p-avatar>
+          <div>
+            <p class="font-semibold">Kasun Perera</p>
+            <p class="text-sm text-gray-600">Member since 2021</p>
+          </div>
+        </div>
+        <div class="mt-3 text-sm text-gray-700">
+          <p><strong>Response Rate:</strong> 98% (within 1 hour)</p>
+          <p><strong>Ads Posted:</strong> 24</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESCRIPTION & SPECS -->
+  <div class="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <div class="lg:col-span-2">
+      <p-card>
+        <ng-template pTemplate="header">
+          <h2 class="text-xl font-bold p-4 border-b">Description</h2>
+        </ng-template>
+        <div class="p-4 text-gray-700 leading-relaxed">
+          <p>Well-maintained family vehicle. Single owner. Full service history available at Toyota Lanka. Recently serviced. New tires. Accident-free.</p>
+          <ul class="mt-4 space-y-2">
+            <li class="flex items-center gap-2"><i class="pi pi-check text-green-600"></i> Original paint</li>
+            <li class="flex items-center gap-2"><i class="pi pi-check text-green-600"></i> Remote key</li>
+            <li class="flex items-center gap-2"><i class="pi pi-check text-green-600"></i> Reverse camera</li>
+          </ul>
+        </div>
+      </p-card>
+    </div>
+
+    <!-- Specs -->
+    <div>
+      <p-card>
+        <ng-template pTemplate="header">
+          <h2 class="text-xl font-bold p-4 border-b">Specifications</h2>
+        </ng-template>
+        <div class="p-4 space-y-3 text-sm">
+          <div class="flex justify-between"><span class="font-medium">Mileage</span><span>85,000 km</span></div>
+          <div class="flex justify-between"><span class="font-medium">Fuel Type</span><span>Petrol</span></div>
+          <div class="flex justify-between"><span class="font-medium">Transmission</span><span>Automatic</span></div>
+          <div class="flex justify-between"><span class="font-medium">Engine</span><span>1500cc</span></div>
+        </div>
+      </p-card>
+    </div>
+  </div>
+
+  <!-- MAP -->
+  <div class="mt-12">
+    <p-card>
+      <ng-template pTemplate="header">
+        <h2 class="text-xl font-bold p-4 border-b">Location</h2>
+      </ng-template>
+      <div class="p-4">
+        <div #mapContainer class="h-80 rounded-lg overflow-hidden shadow-inner"></div>
+      </div>
+    </p-card>
+  </div>
+</div>
+
+<!-- <app-footer></app-footer> -->

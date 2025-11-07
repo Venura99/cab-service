@@ -1,193 +1,81 @@
-<header class="app-header">
+<!-- src/app/modules/customer-panel/header/header.component.html -->
+<header class="app-header shadow-lg sticky top-0 z-50" [class.dark]="isDark">
   <div class="header-container">
-    
-    <!-- Logo Section -->
+
+    <!-- LOGO -->
     <div class="logo-section">
-      <img
-        src="assets/logo.png"
-        alt="Rathawahana.lk"
-        height="50"
-        class="logo"
-        routerLink="/customer-panel/home"
-      />
-      <h2 class="logo-text hidden md:inline">Rathawahana.lk</h2>
+      <img src="assets/logo.png" alt="Rathawahana.lk" class="logo" height="50"
+           routerLink="/customer-panel/home" />
+      <h1 class="logo-text">Rathawahana.lk</h1>
     </div>
 
-    <!-- Search Bar (Added for enterprise feel, following patpat.lk) -->
-    <div class="search-section">
-      <p-autoComplete
-        [(ngModel)]="searchQuery"
-        [suggestions]="searchSuggestions"
-        (completeMethod)="getSearchSuggestions($event)"
-        placeholder="I'm looking for vehicles or spare parts..."
-        field="name"
-        [style]="{width: '100%'}"
-        [inputStyle]="{width: '100%'}"
-        appendTo="body"
-      >
-        <ng-template let-item pTemplate="item">
-          <div class="flex align-items-center">
-            <i class="pi pi-search mr-2"></i>
-            <span>{{item.name}}</span>
-          </div>
-        </ng-template>
-      </p-autoComplete>
-      <button
-        pButton
-        icon="pi pi-search"
-        class="p-button-rounded p-button-primary ml-2"
-        (click)="performSearch()"
-      ></button>
-    </div>
-
-    <!-- Navigation Menu -->
-    <nav class="nav-menu" [class.active]="menuOpen">
-      <ul class="nav-list">
-        <li>
-          <a 
-            pRipple 
-            class="nav-link" 
-            routerLink="/customer-panel/home"
-            routerLinkActive="active"
-            (click)="closeMenu()"
-          >
-            <i class="pi pi-home"></i>
-            <span>Home</span>
-          </a>
-        </li>
-        <li>
-          <a 
-            pRipple 
-            class="nav-link" 
-            routerLink="/customer-panel/vehicles"
-            routerLinkActive="active"
-            (click)="closeMenu()"
-          >
-            <i class="pi pi-car"></i>
-            <span>Vehicles</span>
-          </a>
-        </li>
-        <li>
-          <a 
-            pRipple 
-            class="nav-link" 
-            routerLink="/customer-panel/spare-parts"
-            routerLinkActive="active"
-            (click)="closeMenu()"
-          >
-            <i class="pi pi-cog"></i>
-            <span>Spare Parts</span>
-          </a>
-        </li>
-        <li>
-          <a 
-            pRipple 
-            class="nav-link post-ad-link" 
-            routerLink="/customer-panel/post-vehicle"
-            routerLinkActive="active"
-            (click)="closeMenu()"
-          >
-            <i class="pi pi-upload"></i>
-            <span>Post Ad Free</span>
-          </a>
-        </li>
-        <li>
-          <a 
-            pRipple 
-            class="nav-link" 
-            routerLink="/customer-panel/about-us"
-            routerLinkActive="active"
-            (click)="closeMenu()"
-          >
-            <i class="pi pi-info-circle"></i>
-            <span>About</span>
-          </a>
-        </li>
-        <li>
-          <a 
-            pRipple 
-            class="nav-link" 
-            routerLink="/customer-panel/contact-us"
-            routerLinkActive="active"
-            (click)="closeMenu()"
-          >
-            <i class="pi pi-phone"></i>
-            <span>Contact</span>
-          </a>
-        </li>
-      </ul>
-
-      <!-- Auth Section in Mobile -->
-      <div class="auth-section-mobile">
-        <ng-container *ngIf="!userName; else profileMobile">
-          <button
-            pButton
-            label="Login"
-            icon="pi pi-user"
-            class="p-button-rounded p-button-primary w-full"
-            routerLink="/login"
-            (click)="closeMenu()"
-          ></button>
-        </ng-container>
-        <ng-template #profileMobile>
-          <p-menu #profileMenu [model]="profileItems" [popup]="true" appendTo="body"></p-menu>
-          <button
-            pButton
-            type="button"
-            [label]="'Hi, ' + userName"
-            icon="pi pi-user"
-            class="p-button-rounded p-button-secondary w-full"
-            (click)="profileMenu.toggle($event)"
-          ></button>
-        </ng-template>
+    <!-- DESKTOP SEARCH -->
+    <div class="search-bar-desktop">
+      <div class="search-input-group">
+        <p-autoComplete
+          [(ngModel)]="searchQuery"
+          [suggestions]="searchSuggestions"
+          (completeMethod)="getSearchSuggestions($event)"
+          placeholder="Search vehicles, parts..."
+          field="name"
+          appendTo="body"
+          class="w-full"
+        />
+        <button pButton icon="pi pi-search" class="search-btn" (click)="performSearch()"></button>
       </div>
+    </div>
+
+    <!-- DESKTOP NAV -->
+    <nav class="nav-desktop">
+      <ul class="nav-list">
+        <li><a routerLink="/customer-panel/home" routerLinkActive="active">Home</a></li>
+        <li><a routerLink="/customer-panel/about-us" routerLinkActive="active">About</a></li>
+        <li><a routerLink="/customer-panel/contact-us" routerLinkActive="active">Contact</a></li>
+      </ul>
     </nav>
 
-    <!-- Auth Section and Hamburger -->
+    <!-- RIGHT ACTIONS -->
     <div class="header-actions">
-      <ng-container *ngIf="!userName; else profileDesktop">
-        <button
-          pButton
-          label="Login"
-          icon="pi pi-user"
-          class="p-button-rounded p-button-primary hidden md:block"
-          routerLink="/login"
-        ></button>
-      </ng-container>
-      <ng-template #profileDesktop>
-        <p-menu #profileMenuDesk [model]="profileItems" [popup]="true" appendTo="body"></p-menu>
-        <p-avatar
-          [image]="profileImage"
-          shape="circle"
-          size="large"
-          class="mr-2 hidden md:block cursor-pointer"
-          (click)="profileMenuDesk.toggle($event)"
-        ></p-avatar>
-        <span class="hidden md:inline mr-2">{{ 'Hi, ' + userName }}</span>
-      </ng-template>
-      
-      <!-- Post Ad Button (Prominent, following patpat.lk) -->
-      <button
-        pButton
-        label="Post Ad Free"
-        icon="pi pi-upload"
-        class="p-button-rounded p-button-success hidden md:block"
-        routerLink="/customer-panel/post-vehicle"
-      ></button>
+      <!-- Dark Mode -->
+      <button pButton icon="pi pi-moon" class="p-button-text p-button-rounded"
+              (click)="toggleDarkMode()" [class.pi-sun]="isDark"></button>
 
-      <!-- Mobile Hamburger -->
-      <button
-        class="hamburger md:hidden"
-        (click)="toggleMenu()"
-        [class.active]="menuOpen"
-        type="button"
-        aria-label="Toggle menu"
-      >
-        <span></span>
-        <span></span>
-        <span></span>
+      <!-- Post Ad -->
+      <button pButton label="Post Ad Free" icon="pi pi-upload" class="post-ad-btn"
+              routerLink="/customer-panel/post-vehicle"></button>
+
+      <!-- Avatar Menu -->
+      <p-avatar [image]="profileImage" shape="circle" size="large"
+                class="avatar cursor-pointer" (click)="userMenu.toggle($event)"></p-avatar>
+      <p-menu #userMenu [model]="profileItems" [popup]="true" appendTo="body"></p-menu>
+
+      <!-- Hamburger -->
+      <button class="hamburger" (click)="toggleMenu()" [class.active]="menuOpen">
+        <span></span><span></span><span></span>
       </button>
     </div>
+  </div>
 
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" [class.open]="menuOpen" [class.dark]="isDark">
+    <div class="mobile-menu-content">
+      <div class="mobile-search">
+        <p-autoComplete [(ngModel)]="searchQuery" [suggestions]="searchSuggestions"
+          (completeMethod)="getSearchSuggestions($event)" placeholder="Search..."
+          class="w-full" appendTo="body" />
+        <button pButton icon="pi pi-search" class="ml-2" (click)="performSearch()"></button>
+      </div>
+
+      <ul class="mobile-nav-list">
+        <li><a routerLink="/customer-panel/home" (click)="closeMenu()" routerLinkActive="active">Home</a></li>
+        <li><a routerLink="/customer-panel/about-us" (click)="closeMenu()">About</a></li>
+        <li><a routerLink="/customer-panel/contact-us" (click)="closeMenu()">Contact</a></li>
+      </ul>
+
+      <div class="mobile-auth">
+        <button pButton label="Post Ad Free" class="w-full"
+                routerLink="/customer-panel/post-vehicle" (click)="closeMenu()"></button>
+      </div>
+    </div>
   </div>
 </header>

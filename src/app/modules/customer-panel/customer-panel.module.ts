@@ -45,6 +45,7 @@ import { EditorModule } from "primeng/editor";
 import { FieldsetModule } from "primeng/fieldset";
 import { ChipModule } from "primeng/chip";
 import { DataViewModule } from "primeng/dataview";
+import { GalleriaModule } from 'primeng/galleria';
 import { ImageModule } from "primeng/image";
 import { TagModule } from "primeng/tag";
 import { SharedModule } from "src/app/shared.module";
@@ -55,8 +56,8 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CustomerPanelRoutingModule } from './customer-panel-routing.module';
 import { RegisterDriverComponent } from './register-driver/register-driver.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
+// import { HeaderComponent } from './header/header.component';
+// import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
@@ -68,13 +69,15 @@ import { BookingInvoiceComponent } from './customer-profile/customer-booking-det
 import { CustomerEditDetailsComponent } from './customer-profile/customer-edit-details/customer-edit-details.component';
 import { UpdateBookingFormComponent } from './customer-profile/customer-booking-details/update-booking-form/update-booking-form.component';
 import { VehicleCardComponent } from './shared/vehicle-card/vehicle-card.component';
+import { VehicleDetailComponent } from './vehicle-detail/vehicle-detail.component';
+import { LayoutModule } from 'src/app/layout/layout.module';
 
 
 @NgModule({
   declarations: [
     RegisterDriverComponent,
-    HeaderComponent,
-    FooterComponent,
+    // HeaderComponent,
+    // FooterComponent,
     HomeComponent,
     AboutUsComponent,
     ContactUsComponent,
@@ -85,13 +88,15 @@ import { VehicleCardComponent } from './shared/vehicle-card/vehicle-card.compone
     BookingInvoiceComponent,
     CustomerEditDetailsComponent,
     UpdateBookingFormComponent,
-    VehicleCardComponent
+    VehicleCardComponent,
+    VehicleDetailComponent
   ],
   imports: [
     PaginatorModule,
     SkeletonModule,
     CommonModule,
     CustomerPanelRoutingModule,
+    LayoutModule,
     MenubarModule,
     ReactiveFormsModule,
     CarouselModule,
@@ -113,6 +118,7 @@ import { VehicleCardComponent } from './shared/vehicle-card/vehicle-card.compone
     AccordionModule,
     TabMenuModule,
     AutoCompleteModule,
+    GalleriaModule,
 
     FormsModule,
         ReactiveFormsModule,

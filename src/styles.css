@@ -1,1 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+.dark-mode {
+  background: #0f172a;
+  color: #f1f5f9;
+}
+.dark-mode .hero-bg { filter: brightness(0.4); }

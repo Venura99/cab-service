@@ -1,0 +1,26 @@
+:host { display: block; }
+
+.container-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+// Galleria
+.custom-galleria {
+  :host ::ng-deep {
+    .p-galleria .p-galleria-item {
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+    .p-galleria-thumbnails-container {
+      margin-top: 1rem;
+    }
+  }
+}
+
+// Card
+:host ::ng-deep .p-card {
+  border-radius: 1rem;
+  overflow: hidden;
+}

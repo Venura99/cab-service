@@ -1,85 +1,49 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { MenuItem } from 'primeng/api';
-import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
+// header.component.ts
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
-  userName: string | null = null;
-  profileImage: string | null = null;
+export class HeaderComponent {
   menuOpen = false;
-  profileItems: MenuItem[] = [];
-  searchQuery: any;
+  isDark = false;
+  searchQuery = '';
   searchSuggestions: any[] = [];
+  profileImage = 'https://i.pravatar.cc/150';
 
-  constructor(private router: Router) {}
+  profileItems = [
+    { label: 'Profile', icon: 'pi pi-user', routerLink: '/customer-panel/customer-profile' },
+    { label: 'Logout', icon: 'pi pi-sign-out', command: () => this.logout() }
+  ];
 
-  ngOnInit(): void {
-    this.userName = localStorage.getItem('CurrentUserName');
-    this.profileImage = localStorage.getItem('profileImage') || 'assets/default-profile.png'; // Fallback image
-
-    this.profileItems = [
-      {
-        label: 'My Profile',
-        icon: 'pi pi-user',
-        command: () => this.navigateTo('/customer-panel/profile')
-      },
-      {
-        label: 'My Ads',
-        icon: 'pi pi-list',
-        command: () => this.navigateTo('/customer-panel/my-ads')
-      },
-      {
-        label: 'Orders',
-        icon: 'pi pi-shopping-cart',
-        command: () => this.navigateTo('/customer-panel/orders')
-      },
-      {
-        label: 'Logout',
-        icon: 'pi pi-sign-out',
-        command: () => this.logout()
-      }
-    ];
-  }
-
-  toggleMenu(): void {
+  toggleMenu() {
     this.menuOpen = !this.menuOpen;
   }
 
-  closeMenu(): void {
+  closeMenu() {
     this.menuOpen = false;
   }
 
-  navigateTo(path: string): void {
-    this.router.navigate([path]);
-    this.closeMenu();
+  toggleDarkMode() {
+    this.isDark = !this.isDark;
+    document.body.classList.toggle('dark-mode', this.isDark);
   }
 
-  logout(): void {
-    localStorage.clear();
-    this.router.navigate(['/login']);
-    this.closeMenu();
-  }
-
-  getSearchSuggestions(event: AutoCompleteCompleteEvent): void {
-    // Implement API call or local logic for suggestions
-    // Example: this.searchSuggestions = [...]; // Fetch from service
+  getSearchSuggestions(event: any) {
+    // mock
     this.searchSuggestions = [
-      { name: 'Toyota Corolla' },
-      { name: 'Honda Civic' },
-      { name: 'Spare Tires' }
-      // Add more based on backend
-    ].filter(item => item.name.toLowerCase().includes(event.query.toLowerCase()));
+      { name: 'Toyota Corolla', icon: 'pi pi-car' },
+      { name: 'Honda Civic', icon: 'pi pi-car' }
+    ];
   }
 
-  performSearch(): void {
-    // Implement search logic, e.g., navigate to search results
-    if (this.searchQuery) {
-      this.router.navigate(['/customer-panel/search'], { queryParams: { q: this.searchQuery.name || this.searchQuery } });
-    }
+  performSearch() {
+    console.log('Search:', this.searchQuery);
+  }
+
+  logout() {
+    // logout logic
   }
 }
