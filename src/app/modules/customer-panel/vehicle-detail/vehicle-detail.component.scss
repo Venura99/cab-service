@@ -1,26 +1,45 @@
-:host { display: block; }
-
-.container-wrapper {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 1rem;
+// vehicle-detail page scss
+.glass-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
 }
 
-// Galleria
-.custom-galleria {
+.dark .glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+// Galleria Premium
+.premium-galleria {
   :host ::ng-deep {
     .p-galleria .p-galleria-item {
-      border-radius: 1rem;
+      border-radius: 1.5rem;
       overflow: hidden;
     }
     .p-galleria-thumbnails-container {
-      margin-top: 1rem;
+      background: transparent;
+      padding: 1rem 0;
+    }
+    .p-galleria-thumbnail-item {
+      border-radius: 1rem;
+      opacity: 0.7;
+      transition: all 0.3s;
+    }
+    .p-galleria-thumbnail-item-current {
+      opacity: 1;
+      border: 3px solid #10b981;
     }
   }
 }
 
-// Card
-:host ::ng-deep .p-card {
-  border-radius: 1rem;
-  overflow: hidden;
+/* vehicle-detail.component.scss */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }

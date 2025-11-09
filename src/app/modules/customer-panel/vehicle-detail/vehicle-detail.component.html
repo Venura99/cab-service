@@ -1,144 +1,128 @@
-<!-- src/app/modules/customer-panel/vehicle-detail/vehicle-detail.component.html -->
-<!-- <app-header></app-header> -->
+ <!-- vehicle-detail html page code -->
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900">
 
-<div class="container-wrapper py-8">
-  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+  <!-- TOP BAR -->
+  <div class="sticky top-0 z-50 bg-white/80 dark:bg-black/80 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <button pButton icon="pi pi-arrow-left" class="p-button-rounded p-button-text text-xl"
+              routerLink="/customer-panel/home"></button>
+      <h1 class="font-bold text-lg">{{ vehicle.title }}</h1>
+      <button pButton icon="pi pi-share-alt" class="p-button-rounded p-button-text"></button>
+    </div>
+  </div>
 
-    <!-- IMAGE GALLERY -->
-    <div class="lg:col-span-2">
-      <p-galleria
-        [value]="galleryImages"
-        [numVisible]="5"
-        [circular]="true"
-        [showThumbnails]="true"
-        [showIndicators]="true"
-        [responsiveOptions]="galleryResponsive"
-        class="custom-galleria"
-      >
-        <ng-template pTemplate="item" let-item>
-          <img [src]="item.src" class="w-full h-96 object-cover rounded-xl shadow-lg" />
-        </ng-template>
-        <ng-template pTemplate="thumbnail" let-item>
-          <div class="p-2">
-            <img [src]="item.src" class="w-20 h-20 object-cover rounded-lg cursor-pointer" />
-          </div>
-        </ng-template>
-      </p-galleria>
+  <div class="max-w-7xl mx-auto px-4 pb-10">
+
+    <!-- HERO IMAGE -->
+    <div class="relative mt-8 mb-8">
+      <img [src]="galleryImages[0].src" 
+           class="w-full h-96 object-cover rounded-3xl shadow-2xl" />
+      <div class="absolute bottom-4 left-4 bg-black/50 backdrop-blur-md text-white px-4 py-2 rounded-full">
+        <i class="pi pi-camera"></i> {{ galleryImages.length }} photos
+      </div>
     </div>
 
-    <!-- DETAILS CARD -->
-    <div class="lg:col-span-1">
-      <p-card class="shadow-xl">
-        <ng-template pTemplate="header">
-          <div class="p-4 border-b">
-            <h1 class="text-2xl font-bold text-gray-900">{{ vehicle.title }}</h1>
-            <p class="text-sm text-gray-600 mt-1">
-              <i class="pi pi-map-marker mr-1"></i>
-              {{ vehicle.location || 'Islandwide' }}
-            </p>
-          </div>
-        </ng-template>
+    <!-- THUMBNAILS -->
+    <div class="flex gap-3 overflow-x-auto pb-4 -mx-4 px-4 scrollbar-hide">
+      <div *ngFor="let img of galleryImages; let i = index"
+           (click)="currentImage = img.src"
+           class="flex-shrink-0">
+        <img [src]="img.src" 
+             class="w-24 h-24 object-cover rounded-2xl border-4 
+                    {{ currentImage === img.src ? 'border-emerald-500' : 'border-white' }}
+                    shadow-lg cursor-pointer transition-all">
+      </div>
+    </div>
 
-        <!-- Price -->
-        <div class="p-4">
-          <div class="text-3xl font-bold text-green-600">
-            LKR {{ vehicle.price | number:'1.0-0' }}
-          </div>
-          <div class="flex gap-3 mt-3 text-sm">
-            <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full">{{ vehicle.year }}</span>
-            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full">{{ vehicle.brand }}</span>
-            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full">{{ vehicle.model }}</span>
-          </div>
+    <!-- PRICE & TAGS -->
+    <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-xl -mt-4 relative z-10">
+      <div class="text-4xl font-black text-emerald-600">
+        LKR {{ vehicle.price | number:'1.0-0' }}
+      </div>
+      <div class="flex flex-wrap gap-3 mt-4">
+        <span class="px-5 py-2 bg-blue-100 text-blue-700 rounded-full font-bold">
+          {{ vehicle.year }}
+        </span>
+        <span class="px-5 py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white rounded-full font-bold">
+          {{ vehicle.brand }}
+        </span>
+        <span class="px-5 py-2 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-white rounded-full font-bold">
+          {{ vehicle.model }}
+        </span>
+      </div>
+    </div>
+
+    <!-- ACTION BUTTONS -->
+    <div class="grid grid-cols-1 gap-4 my-8">
+      <button pButton label="Call Seller" icon="pi pi-phone"
+              class="w-full p-button-success p-button-lg rounded-2xl text-lg font-bold h-14"
+              (click)="callSeller()"></button>
+      <button pButton label="WhatsApp" icon="pi pi-whatsapp"
+              class="w-full p-button-outlined p-button-lg rounded-2xl text-lg font-bold h-14"
+              (click)="whatsappSeller()"></button>
+      <button pButton label="Send Message" icon="pi pi-envelope"
+              class="w-full p-button-outlined p-button-lg rounded-2xl text-lg font-bold h-14"
+              (click)="openMessage()"></button>
+    </div>
+
+    <!-- SELLER CARD -->
+    <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-xl">
+      <div class="flex items-center gap-4">
+        <p-avatar image="https://i.pravatar.cc/150?u={{vehicle.id}}" size="xlarge" shape="circle"></p-avatar>
+        <div class="flex-1">
+          <p class="font-bold text-lg">Kasun Perera</p>
+          <p class="text-sm text-gray-500">Member since 2021</p>
         </div>
-
-        <!-- Contact Buttons -->
-        <div class="p-4 border-t space-y-3">
-          <button
-            pButton
-            label="Call Seller"
-            icon="pi pi-phone"
-            class="w-full p-button-success"
-            (click)="callSeller()"
-          ></button>
-          <button
-            pButton
-            label="WhatsApp"
-            icon="pi pi-whatsapp"
-            class="w-full p-button-outlined"
-            (click)="whatsappSeller()"
-          ></button>
-          <button
-            pButton
-            label="Send Message"
-            icon="pi pi-envelope"
-            class="w-full p-button-outlined"
-            (click)="openMessage()"
-          ></button>
+        <div class="text-right">
+          <p class="text-2xl font-black text-emerald-600">98%</p>
+          <p class="text-xs text-gray-500">Response Rate</p>
         </div>
-      </p-card>
+      </div>
+      <div class="mt-4 grid grid-cols-2 gap-4 text-sm">
+        <div><strong>Response Time:</strong> within 1h</div>
+        <div><strong>Ads Posted:</strong> 24</div>
+      </div>
+    </div>
 
-      <!-- Seller Info -->
-      <div class="mt-6 p-4 bg-gray-50 rounded-xl">
+    <!-- DESCRIPTION -->
+    <div class="mt-8 bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-xl">
+      <h2 class="text-2xl font-bold mb-4">Description</h2>
+      <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+        Well-maintained family vehicle. Single owner. Full service history available at Toyota Lanka. 
+        Recently serviced. New tires. Accident-free.
+      </p>
+      <div class="space-y-3">
         <div class="flex items-center gap-3">
-          <p-avatar image="https://i.pravatar.cc/150" shape="circle" size="large"></p-avatar>
-          <div>
-            <p class="font-semibold">Kasun Perera</p>
-            <p class="text-sm text-gray-600">Member since 2021</p>
-          </div>
+          <i class="pi pi-check-circle text-2xl text-emerald-600"></i>
+          <span>Original paint</span>
         </div>
-        <div class="mt-3 text-sm text-gray-700">
-          <p><strong>Response Rate:</strong> 98% (within 1 hour)</p>
-          <p><strong>Ads Posted:</strong> 24</p>
+        <div class="flex items-center gap-3">
+          <i class="pi pi-check-circle text-2xl text-emerald-600"></i>
+          <span>Remote key</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <i class="pi pi-check-circle text-2xl text-emerald-600"></i>
+          <span>Reverse camera</span>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- DESCRIPTION & SPECS -->
-  <div class="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
-    <div class="lg:col-span-2">
-      <p-card>
-        <ng-template pTemplate="header">
-          <h2 class="text-xl font-bold p-4 border-b">Description</h2>
-        </ng-template>
-        <div class="p-4 text-gray-700 leading-relaxed">
-          <p>Well-maintained family vehicle. Single owner. Full service history available at Toyota Lanka. Recently serviced. New tires. Accident-free.</p>
-          <ul class="mt-4 space-y-2">
-            <li class="flex items-center gap-2"><i class="pi pi-check text-green-600"></i> Original paint</li>
-            <li class="flex items-center gap-2"><i class="pi pi-check text-green-600"></i> Remote key</li>
-            <li class="flex items-center gap-2"><i class="pi pi-check text-green-600"></i> Reverse camera</li>
-          </ul>
-        </div>
-      </p-card>
-    </div>
-
-    <!-- Specs -->
-    <div>
-      <p-card>
-        <ng-template pTemplate="header">
-          <h2 class="text-xl font-bold p-4 border-b">Specifications</h2>
-        </ng-template>
-        <div class="p-4 space-y-3 text-sm">
-          <div class="flex justify-between"><span class="font-medium">Mileage</span><span>85,000 km</span></div>
-          <div class="flex justify-between"><span class="font-medium">Fuel Type</span><span>Petrol</span></div>
-          <div class="flex justify-between"><span class="font-medium">Transmission</span><span>Automatic</span></div>
-          <div class="flex justify-between"><span class="font-medium">Engine</span><span>1500cc</span></div>
-        </div>
-      </p-card>
-    </div>
-  </div>
-
-  <!-- MAP -->
-  <div class="mt-12">
-    <p-card>
-      <ng-template pTemplate="header">
-        <h2 class="text-xl font-bold p-4 border-b">Location</h2>
-      </ng-template>
-      <div class="p-4">
-        <div #mapContainer class="h-80 rounded-lg overflow-hidden shadow-inner"></div>
+    <!-- SPECS -->
+    <div class="mt-8 bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-xl">
+      <h2 class="text-2xl font-bold mb-6">Specifications</h2>
+      <div class="grid grid-cols-2 gap-6 text-lg">
+        <div><span class="font-semibold">Mileage</span><br>85,000 km</div>
+        <div><span class="font-semibold">Fuel Type</span><br>Petrol</div>
+        <div><span class="font-semibold">Transmission</span><br>Automatic</div>
+        <div><span class="font-semibold">Engine</span><br>1500cc</div>
       </div>
-    </p-card>
-  </div>
-</div>
+    </div>
 
-<!-- <app-footer></app-footer> -->
+    <!-- MAP -->
+    <div class="mt-8 bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-xl">
+      <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+        <h2 class="text-2xl font-bold">Location</h2>
+        <p class="text-gray-600 dark:text-gray-400">Gampaha, Western Province</p>
+      </div>
+      <div #mapContainer class="h-80"></div>
+    </div>

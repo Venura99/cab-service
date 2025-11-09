@@ -1,80 +1,182 @@
-<!-- src/app/modules/customer-panel/header/header.component.html -->
-<header class="app-header shadow-lg sticky top-0 z-50" [class.dark]="isDark">
-  <div class="header-container">
-
-    <!-- LOGO -->
-    <div class="logo-section">
-      <img src="assets/logo.png" alt="Rathawahana.lk" class="logo" height="50"
-           routerLink="/customer-panel/home" />
-      <h1 class="logo-text">Rathawahana.lk</h1>
-    </div>
-
-    <!-- DESKTOP SEARCH -->
-    <div class="search-bar-desktop">
-      <div class="search-input-group">
-        <p-autoComplete
-          [(ngModel)]="searchQuery"
-          [suggestions]="searchSuggestions"
-          (completeMethod)="getSearchSuggestions($event)"
-          placeholder="Search vehicles, parts..."
-          field="name"
-          appendTo="body"
-          class="w-full"
-        />
-        <button pButton icon="pi pi-search" class="search-btn" (click)="performSearch()"></button>
+<!-- header.component.html -->
+<header class="app-header" [class.dark]="isDark">
+  <div class="header-wrapper">
+    
+    <!-- TOP STRIP (Desktop Only) -->
+    <div class="top-strip">
+      <div class="container">
+        <div class="top-strip-content">
+          <div class="location-selector">
+            <i class="pi pi-map-marker"></i>
+            <span>Sri Lanka</span>
+          </div>
+          <div class="top-links">
+            <a routerLink="/customer-panel/about-us">About</a>
+            <a routerLink="/customer-panel/contact-us">Contact</a>
+            <a routerLink="/customer-panel/help">Help</a>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- DESKTOP NAV -->
-    <nav class="nav-desktop">
-      <ul class="nav-list">
-        <li><a routerLink="/customer-panel/home" routerLinkActive="active">Home</a></li>
-        <li><a routerLink="/customer-panel/about-us" routerLinkActive="active">About</a></li>
-        <li><a routerLink="/customer-panel/contact-us" routerLinkActive="active">Contact</a></li>
-      </ul>
-    </nav>
+    <!-- MAIN HEADER -->
+    <div class="main-header">
+      <div class="container">
+        <div class="header-content">
+          
+          <!-- Logo -->
+          <div class="logo-section" routerLink="/customer-panel/home">
+            <img src="assets/logo.png" alt="Rathawahana.lk" class="logo" />
+            <span class="logo-text">Rathawahana<span class="text-emerald-500">.lk</span></span>
+          </div>
 
-    <!-- RIGHT ACTIONS -->
-    <div class="header-actions">
-      <!-- Dark Mode -->
-      <button pButton icon="pi pi-moon" class="p-button-text p-button-rounded"
-              (click)="toggleDarkMode()" [class.pi-sun]="isDark"></button>
+          <!-- Search Bar (Desktop) -->
+          <div class="search-section">
+            <div class="search-wrapper">
+              <i class="pi pi-search search-icon"></i>
+              <p-autoComplete
+                [(ngModel)]="searchQuery"
+                [suggestions]="searchSuggestions"
+                (completeMethod)="getSearchSuggestions($event)"
+                placeholder="Search for cars, bikes, vans..."
+                field="name"
+                appendTo="body"
+                styleClass="search-input"
+              />
+              <button pButton label="Search" class="search-button"></button>
+            </div>
+          </div>
 
-      <!-- Post Ad -->
-      <button pButton label="Post Ad Free" icon="pi pi-upload" class="post-ad-btn"
-              routerLink="/customer-panel/post-vehicle"></button>
+          <!-- Actions -->
+          <div class="header-actions">
+            
+            <!-- Dark Mode Toggle -->
+            <button 
+              pButton 
+              [icon]="isDark ? 'pi pi-sun' : 'pi pi-moon'" 
+              class="p-button-text p-button-rounded icon-btn"
+              (click)="toggleDarkMode()"
+              pTooltip="Toggle theme"
+              tooltipPosition="bottom">
+            </button>
 
-      <!-- Avatar Menu -->
-      <p-avatar [image]="profileImage" shape="circle" size="large"
-                class="avatar cursor-pointer" (click)="userMenu.toggle($event)"></p-avatar>
-      <p-menu #userMenu [model]="profileItems" [popup]="true" appendTo="body"></p-menu>
+            <!-- Post Ad Button -->
+            <button 
+              pButton 
+              label="POST AD" 
+              icon="pi pi-plus-circle" 
+              class="post-ad-btn"
+              routerLink="/customer-panel/post-vehicle">
+            </button>
 
-      <!-- Hamburger -->
-      <button class="hamburger" (click)="toggleMenu()" [class.active]="menuOpen">
-        <span></span><span></span><span></span>
-      </button>
+            <!-- User Menu -->
+            <div class="user-menu-wrapper">
+              <p-avatar 
+                [image]="profileImage" 
+                shape="circle" 
+                size="large"
+                class="user-avatar"
+                (click)="userMenu.toggle($event)">
+              </p-avatar>
+              <p-menu #userMenu [model]="profileItems" [popup]="true" appendTo="body"></p-menu>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button 
+              class="mobile-menu-btn" 
+              (click)="toggleMenu()"
+              [class.active]="menuOpen">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CATEGORIES BAR (Desktop) -->
+    <div class="categories-bar">
+      <div class="container">
+        <div class="categories-content">
+          <button 
+            class="category-item"
+            *ngFor="let cat of quickCategories"
+            (click)="filterByCategory(cat.type)">
+            <i [class]="cat.icon"></i>
+            <span>{{ cat.name }}</span>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- MOBILE MENU -->
-  <div class="mobile-menu" [class.open]="menuOpen" [class.dark]="isDark">
-    <div class="mobile-menu-content">
+  <!-- MOBILE MENU OVERLAY -->
+  <div class="mobile-overlay" [class.active]="menuOpen" (click)="closeMenu()"></div>
+
+  <!-- MOBILE MENU DRAWER -->
+  <div class="mobile-menu" [class.active]="menuOpen">
+    <div class="mobile-menu-header">
+      <h3>Menu</h3>
+      <button class="close-btn" (click)="closeMenu()">
+        <i class="pi pi-times"></i>
+      </button>
+    </div>
+
+    <div class="mobile-menu-body">
+      <!-- Search -->
       <div class="mobile-search">
-        <p-autoComplete [(ngModel)]="searchQuery" [suggestions]="searchSuggestions"
-          (completeMethod)="getSearchSuggestions($event)" placeholder="Search..."
-          class="w-full" appendTo="body" />
-        <button pButton icon="pi pi-search" class="ml-2" (click)="performSearch()"></button>
+        <i class="pi pi-search"></i>
+        <input 
+          type="text" 
+          placeholder="Search vehicles..."
+          [(ngModel)]="searchQuery"
+          (keyup.enter)="performSearch()" />
       </div>
 
-      <ul class="mobile-nav-list">
-        <li><a routerLink="/customer-panel/home" (click)="closeMenu()" routerLinkActive="active">Home</a></li>
-        <li><a routerLink="/customer-panel/about-us" (click)="closeMenu()">About</a></li>
-        <li><a routerLink="/customer-panel/contact-us" (click)="closeMenu()">Contact</a></li>
-      </ul>
+      <!-- Categories -->
+      <div class="mobile-categories">
+        <h4>Categories</h4>
+        <button 
+          *ngFor="let cat of categories"
+          class="mobile-category-item"
+          (click)="filterByCategory(cat.type); closeMenu()">
+          <i [class]="cat.icon"></i>
+          <span>{{ cat.name }}</span>
+          <i class="pi pi-chevron-right ml-auto"></i>
+        </button>
+      </div>
 
-      <div class="mobile-auth">
-        <button pButton label="Post Ad Free" class="w-full"
-                routerLink="/customer-panel/post-vehicle" (click)="closeMenu()"></button>
+      <!-- Navigation Links -->
+      <div class="mobile-nav">
+        <a routerLink="/customer-panel/home" (click)="closeMenu()">
+          <i class="pi pi-home"></i>
+          <span>Home</span>
+        </a>
+        <a routerLink="/customer-panel/about-us" (click)="closeMenu()">
+          <i class="pi pi-info-circle"></i>
+          <span>About Us</span>
+        </a>
+        <a routerLink="/customer-panel/contact-us" (click)="closeMenu()">
+          <i class="pi pi-phone"></i>
+          <span>Contact</span>
+        </a>
+        <a routerLink="/customer-panel/help" (click)="closeMenu()">
+          <i class="pi pi-question-circle"></i>
+          <span>Help</span>
+        </a>
+      </div>
+
+      <!-- Post Ad -->
+      <div class="mobile-post-ad">
+        <button 
+          pButton 
+          label="POST YOUR AD" 
+          icon="pi pi-plus-circle" 
+          class="w-full p-button-lg"
+          routerLink="/customer-panel/post-vehicle"
+          (click)="closeMenu()">
+        </button>
       </div>
     </div>
   </div>

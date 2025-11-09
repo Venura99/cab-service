@@ -15,7 +15,7 @@ export class VehicleDetailComponent implements OnInit, AfterViewInit {
 
   vehicle!: Vehicle;
   galleryImages: any[] = [];
-
+  currentImage: string = '';
   galleryResponsive = [
     { breakpoint: '1024px', numVisible: 4 },
     { breakpoint: '768px', numVisible: 3 },
@@ -28,6 +28,7 @@ export class VehicleDetailComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
+    this.currentImage = this.galleryImages[0]?.src;
     const id = +this.route.snapshot.paramMap.get('id')!;
     this.loadVehicle(id);
   }

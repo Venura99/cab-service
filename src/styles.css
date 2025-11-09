@@ -4,3 +4,10 @@
   color: #f1f5f9;
 }
 .dark-mode .hero-bg { filter: brightness(0.4); }
+
+.glass {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
